@@ -1,27 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import 'react-native-gesture-handler'
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import LoginScreen from './Screens/LoginScreen';
+import { StyleSheet, Text, View } from 'react-native';
 
-const Stack = createNativeStackNavigator();
-
-function App() {
+export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-          <Stack.Screen name="Log In" component={LoginScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
