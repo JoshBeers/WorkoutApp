@@ -13,8 +13,8 @@ class LoginScreen extends React.Component{
                     <TextInput>Username</TextInput>
                     <TextInput>Password</TextInput>
                     <View style = {styles.buttonView}>
-                        <Button style = {styles.signUpButton} title={this.signUp} onPress={}>Sign Up</Button>
-                        <Button style = {styles.signUpButton} title={this.signIn} onPress={}>Sign In</Button>
+                        <Button style = {styles.signUpButton} title={this.signUp}>Sign Up</Button>
+                        <Button style = {styles.signUpButton} title={this.signIn}>Sign In</Button>
                     </View>
                 </Card>
             </View>
