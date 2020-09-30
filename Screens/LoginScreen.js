@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TextInput, View, Button} from 'react-native';
 import {Card} from 'react-native-elements';
 
-export default class LoginScreen extends React.Component{
+class LoginScreen extends React.Component{
     signUp: Button;
     signIn: Button;
     render() {
@@ -51,3 +51,4 @@ const styles = StyleSheet.create({
     },
 });
 
+module.exports = LoginScreen;
