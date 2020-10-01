@@ -5,25 +5,48 @@ import {Card} from 'react-native-elements';
 class LoginScreen extends Component {
   signUp: Button;
   signIn: Button;
+  state = {email: '', password: '' , errorMessage: null}
+
+  handleLogin = () => {
+    console.log('email = ',this.state.email)
+
+  }
+
   render() {
     return (
       <View style={styles.login}>
         <Card containerStyle={styles.loginCard}>
           <Text style={styles.titleText}>Let's get these gains!</Text>
           <View style={styles.textField}>
-            <TextInput placeholder="USERNAME" style={{marginLeft: 3, marginRight: 3, marginTop: 2}}/>
+            <TextInput
+              placeholder="USERNAME"
+              autoCapitalize="none"
+              style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
+              onChangeText={(email) => this.setState({email})}
+              value={this.state.email}
+            />
           </View>
           <View style={styles.textField}>
-            <TextInput placeholder="PASSWORD" style={{marginLeft: 3, marginRight: 3, marginTop: 2}}/>
+            <TextInput
+                secureTextEntry
+                placeholder="PASSWORD"
+                style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
+                onChangeText={(password) => this.setState({password})}
+                value={this.state.password}
+            />
           </View>
           <View style={styles.buttonView}>
             <View style={styles.signUpButton}>
-              <Button color = "#066da1" title="Sign Up">
+              <Button color = "#066da1" title="Sign In"
+                      onPress={this.handleLogin}>
                 <Text style={styles.buttonText}>Sign Up</Text>
               </Button>
             </View>
             <View style={styles.signInButton}>
-              <Button color = "#5189a5" title="Sign In">
+              <Button
+                  color = "#5189a5" title="Sign Up"
+
+              >
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>
             </View>
