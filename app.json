@@ -1,4 +1,13 @@
 {
-  "name": "WorkoutTracker",
-  "displayName": "WorkoutTracker"
+  "expo": {
+    "name": "WorkoutTracker",
+    "description": "An app for tracking fitness",
+    "slug": "tracker",
+    "privacy": "unlisted",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
 }
