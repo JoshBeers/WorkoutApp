@@ -10,7 +10,7 @@ export default class HomeScreen extends React.Component{
     render() {
         return(
             <View style={styles.home}>
-                    <Card containerStyle={styles.stepsCard}>>
+                    <Card containerStyle={styles.stepsCard}>
                         <ProgressCircle
                             progress={this.stepPercentage}
                             style={{

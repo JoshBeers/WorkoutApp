@@ -45,7 +45,6 @@ class LoginScreen extends Component {
             <View style={styles.signInButton}>
               <Button
                   color = "#5189a5" title="Sign Up"
-
               >
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>
