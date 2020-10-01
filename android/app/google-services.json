@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "83945559531",
+    "firebase_url": "https://ggc-fitness-app.firebaseio.com",
+    "project_id": "ggc-fitness-app",
+    "storage_bucket": "ggc-fitness-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83945559531:android:47f32620c00091ac1c75ae",
+        "android_client_info": {
+          "package_name": "com.workouttracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83945559531-bdgdsgq62l23kgciqolstaa15k9cfoll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0mUfANdIFm9eID5TieKUyTE3R2TzHDZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83945559531-bdgdsgq62l23kgciqolstaa15k9cfoll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
