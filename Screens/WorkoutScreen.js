@@ -10,4 +10,4 @@ class WorkoutScreen extends Component {
 const styles = StyleSheet.create({
 });
 
-module.exports = WorkouteScreen;
+module.exports = WorkoutScreen;

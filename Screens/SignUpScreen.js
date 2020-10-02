@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = SignupScreen;
+module.exports = SignUpScreen;
