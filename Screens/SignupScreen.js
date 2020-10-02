@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Card} from 'react-native-elements';
 import {View, Text, Button, TextInput} from 'react-native';
 import { StyleSheet } from 'react-native';
+import PasswordValidator from "password-validator";
 
 export default class SignupScreen extends Component{
 
@@ -11,20 +12,66 @@ export default class SignupScreen extends Component{
         email: "",
         password: "",
         confirmPassword: "",
+        errorMessage: ""
     }
 
-    passwordValidator = new
+    passwordValidator = new PasswordValidator();
 
 
     constructor() {
         super();
+        this.passwordValidator.is().min(8);
+        this.passwordValidator.is().max(15);
+        this.passwordValidator.has().lowercase(1);
+        this.passwordValidator.has().uppercase(1);
+        this.passwordValidator.has().digits(1);
+        this.passwordValidator.has().not().spaces(1);
+        this.passwordValidator.has().symbols(1);
     }
 
-    const handleSubmit = () =>{
+    handleSubmit = () =>{
 
+        if(!validator.isEmail(this.state.email)){
+            this.setState({
+                errorMessage: 'Please enter correct email.'
+            });
+            return false;
+        }
 
+        if(!this.passwordValidator.validate(this.state.password)){
+            let ref = this.passwordValidator.validate(this.state.password,{list:true});
+            let message = '';
+            if(ref.includes('min'))
+                message = 'Password must be 8 or more characters';
+            else if(ref.includes('max'))
+                message = 'Password cannot be longer than 15 characters';
+            else if(ref.includes('lowercase'))
+                message = 'Password must contain a lowercase letter';
+            else if(ref.includes('uppercase'))
+                message = 'Password must contain a uppercase letter';
+            else if(ref.includes('digits'))
+                message = 'Password must contain a digit';
+            else if(ref.includes('symbols'))
+                message = 'Password must contain a symbol';
+            else if(ref.includes('spaces'))
+                message = 'Password must not contain a space';
+            this.setState({
+                errorMessage: message
+            });
+            return false
+        }
 
+        if(this.state.password!=this.state.confirmPassword){
+            this.setState({
+                errorMessage: 'Passwords must match'
+            })
+            return false;
+        }
 
+        this.setState({
+            errorMessage: null
+        })
+        return true;
     }
 
 
