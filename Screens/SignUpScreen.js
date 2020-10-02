@@ -60,7 +60,7 @@ export default class SignUpScreen extends Component{
             return false
         }
 
-        if(this.state.password!=this.state.confirmPassword){
+        if(this.state.password!==this.state.confirmPassword){
             this.setState({
                 errorMessage: 'Passwords must match'
             })
