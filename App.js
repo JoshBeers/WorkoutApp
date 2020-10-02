@@ -7,9 +7,8 @@ import HomeScreen from './Screens/HomeScreen';
 
 import {enableScreens} from 'react-native-screens';
 
+
 import SignUpScreen from "./Screens/SignUpScreen";
-import * as firebase from "firebase";
-import SignupScreen from "./Screens/SignupScreen";
 
 
 // run this before any screen render(usually in App.js)
@@ -23,7 +22,7 @@ function App() {
       <Stack.Navigator screenOptions={{headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Signup" component={SignUpScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
