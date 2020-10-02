@@ -13,6 +13,20 @@ export default class SignupScreen extends Component{
         confirmPassword: "",
     }
 
+    passwordValidator = new
+
+
+    constructor() {
+        super();
+    }
+
+    const handleSubmit = () =>{
+
+
+
+
+    }
+
 
 
 
