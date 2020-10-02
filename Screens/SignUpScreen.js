@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Card} from 'react-native-elements';
 import {View, Text, Button, TextInput} from 'react-native';
 import { StyleSheet } from 'react-native';
-import PasswordValidator from "password-validator";
-
+import PasswordValidator from 'password-validator';
+import Colors from '../Themes/Colors';
 export default class SignUpScreen extends Component{
 
 
@@ -130,13 +130,13 @@ export default class SignUpScreen extends Component{
 
 const styles = StyleSheet.create({
     signup: {
-        backgroundColor: '#1C2224',
+        backgroundColor: Colors.background,
         flex: 1,
     },
     signupCard: {
         width: 366,
         height: 397,
-        backgroundColor: '#404A4F',
+        backgroundColor: Colors.card,
         alignItems: 'center',
         alignSelf: 'center',
         borderWidth: 0,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     titleText: {
-        color: 'white',
+        color: Colors.text,
         fontSize: 27,
         alignSelf: 'center',
         margin: 15,
@@ -157,18 +157,18 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         fontSize: 18,
-        color: 'white',
+        color: Colors.text,
     },
     textField: {
         alignSelf: 'center',
-        backgroundColor: '#5b6970',
-        color: '#404A4F',
+        backgroundColor: Colors.textFieldBackground,
+        color: Colors.card,
         height: 40,
         width: 307,
         marginTop: 5,
         marginBottom: 5,
         borderWidth: 2,
-        borderColor: '#404A4F',
+        borderColor: Colors.card,
     }
 });
 
