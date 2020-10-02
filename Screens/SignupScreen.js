@@ -4,12 +4,21 @@ import {View, Text, Button, TextInput} from 'react-native';
 import { StyleSheet } from 'react-native';
 
 export default class SignupScreen extends Component{
+
+
     state = {
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
     }
+
+
+
+
+
+
+
     render() {
     return(
       <View style={styles.signup}>
