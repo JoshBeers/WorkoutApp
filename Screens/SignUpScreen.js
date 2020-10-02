@@ -5,16 +5,17 @@ import { StyleSheet } from 'react-native';
 import PasswordValidator from "password-validator";
 import validator from "validator/es";
 import * as firebase from "firebase";
+import {firestore} from "firebase";
 
 
 export default class SignUpScreen extends Component{
 
 
     state = {
-        username: "aaaa",
-        email: "a@a.com",
-        password: "aA1!aaaa",
-        confirmPassword: "aA1!aaaa",
+        username: "bbbb",
+        email: "b@b.com",
+        password: "bB2@bbbb",
+        confirmPassword: "bB2@bbbb",
         errorMessage: ""
     }
 
@@ -102,6 +103,14 @@ export default class SignUpScreen extends Component{
     handleOnClick =  () =>{
         if(this.validateFields()){
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then((user) => {
+                    firestore().collection('Users').doc(user.user.uid).set({
+                        uid: user.user.uid,
+                        username: this.state.username,
+                        email: this.state.email
+                    }).catch( error => alert(error))
+
+                })
                 .catch(error => alert(error))
         }
     }
