@@ -2,20 +2,30 @@ import React, {Component} from 'react';
 import {Card} from 'react-native-elements';
 import {View, Text, Button, TextInput} from 'react-native';
 import { StyleSheet } from 'react-native';
+<<<<<<< HEAD
 import PasswordValidator from 'password-validator';
 import Colors from '../Themes/Colors';
+=======
+import PasswordValidator from "password-validator";
+import validator from "validator/es";
+import * as firebase from "firebase";
+import {firestore} from "firebase";
+
+
+>>>>>>> 2578825f8b49fa2b10b6ffe78d88d331631c906f
 export default class SignUpScreen extends Component{
 
 
     state = {
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        username: "bbbb",
+        email: "b@b.com",
+        password: "bB2@bbbb",
+        confirmPassword: "bB2@bbbb",
         errorMessage: ""
     }
 
     passwordValidator = new PasswordValidator();
+    userNameValidator = new PasswordValidator();
 
 
     constructor() {
@@ -27,9 +37,31 @@ export default class SignUpScreen extends Component{
         this.passwordValidator.has().digits(1);
         this.passwordValidator.has().not().spaces(1);
         this.passwordValidator.has().symbols(1);
+
+        this.userNameValidator.is().max(15);
+        this.userNameValidator.is().min(4);
+        this.userNameValidator.has().not().spaces();
     }
 
     validateFields = () =>{
+
+        if(!this.userNameValidator.validate(this.state.username)){
+            let ref = this.userNameValidator.validate(this.state.username,{list: true})
+            var message = '';
+            if(ref.includes('max'))
+                message = 'Username must be less than 15 characters'
+            else if(ref.includes('min'))
+                message = 'Username must be more than 4 characters'
+            else if(ref.includes('spaces'))
+                message = 'Username must not have spaces'
+            this.setState({
+                errorMessage: message
+            });
+            return false;
+        }
+
+
+
         if(!validator.isEmail(this.state.email)){
             this.setState({
                 errorMessage: 'Please enter correct email.'
@@ -73,9 +105,19 @@ export default class SignUpScreen extends Component{
         return true;
     }
 
-    handleOnClick = async () =>{
+    handleOnClick =  () =>{
+        if(this.validateFields()){
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then((user) => {
+                    firestore().collection('Users').doc(user.user.uid).set({
+                        uid: user.user.uid,
+                        username: this.state.username,
+                        email: this.state.email
+                    }).catch( error => alert(error))
 
-
+                })
+                .catch(error => alert(error))
+        }
     }
 
 
@@ -94,34 +136,49 @@ export default class SignUpScreen extends Component{
                     placeholder= "USERNAME"
                     style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
                     onChangeText={(text) => this.setState({username:text})}
+                    value={this.state.username}
                     />
                 </View>
                 <View style={styles.textField}>
                     <TextInput
                         placeholder= "EMAIL ADDRESS"
                         style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
-                        onChangeText={(text) => this.setState({email:text})}/>
+                        onChangeText={(text) => this.setState({email:text})}
+                        value={this.state.email}
+                    />
+
                 </View>
                 <View style={styles.textField}>
                     <TextInput
                         placeholder= "PASSWORD"
+                        secureTextEntry={true}
                         style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
                         onChangeText={(text) => this.setState({password:text})}
+                        value={this.state.password}
                     />
                 </View>
                 <View style={styles.textField}>
                     <TextInput
+                        secureTextEntry={true}
                         placeholder= "CONFIRM PASSWORD"
                         style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
                         onChangeText={(text ) => this.setState({confirmPassword:text})}
+                        value={this.state.confirmPassword}
                     />
                 </View>
+
+                {
+                    //new thing
+                }
+                <Text>{this.state.errorMessage}</Text>
+
                 <View style={styles.finishButton}>
                     <Button style={styles.buttonText} color="#066da1" title="FINISH"
                             onPress={this.handleOnClick}
                     >
                     </Button>
                 </View>
+
             </Card>
         </View>
     )
