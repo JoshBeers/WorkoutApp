@@ -5,9 +5,9 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import LoginScreen from './Screens/LoginScreen';
 import HomeScreen from './Screens/HomeScreen';
 import {enableScreens} from 'react-native-screens';
+import SignupScreen from './Screens/SignupScreen';
 
 // run this before any screen render(usually in App.js)
-// <Stack.Screen name="Log In" component={LoginScreen}/> add this shit back later...
 enableScreens();
 
 const Stack = createNativeStackNavigator();
@@ -17,6 +17,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
