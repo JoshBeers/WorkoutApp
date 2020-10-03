@@ -4,8 +4,6 @@ import {Card} from 'react-native-elements';
 import * as firebase from 'firebase';
 
 class LoginScreen extends Component {
-  signUp: Button;
-  signIn: Button;
   state = {
     email: '',
     password: '',
@@ -43,6 +41,11 @@ class LoginScreen extends Component {
               onChangeText={(password) => this.setState({password})}
               value={this.state.password}
             />
+          </View>
+          <View style={styles.errorMessage}>
+            {this.state.errorMessage && (
+              <Text style={styles.error}>{this.state.errorMessage}</Text>
+            )}
           </View>
           <View style={styles.buttonView}>
             <View style={styles.signInButton}>
@@ -115,6 +118,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderWidth: 2,
     borderColor: '#404A4F',
+  },
+  errorMessage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  error: {
+    color: '#E9446A',
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
 
