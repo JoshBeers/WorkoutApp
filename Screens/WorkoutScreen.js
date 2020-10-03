@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Header} from 'react-native-elements';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import SquareGrid from "react-native-square-grid";
 
 class WorkoutScreen extends Component {
     constructor(){
@@ -36,6 +37,7 @@ class WorkoutScreen extends Component {
                         tabTextStyle={styles.tabText }
                         activeTabTextStyle={{ color: '#888888' }}
                     />
+                    <SquareGrid />
                 </View>
             </View>
         );
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     titleText: {
         color: 'white',
         fontSize: 27,
+        marginBottom: 20,
     },
     tabContainer: {
         height: 33,
