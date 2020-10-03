@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, TextInput, Text, View, Button} from 'react-native';
 import {Card} from 'react-native-elements';
 import * as firebase from 'firebase';
+import Colors from '../Themes/Colors';
 
 class LoginScreen extends Component {
   state = {
@@ -50,14 +51,14 @@ class LoginScreen extends Component {
           <View style={styles.buttonView}>
             <View style={styles.signInButton}>
               <Button
-                color="#066da1"
+                color={Colors.btn}
                 title="Sign In"
                 onPress={this.handleLogin}>
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>
             </View>
             <View style={styles.signUpButton}>
-              <Button color="#5189a5" title="Sign Up">
+              <Button color={Colors.btnLite} title="Sign Up" onPress={() => this.props.navigation.navigate("Signup")}>
                 <Text style={styles.buttonText}>Sign Up</Text>
               </Button>
             </View>
@@ -70,27 +71,27 @@ class LoginScreen extends Component {
 
 const styles = StyleSheet.create({
   login: {
-    backgroundColor: '#1C2224',
+    backgroundColor: Colors.background,
     flex: 1,
   },
   loginCard: {
     width: 366,
     height: 305,
-    backgroundColor: '#404A4F',
+    backgroundColor: Colors.card,
     alignItems: 'center',
     alignSelf: 'center',
     borderWidth: 0,
     marginTop: 134,
   },
   signUpButton: {
-    width: 148,
-    height: 35,
-    marginRight: 11,
-  },
-  signInButton: {
-    width: 148,
+    width: 140,
     height: 35,
     marginLeft: 11,
+  },
+  signInButton: {
+    width: 140,
+    height: 35,
+    marginRight: 11,
   },
   buttonView: {
     flexDirection: 'row',
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   titleText: {
-    color: 'white',
+    color: Colors.text,
     fontSize: 27,
     alignSelf: 'center',
     margin: 15,
@@ -106,25 +107,25 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
   textField: {
     alignSelf: 'center',
-    backgroundColor: '#5b6970',
-    color: '#404A4F',
+    backgroundColor: Colors.textFieldBackground,
+    color: Colors.card,
     height: 40,
     width: 307,
     marginTop: 5,
     marginBottom: 5,
     borderWidth: 2,
-    borderColor: '#404A4F',
+    borderColor: Colors.card,
   },
   errorMessage: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   error: {
-    color: '#E9446A',
+    color: Colors.negative,
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',

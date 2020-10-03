@@ -23,6 +23,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // run this before any screen render(usually in App.js)
+
 enableScreens();
 
 const Stack = createNativeStackNavigator();

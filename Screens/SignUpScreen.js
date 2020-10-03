@@ -34,7 +34,7 @@ export default class SignUpScreen extends Component {
     this.userNameValidator.is().min(4);
     this.userNameValidator.has().not().spaces();
   }
-  
+
   validateFields = () => {
     if (!this.userNameValidator.validate(this.state.username)) {
       let ref = this.userNameValidator.validate(this.state.username, {
@@ -168,7 +168,7 @@ export default class SignUpScreen extends Component {
               style={styles.buttonText}
               color="#066da1"
               title="FINISH"
-              onPress={this.handleOnClick}></Button>
+              onPress={this.handleOnClick}/>
           </View>
         </Card>
       </View>
