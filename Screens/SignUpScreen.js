@@ -34,15 +34,7 @@ export default class SignUpScreen extends Component {
     this.userNameValidator.is().min(4);
     this.userNameValidator.has().not().spaces();
   }
-
-    state = {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      errorMessage: ""
-
-    }
+  
   validateFields = () => {
     if (!this.userNameValidator.validate(this.state.username)) {
       let ref = this.userNameValidator.validate(this.state.username, {
