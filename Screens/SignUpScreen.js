@@ -12,10 +12,10 @@ export default class SignUpScreen extends Component{
 
 
     state = {
-        username: "bbbb",
-        email: "b@b.com",
-        password: "bB2@bbbb",
-        confirmPassword: "bB2@bbbb",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
         errorMessage: ""
     }
 
