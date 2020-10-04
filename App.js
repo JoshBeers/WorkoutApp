@@ -1,12 +1,11 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import LoadingScreen from './Screens/LoadingScreen';
 import LoginScreen from './Screens/LoginScreen';
-import HomeScreen from './Screens/HomeScreen';
 import SignUpScreen from './Screens/SignUpScreen';
+import HomeScreen from './Screens/HomeScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
-import {enableScreens} from 'react-native-screens';
+
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -22,27 +21,25 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// run this before any screen render(usually in App.js)
+const AppStack = createStackNavigator({
+  Home: HomeScreen,
+  Workout: WorkoutScreen,
+});
 
-enableScreens();
+const AuthStack = createStackNavigator({
+  Login: LoginScreen,
+  Signup: SignUpScreen,
+});
 
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-
-        <Stack.Screen name="Workout" component={WorkoutScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-
-let GlobalState = {
-
-}
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      Loading: LoadingScreen,
+      App: AppStack,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: 'Loading',
+    },
+  ),
+);

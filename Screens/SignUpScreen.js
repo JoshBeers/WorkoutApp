@@ -8,7 +8,7 @@ import validator from 'validator/es';
 import * as firebase from 'firebase';
 import {firestore} from 'firebase';
 
-export default class SignUpScreen extends Component {
+export default class SignUpScreen extends React.Component {
   state = {
     username: 'bbbb',
     email: 'b@b.com',
@@ -103,16 +103,10 @@ export default class SignUpScreen extends Component {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then((user) => {
-          firestore()
-            .collection('Users')
-            .doc(user.user.uid)
-            .set({
-              uid: user.user.uid,
-              username: this.state.username,
-              email: this.state.email,
-            })
-            .catch((error) => alert(error));
+        .then((userCredentials) => {
+          return userCredentials.user.updateProfile({
+            displayName: this.state.name,
+          });
         })
         .catch((error) => alert(error));
     }
@@ -168,7 +162,8 @@ export default class SignUpScreen extends Component {
               style={styles.buttonText}
               color="#066da1"
               title="FINISH"
-              onPress={this.handleOnClick}/>
+              onPress={this.handleOnClick}
+            />
           </View>
         </Card>
       </View>
@@ -219,5 +214,3 @@ const styles = StyleSheet.create({
     borderColor: Colors.card,
   },
 });
-
-module.exports = SignUpScreen;

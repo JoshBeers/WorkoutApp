@@ -4,7 +4,7 @@ import {Card} from 'react-native-elements';
 import * as firebase from 'firebase';
 import Colors from '../Themes/Colors';
 
-class LoginScreen extends Component {
+export default class LoginScreen extends React.Component {
   state = {
     email: '',
     password: '',
@@ -58,7 +58,10 @@ class LoginScreen extends Component {
               </Button>
             </View>
             <View style={styles.signUpButton}>
-              <Button color={Colors.btnLite} title="Sign Up" onPress={() => this.props.navigation.navigate("Signup")}>
+              <Button
+                color={Colors.btnLite}
+                title="Sign Up"
+                onPress={() => this.props.navigation.navigate('Signup')}>
                 <Text style={styles.buttonText}>Sign Up</Text>
               </Button>
             </View>
@@ -131,5 +134,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-module.exports = LoginScreen;
