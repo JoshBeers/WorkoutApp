@@ -26,7 +26,10 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     const {email, displayName} = firebase.auth().currentUser;
 
-    this.setState({email, displayName});
+    this.setState({
+      email:email, 
+      displayName:displayName
+    });
   }
   signOutUser = () => {
     firebase.auth().signOut();
@@ -36,7 +39,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.home}>
         <View style={styles.test}>
-          <Text style={{color: 'white'}}>Hi {this.state.email}!</Text>
+          <Text style={{color: 'white'}}>Hi {this.state.displayName}!</Text>
 
           <TouchableOpacity style={{marginTop: 32}} onPress={this.signOutUser}>
             <Text style={{color: 'white'}}>Logout</Text>

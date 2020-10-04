@@ -27,7 +27,7 @@ export default class LoginScreen extends React.Component {
           <Text style={styles.titleText}>Let's get these gains!</Text>
           <View style={styles.textField}>
             <TextInput
-              placeholder="USERNAME"
+              placeholder="EMAIL"
               autoCapitalize="none"
               style={{marginLeft: 3, marginRight: 3, marginTop: 2}}
               onChangeText={(email) => this.setState({email})}

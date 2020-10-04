@@ -6,14 +6,15 @@ import Colors from '../Themes/Colors';
 import PasswordValidator from 'password-validator';
 import validator from 'validator/es';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 import {firestore} from 'firebase';
 
 export default class SignUpScreen extends React.Component {
   state = {
-    username: 'bbbb',
-    email: 'b@b.com',
-    password: 'bB2@bbbb',
-    confirmPassword: 'bB2@bbbb',
+    username: 'aaaa',
+    email: 'a@a.com',
+    password: 'aA1!aaaa',
+    confirmPassword: 'aA1!aaaa',
     errorMessage: '',
   };
 
@@ -104,13 +105,22 @@ export default class SignUpScreen extends React.Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((userCredentials) => {
+          /*
           return userCredentials.user.updateProfile({
             displayName: this.state.name,
+          })
+           */
+          firebase.firestore().collection('Users').doc(userCredentials.user.uid).set({
+            UID: userCredentials.user.uid,
+            Username: this.state.username,
+            Email: this.state.email
           });
+
         })
         .catch((error) => alert(error));
     }
-  };
+  }
+
 
   render() {
     return (
