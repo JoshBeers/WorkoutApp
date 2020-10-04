@@ -6,6 +6,7 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
 
+
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -25,6 +26,7 @@ const AppStack = createStackNavigator({
   Home: HomeScreen,
   Workout: WorkoutScreen,
 });
+
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,

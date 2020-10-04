@@ -31,6 +31,7 @@ export default class HomeScreen extends React.Component {
         email: doc.data().Email,
         displayName: doc.data().Username
       })
+
     });
   }
 
