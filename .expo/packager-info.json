@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 18740,
-  "expoServerNgrokUrl": "https://zj-tkt.joshbeers.workoutapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.zj-tkt.joshbeers.workoutapp.exp.direct",
-  "ngrokPid": 3912,
+  "packagerPid": 8608,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
