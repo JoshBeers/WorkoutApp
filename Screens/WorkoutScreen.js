@@ -1,22 +1,32 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import Colors from '../Themes/Colors';
-import {Header} from 'react-native-elements';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import SquareGrid from 'react-native-square-grid';
+
+const data = [
+  //cardio, weights
+  {title: 'arms'},
+  {title: 'abs'},
+  {title: 'rear'},
+  {title: 'legs'},
+  {title: 'back'},
+  {title: 'chest'},
+];
+
+const renderItem = ({item, index}) => {
+  return (
+    <View Key={index} style={styles.itemContainer}>
+      <View style={styles.itemLogo}>
+        <Image style={styles.itemImage} source={{uri: ''}} />
+      </View>
+      <View>
+        <Text>{item.title}</Text>
+      </View>
+    </View>
+  );
+};
 
 export default class WorkoutScreen extends Component {
-  // const DATA = [
-  //   {
-  //     id: 1,
-  //     title: 'First item'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Second item'
-  //   },
-  // ];
-
   constructor() {
     super();
     this.state = {
@@ -34,11 +44,10 @@ export default class WorkoutScreen extends Component {
   render() {
     return (
       <View style={styles.workout}>
-        <Header />
         <View style={styles.container}>
           <Text style={styles.titleText}>Choose a Workout</Text>
           <SegmentedControlTab
-            values={['Area of Focus', 'Activity', 'Intensity']}
+            values={['Cardio', 'Weights']}
             selectedIndex={this.state.selectedIndex}
             onTabPress={this.handleIndexChange}
             tabsContainerStyle={styles.tabContainer}
@@ -47,7 +56,15 @@ export default class WorkoutScreen extends Component {
             tabTextStyle={styles.tabText}
             activeTabTextStyle={{color: '#888888'}}
           />
-          <SquareGrid />
+          <FlatList
+            data={data}
+            keyExtractor={(e, i) => i.toString()}
+            renderItem={renderItem}
+            selectedIndex={0}
+            itemDimension={130}
+            style={styles.gridView}
+            spacing={10}
+          />
         </View>
       </View>
     );
@@ -59,7 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     flex: 1,
   },
-  header: {},
   container: {
     marginVertical: 30,
     marginHorizontal: 30,
@@ -86,13 +102,25 @@ const styles = StyleSheet.create({
     color: Colors.text,
     fontWeight: 'bold',
   },
-  list: {
+  gridView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  item: {
-    backgroundColor: Colors.background,
+  itemContainer: {
+    backgroundColor: Colors.card,
     margin: 3,
     width: 100,
+  },
+  itemTitle: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: Colors.text,
+  },
+  itemLogo: {
+    padding: 10,
+  },
+  itemImage: {
+    width: 50,
+    height: 50,
   },
 });
