@@ -13,6 +13,7 @@ import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
+import * as SQLite from 'expo-sqlite';
 
 export default class HomeScreen extends React.Component {
   stepPercentage = 0.6; //Place holder variable
@@ -22,6 +23,7 @@ export default class HomeScreen extends React.Component {
   state = {
     email: '',
     displayName: '',
+    dates: []
   };
   componentDidMount() {
 
@@ -33,11 +35,40 @@ export default class HomeScreen extends React.Component {
       })
 
     });
+
+    this.setState({
+      dates: this.getDates()
+    })
   }
 
   signOutUser = () => {
     firebase.auth().signOut();
   };
+
+
+  getDates(){
+
+    const db = SQLite.openDatabase("workoutAppDB.db");
+
+    db.transaction(tx =>{
+      tx.executeSql("select date from Workouts;",[],(_,rows) =>{
+
+        let temp = [];
+        console.log("sqllog", rows.rows)
+        console.log("sqllogg", rows.rows.length)
+
+
+        for(i = 0; i<rows.rows.length; i++){
+          temp.push(rows.rows._array[i].date)
+          //console.log("sqlloggg",rows.rows._array[i])
+        }
+
+        console.log("sqllog", temp)
+
+        return rows;
+      })
+    })
+  }
 
   render() {
     return (

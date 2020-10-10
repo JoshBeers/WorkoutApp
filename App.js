@@ -21,32 +21,50 @@ function createTables() {
     db.transaction(tx=> {
 
         try{
-            tx.executeSql("CREATE table Workouts(ID integer primary key DESC, date date not null);");
-            console.log("sqlLog","Workouts table Created")
-        }catch (error){console.log("sqlLog","Workouts table Exists")}
-
-        try{
-            tx.executeSql("Create table Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120));");
-            console.log("sqlLog","Exercises table Created")
+            tx.executeSql("CREATE table [if not exists] Workouts(ID integer primary key DESC, date date not null);");
         }catch (error){}
 
         try{
-            tx.executeSql("create table CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));");
+            tx.executeSql("Create table [if not exists] Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120));");
         }catch (error){}
 
         try{
-            tx.executeSql("create table WorkoutRoutines(ID integer primary key DESC, name varchar(30) not null);");
+            tx.executeSql("create table [if not exists] CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));");
         }catch (error){}
 
         try{
-            tx.executeSql("create table ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));");
-    }catch (error){}
+            tx.executeSql("create table [if not exists] WorkoutRoutines(ID integer primary key DESC, name varchar(30) not null);");
+        }catch (error){}
 
-
+        try{
+            tx.executeSql("create table [if not exists] ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));");
+        }catch (error){}
     })
 
 }
 createTables()
+
+
+function createDummyData(){
+
+    db.transaction(tx=>{
+        tx.executeSql("insert into workouts(date) values('2020-01-15');")
+
+
+    })
+}
+
+
+
+function clearDB(){
+    db.transaction(tx=>{
+        tx.executeSql("Delete from Workouts")
+    })
+}
+
+
+
+
 
 
 
