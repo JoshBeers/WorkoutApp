@@ -42,12 +42,13 @@ export default class SignUpScreen extends React.Component {
         list: true,
       });
       var message = '';
-      if (ref.includes('max'))
+      if (ref.includes('max')) {
         message = 'Username must be less than 15 characters';
-      else if (ref.includes('min'))
+      } else if (ref.includes('min')) {
         message = 'Username must be more than 4 characters';
-      else if (ref.includes('spaces'))
+      } else if (ref.includes('spaces')) {
         message = 'Username must not have spaces';
+      }
       this.setState({
         errorMessage: message,
       });
@@ -66,20 +67,21 @@ export default class SignUpScreen extends React.Component {
         list: true,
       });
       let message = '';
-      if (ref.includes('min'))
+      if (ref.includes('min')) {
         message = 'Password must be 8 or more characters';
-      else if (ref.includes('max'))
+      } else if (ref.includes('max')) {
         message = 'Password cannot be longer than 15 characters';
-      else if (ref.includes('lowercase'))
+      } else if (ref.includes('lowercase')) {
         message = 'Password must contain a lowercase letter';
-      else if (ref.includes('uppercase'))
+      } else if (ref.includes('uppercase')) {
         message = 'Password must contain a uppercase letter';
-      else if (ref.includes('digits'))
+      } else if (ref.includes('digits')) {
         message = 'Password must contain a digit';
-      else if (ref.includes('symbols'))
+      } else if (ref.includes('symbols')) {
         message = 'Password must contain a symbol';
-      else if (ref.includes('spaces'))
+      } else if (ref.includes('spaces')) {
         message = 'Password must not contain a space';
+      }
       this.setState({
         errorMessage: message,
       });
@@ -110,17 +112,19 @@ export default class SignUpScreen extends React.Component {
             displayName: this.state.name,
           })
            */
-          firebase.firestore().collection('Users').doc(userCredentials.user.uid).set({
-            UID: userCredentials.user.uid,
-            Username: this.state.username,
-            Email: this.state.email
-          });
-
+          firebase
+            .firestore()
+            .collection('Users')
+            .doc(userCredentials.user.uid)
+            .set({
+              UID: userCredentials.user.uid,
+              Username: this.state.username,
+              Email: this.state.email,
+            });
         })
         .catch((error) => alert(error));
     }
-  }
-
+  };
 
   render() {
     return (

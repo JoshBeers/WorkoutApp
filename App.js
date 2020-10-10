@@ -6,7 +6,6 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
 
-
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -20,13 +19,14 @@ var firebaseConfig = {
   measurementId: 'G-0QPQF0ZNLJ',
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen,
+  // Home: HomeScreen,
   Workout: WorkoutScreen,
 });
-
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,

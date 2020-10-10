@@ -1,83 +1,98 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Colors from '../Themes/Colors';
 import {Header} from 'react-native-elements';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import SquareGrid from "react-native-square-grid";
+import SquareGrid from 'react-native-square-grid';
 
-class WorkoutScreen extends Component {
-    constructor(){
-        super();
-        this.state = {
-            selectedIndex: 0
-        };
-    }
+export default class WorkoutScreen extends Component {
+  // const DATA = [
+  //   {
+  //     id: 1,
+  //     title: 'First item'
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Second item'
+  //   },
+  // ];
 
-    handleIndexChange = index => {
-        this.setState({
-            ...this.state,
-            selectedIndex: index
-        });
+  constructor() {
+    super();
+    this.state = {
+      selectedIndex: 0,
     };
+  }
 
-    render() {
-        return (
-            <View style={styles.workout}>
-                <Header>
+  handleIndexChange = (index) => {
+    this.setState({
+      ...this.state,
+      selectedIndex: index,
+    });
+  };
 
-                </Header>
-                <View style={styles.container}>
-                    <Text style={styles.titleText}>Choose a Workout</Text>
-                    <SegmentedControlTab
-                        values={['Area of Focus','Activity','Intensity']}
-                        selectedIndex={this.state.selectedIndex}
-                        onTabPress={this.handleIndexChange}
-                        tabsContainerStyle={styles.tabContainer}
-                        tabStyle={styles.tab}
-                        activeTabStyle={styles.activeTab}
-                        tabTextStyle={styles.tabText }
-                        activeTabTextStyle={{ color: '#888888' }}
-                    />
-                    <SquareGrid />
-                </View>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.workout}>
+        <Header />
+        <View style={styles.container}>
+          <Text style={styles.titleText}>Choose a Workout</Text>
+          <SegmentedControlTab
+            values={['Area of Focus', 'Activity', 'Intensity']}
+            selectedIndex={this.state.selectedIndex}
+            onTabPress={this.handleIndexChange}
+            tabsContainerStyle={styles.tabContainer}
+            tabStyle={styles.tab}
+            activeTabStyle={styles.activeTab}
+            tabTextStyle={styles.tabText}
+            activeTabTextStyle={{color: '#888888'}}
+          />
+          <SquareGrid />
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    workout: {
-        backgroundColor: '#1C2224',
-        flex: 1,
-    },
-    header: {
-
-    },
-    container: {
-        marginVertical: 30,
-        marginHorizontal: 30,
-    },
-    titleText: {
-        color: 'white',
-        fontSize: 27,
-        marginBottom: 20,
-    },
-    tabContainer: {
-        height: 33,
-        backgroundColor: '#F2F2F2'
-    },
-    tab: {
-        backgroundColor: '#F2F2F2',
-        borderWidth: 0,
-        borderColor: 'transparent',
-    },
-    activeTab: {
-        backgroundColor: 'white',
-        marginTop: 2,
-    },
-    tabText: {
-        color: '#444444',
-        fontWeight: 'bold'
-    }
+  workout: {
+    backgroundColor: Colors.background,
+    flex: 1,
+  },
+  header: {},
+  container: {
+    marginVertical: 30,
+    marginHorizontal: 30,
+  },
+  titleText: {
+    color: Colors.text,
+    fontSize: 27,
+    marginBottom: 20,
+  },
+  tabContainer: {
+    height: 33,
+    backgroundColor: Colors.card,
+  },
+  tab: {
+    backgroundColor: Colors.card,
+    borderWidth: 0,
+    borderColor: 'transparent',
+  },
+  activeTab: {
+    backgroundColor: 'white',
+    marginTop: 2,
+  },
+  tabText: {
+    color: Colors.text,
+    fontWeight: 'bold',
+  },
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  item: {
+    backgroundColor: Colors.background,
+    margin: 3,
+    width: 100,
+  },
 });
-
-module .exports = WorkoutScreen;
