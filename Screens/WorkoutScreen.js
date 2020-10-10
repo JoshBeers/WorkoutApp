@@ -5,14 +5,14 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 const data = [
   //cardio, weights
-  {title: 'arms'},
-  {title: 'abs'},
-  {title: 'rear'},
-  {title: 'legs'},
-  {title: 'back'},
-  {title: 'chest'},
+  {title: 'Arms'},
+  {title: 'Abs'},
+  {title: 'Rear'},
+  {title: 'Legs'},
+  {title: 'Back'},
+  {title: 'Chest'},
 ];
-
+const numColumns = 2;
 const renderItem = ({item, index}) => {
   return (
     <View Key={index} style={styles.itemContainer}>
@@ -20,7 +20,7 @@ const renderItem = ({item, index}) => {
         <Image style={styles.itemImage} source={{uri: ''}} />
       </View>
       <View>
-        <Text>{item.title}</Text>
+        <Text style={styles.itemTitle}>{item.title}</Text>
       </View>
     </View>
   );
@@ -54,16 +54,17 @@ export default class WorkoutScreen extends Component {
             tabStyle={styles.tab}
             activeTabStyle={styles.activeTab}
             tabTextStyle={styles.tabText}
-            activeTabTextStyle={{color: '#888888'}}
+            activeTabTextStyle={{color: Colors.textDark}}
           />
           <FlatList
             data={data}
-            keyExtractor={(e, i) => i.toString()}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={renderItem}
             selectedIndex={0}
             itemDimension={130}
             style={styles.gridView}
             spacing={10}
+            numColumns={numColumns}
           />
         </View>
       </View>
@@ -88,14 +89,15 @@ const styles = StyleSheet.create({
   tabContainer: {
     height: 33,
     backgroundColor: Colors.card,
+    marginBottom: 12,
   },
   tab: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     borderWidth: 0,
     borderColor: 'transparent',
   },
   activeTab: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.btn,
     marginTop: 2,
   },
   tabText: {
@@ -108,13 +110,15 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     backgroundColor: Colors.card,
-    margin: 3,
-    width: 100,
+    margin: 5,
+    width: 167,
+    height: 160,
   },
   itemTitle: {
     fontWeight: '600',
     fontSize: 12,
     color: Colors.text,
+    alignSelf: 'center',
   },
   itemLogo: {
     padding: 10,

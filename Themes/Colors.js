@@ -5,6 +5,7 @@ const colors = {
   btn: '#066da1',
   btnLite: '#5189a5',
   text: 'white',
+  textDark: 'black',
   negative: '#D96455',
   positive: '#1ED4AF',
 };
