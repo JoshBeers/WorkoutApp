@@ -60,9 +60,10 @@ export default class WorkoutScreen extends Component {
             keyExtractor={(item, index) => index.toString()}
             renderItem={renderItem}
             selectedIndex={0}
-            itemDimension={130}
-            style={styles.gridView}
-            spacing={10}
+            // style={styles.gridView}
+            contentContainerStyle={styles.gridView}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
+            spacing={20}
             numColumns={numColumns}
           />
         </View>
@@ -104,26 +105,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   gridView: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
   itemContainer: {
     backgroundColor: Colors.card,
-    margin: 5,
-    width: 167,
+    alignItems: 'center',
+    margin: 9,
+    width: '45%',
     height: 160,
   },
   itemTitle: {
     fontWeight: '600',
-    fontSize: 12,
+    fontSize: 15,
     color: Colors.text,
     alignSelf: 'center',
   },
   itemLogo: {
-    padding: 10,
-  },
-  itemImage: {
-    width: 50,
-    height: 50,
+    margin: 27,
+    height: 70,
+    alignSelf: 'center',
   },
 });
