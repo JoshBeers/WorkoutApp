@@ -2,18 +2,16 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import Arm from '../img/workoutIcons/Arm';
-import Abs from '../img/workoutIcons/Abs';
-import Rear from '../img/workoutIcons/Rear';
+import {Arm, Abs, Rear, WorkoutIcons, Back, Chest} from '../img/WorkoutIcons';
 
 const data = [
   //cardio, weights
   {title: 'Arms', icon: <Arm />},
   {title: 'Abs', icon: <Abs />},
-  {title: 'Rear'},
-  {title: 'Legs'},
-  {title: 'Back'},
-  {title: 'Chest'},
+  {title: 'Rear', icon: <Rear />},
+  {title: 'Legs', icon: <WorkoutIcons />},
+  {title: 'Back', icon: <Back />},
+  {title: 'Chest', icon: <Chest />},
 ];
 const numColumns = 2;
 const renderItem = ({item, index}) => {
