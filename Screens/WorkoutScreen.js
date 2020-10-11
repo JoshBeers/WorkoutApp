@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import Arm from '../img/workoutIcons/Arm';
+import Abs from '../img/workoutIcons/Abs';
+import Rear from '../img/workoutIcons/Rear';
 
 const data = [
   //cardio, weights
-  {title: 'Arms'},
-  {title: 'Abs'},
+  {title: 'Arms', icon: <Arm />},
+  {title: 'Abs', icon: <Abs />},
   {title: 'Rear'},
   {title: 'Legs'},
   {title: 'Back'},
@@ -16,9 +19,7 @@ const numColumns = 2;
 const renderItem = ({item, index}) => {
   return (
     <View Key={index} style={styles.itemContainer}>
-      <View style={styles.itemLogo}>
-        <Image style={styles.itemImage} source={{uri: ''}} />
-      </View>
+      <View style={styles.itemLogo}>{item.icon}</View>
       <View>
         <Text style={styles.itemTitle}>{item.title}</Text>
       </View>
