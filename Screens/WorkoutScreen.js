@@ -34,7 +34,7 @@ export default class WorkoutScreen extends Component {
             tabTextStyle={styles.tabText}
             activeTabTextStyle={{color: Colors.textDark}}
           />
-          {this.state.selectedIndex === 0 ? <Cardio /> : <Weights />}
+          {this.state.selectedIndex === 0 ? <Cardio /> : <Cardio />}
         </View>
       </View>
     );

@@ -14,12 +14,6 @@ const cardioData = [
   {title: 'Chest', icon: <Chest />},
 ];
 
-const weightsData = [
-  {title: 'Beginner'},
-  {title: 'Intermediate'},
-  {title: 'Advanced'},
-];
-
 const renderItem = ({item, index}) => {
   return (
     <View Key={index} style={styles.itemContainer}>
@@ -41,18 +35,6 @@ export const Cardio = () => {
       contentContainerStyle={styles.gridView}
       columnWrapperStyle={{justifyContent: 'space-between'}}
       spacing={20}
-      numColumns={numColumns}
-    />
-  );
-};
-
-export const Weights = () => {
-  return (
-    <FlatList
-      key={'#'}
-      data={weightsData}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
       numColumns={numColumns}
     />
   );
