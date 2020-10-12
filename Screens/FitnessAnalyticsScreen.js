@@ -3,11 +3,9 @@ import {StyleSheet, TextInput, Text, View, Button} from 'react-native';
 import {Card} from 'react-native-elements';
 
 class FitnessAnalyticsScreen extends Component {
-    render() {
-    }
+  render() {}
 }
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
 
 module.exports = FitnessAnalyticsScreen;

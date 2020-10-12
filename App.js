@@ -59,6 +59,7 @@ function clearDB() {
 }
 
 import * as firebase from 'firebase';
+import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -76,8 +77,9 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  // Home: HomeScreen,
+  Home: HomeScreen,
   Workout: WorkoutScreen,
+  ChooseWorkout: ChooseWorkoutScreen,
 });
 
 const AuthStack = createStackNavigator({
