@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Card} from 'react-native-elements';
-import CalendarStrip from 'react-native-calendar-strip';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import Colors from '../Themes/Colors';
@@ -16,6 +16,10 @@ import * as firebase from 'firebase';
 import * as SQLite from 'expo-sqlite';
 
 export default class HomeScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = { marked: null, };
+  }
   stepPercentage = 0.6; //Place holder variable
   stepCount = 2500; // Place holder variable
   today = moment().format('YYYY-MM-DD');
@@ -26,7 +30,6 @@ export default class HomeScreen extends React.Component {
     dates: []
   };
   componentDidMount() {
-
     firebase.firestore().collection('Users').doc(firebase.auth().currentUser.uid).get().then((doc) =>{
       //alert(doc.data())
       this.setState({
@@ -45,6 +48,10 @@ export default class HomeScreen extends React.Component {
     firebase.auth().signOut();
   };
 
+  markDates = () => {
+    let aDate = this.getDates().reduce((a, b) => Object.assign(a, {[b]: {selected: true, dotColor: Colors.positive}}), {});
+    this.setState({marked : aDate});
+  }
 
   getDates(){
 
@@ -71,46 +78,39 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.home}>
-        <View style={styles.test}>
-          <Text style={{color: 'white'}}>Hi {this.state.displayName}!</Text>
-
-          <TouchableOpacity style={{marginTop: 32}} onPress={this.signOutUser}>
-            <Text style={{color: 'white'}}>Logout</Text>
-          </TouchableOpacity>
+    return(
+        <View style={styles.home}>
+          <Card containerStyle={styles.stepsCard}>
+            <ProgressCircle
+                progress={this.stepPercentage}
+                style={{
+                  height: 100,
+                }}
+                progressColor={Colors.btn}
+                backgroundColor={Colors.background}/>
+            <Text style={styles.stepText}>
+              {this.stepCount} STEPS
+            </Text>
+          </Card>
+          <Card containerStyle = {styles.calendarCard}>
+            <Calendar
+                current = {this.today}
+                style = {{width: 364,}}
+                theme={{
+                  backgroundColor: Colors.card,
+                  calendarBackground: Colors.card,
+                  arrowColor: Colors.negative,
+                  dayTextColor: Colors.text,
+                  monthTextColor: Colors.text,
+                }}
+                enableSwipeMonths={true}
+                markedDates={this.state.marked}
+            />
+          </Card>
         </View>
-        <Card containerStyle={styles.stepsCard}>
-          <ProgressCircle
-            progress={this.stepPercentage}
-            style={{
-              height: 100,
-            }}
-            progressColor={Colors.btn}
-            backgroundColor={Colors.background}
-          />
-          <Text style={styles.stepText}>{this.stepCount} STEPS</Text>
-        </Card>
-        <Card containerStyle={styles.calendarCard}>
-          <CalendarStrip
-            scrollable
-            style={{
-              height: 100,
-              backgroundColor: Colors.card,
-              paddingTop: 10,
-            }}
-            calendarColor={Colors.card}
-            calendarHeaderStyle={{color: Colors.text}}
-            dateNumberStyle={{color: Colors.text}}
-            dateNameStyle={{color: Colors.text}}
-          />
-        </Card>
-      </View>
-    );
+    )
   }
 }
-
-const dummyDates = [];
 
 const styles = StyleSheet.create({
   home: {
@@ -129,19 +129,14 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     width: 366,
     alignSelf: 'center',
+    alignItems: 'center',
   },
-  waterCard: {},
-  caffeineCard: {},
-  bottomMenu: {},
+  bottomMenu: {
+  },
   stepText: {
     color: Colors.text,
     fontSize: 27,
     alignSelf: 'center',
     marginTop: 7,
-  },
-  test: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
   },
 });
