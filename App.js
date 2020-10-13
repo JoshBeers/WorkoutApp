@@ -60,6 +60,7 @@ function clearDB() {
 
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
+import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -77,9 +78,10 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen,
-  Workout: WorkoutScreen,
-  ChooseWorkout: ChooseWorkoutScreen,
+  // Home: HomeScreen,
+  // Workout: WorkoutScreen,
+  // ChooseWorkout: ChooseWorkoutScreen,
+  FitnessAnalytics: FitnessAnalyticsScreen,
 });
 
 const AuthStack = createStackNavigator({
