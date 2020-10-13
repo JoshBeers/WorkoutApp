@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import GradientLineChart from './GradientLineChart';
+import {Calories, Duration, Workouts} from '../img/AnalyticsIcons';
 
 export default class FitnessAnalyticsScreen extends Component {
   constructor() {
@@ -58,6 +59,45 @@ export default class FitnessAnalyticsScreen extends Component {
           ) : (
             <GradientLineChart />
           )}
+
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.resultContainer}>
+              <View style={styles.resultLogo}>
+                <Duration />
+              </View>
+              <View style={styles.dataBox}>
+                <View>
+                  <Text>Duration</Text>
+                </View>
+                {/*// store this text result in state*/}
+                <View>
+                  <Text>1:17 hr</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.resultContainer}>
+              <View style={styles.resultLogo}>
+                <Calories />
+              </View>
+              <View style={styles.resultTitle}>
+                <Text>Calories</Text>
+              </View>
+              <View>
+                <Text>498 kcal</Text>
+              </View>
+            </View>
+            <View style={styles.resultContainer}>
+              <View style={styles.resultLogo}>
+                <Workouts />
+              </View>
+              <View>
+                <View>
+                  <Text style={styles.resultTitle}>Workouts</Text>
+                  <Text style={styles.resultTitle}>8</Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -92,5 +132,22 @@ const styles = StyleSheet.create({
   tabText: {
     color: Colors.text,
     fontWeight: 'bold',
+  },
+  resultContainer: {
+    backgroundColor: Colors.card,
+    margin: 9,
+    width: 100,
+    height: 90,
+  },
+  dataBox: {
+    marginLeft: 20,
+  },
+  resultTitle: {
+    fontWeight: '600',
+    fontSize: 15,
+    color: Colors.text,
+  },
+  resultLogo: {
+    margin: 7,
   },
 });

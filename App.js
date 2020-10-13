@@ -78,7 +78,7 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  // Home: HomeScreen,
+  Home: HomeScreen,
   // Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
   FitnessAnalytics: FitnessAnalyticsScreen,
