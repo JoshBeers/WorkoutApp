@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {View} from 'react-native';
 import {Defs, LinearGradient, Stop} from 'react-native-svg';
 import {Grid, LineChart} from 'react-native-svg-charts';
 
@@ -32,17 +33,19 @@ export default class GradientLineChart extends PureComponent {
     );
 
     return (
-      <LineChart
-        style={{height: 200}}
-        data={data}
-        contentInset={{top: 20, bottom: 20}}
-        svg={{
-          strokeWidth: 2,
-          stroke: 'url(#gradient)',
-        }}>
-        <Grid />
-        <Gradient />
-      </LineChart>
+      <View style={{marginVertical: 43}}>
+        <LineChart
+          style={{height: 200}}
+          data={data}
+          contentInset={{top: 20, bottom: 20}}
+          svg={{
+            strokeWidth: 2,
+            stroke: 'url(#gradient)',
+          }}>
+          <Grid />
+          <Gradient />
+        </LineChart>
+      </View>
     );
   }
 }

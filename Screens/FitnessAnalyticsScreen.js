@@ -60,18 +60,16 @@ export default class FitnessAnalyticsScreen extends Component {
             <GradientLineChart />
           )}
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={styles.resultView}>
             <View style={styles.resultContainer}>
               <View style={styles.resultLogo}>
                 <Duration />
               </View>
               <View style={styles.dataBox}>
                 <View>
-                  <Text>Duration</Text>
-                </View>
-                {/*// store this text result in state*/}
-                <View>
-                  <Text>1:17 hr</Text>
+                  <Text style={styles.resultTitle}>Duration</Text>
+                  {/*// store this text result in state*/}
+                  <Text style={styles.resultTitle}>1:17 hr</Text>
                 </View>
               </View>
             </View>
@@ -79,11 +77,9 @@ export default class FitnessAnalyticsScreen extends Component {
               <View style={styles.resultLogo}>
                 <Calories />
               </View>
-              <View style={styles.resultTitle}>
-                <Text>Calories</Text>
-              </View>
-              <View>
-                <Text>498 kcal</Text>
+              <View style={styles.dataBox}>
+                <Text style={styles.resultTitle}>Calories</Text>
+                <Text style={styles.resultTitle}>498 kcal</Text>
               </View>
             </View>
             <View style={styles.resultContainer}>
@@ -91,7 +87,7 @@ export default class FitnessAnalyticsScreen extends Component {
                 <Workouts />
               </View>
               <View>
-                <View>
+                <View style={styles.dataBox}>
                   <Text style={styles.resultTitle}>Workouts</Text>
                   <Text style={styles.resultTitle}>8</Text>
                 </View>
@@ -133,14 +129,20 @@ const styles = StyleSheet.create({
     color: Colors.text,
     fontWeight: 'bold',
   },
+  resultView: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
   resultContainer: {
+    flexDirection: 'row',
     backgroundColor: Colors.card,
-    margin: 9,
-    width: 100,
-    height: 90,
+    padding: 8,
+    margin: 7,
+    width: 117,
+    height: 70,
   },
   dataBox: {
-    marginLeft: 20,
+    marginLeft: 11,
   },
   resultTitle: {
     fontWeight: '600',
@@ -148,6 +150,6 @@ const styles = StyleSheet.create({
     color: Colors.text,
   },
   resultLogo: {
-    margin: 7,
+    marginVertical: 7,
   },
 });
