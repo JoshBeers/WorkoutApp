@@ -15,36 +15,49 @@ function createTables() {
   db.transaction((tx) => {
     try {
       tx.executeSql(
-        'CREATE table [if not exists] Workouts(ID integer primary key DESC, date date not null);',
+        'CREATE table if not exists Workouts(ID integer primary key DESC, date date not null);',
       );
     } catch (error) {}
 
     try {
       tx.executeSql(
-        'Create table [if not exists] Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120));',
+        'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeights boolean not null, weight integer);',
       );
     } catch (error) {}
 
     try {
       tx.executeSql(
-        'create table [if not exists] CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
+        'create table if not exists CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
       );
     } catch (error) {}
 
     try {
       tx.executeSql(
-        'create table [if not exists] WorkoutRoutines(ID integer primary key DESC, name varchar(30) not null);',
+        'create table if not exists WorkoutRoutines(ID integer primary key DESC, name varchar(30) not null);',
       );
     } catch (error) {}
 
     try {
       tx.executeSql(
-        'create table [if not exists] ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
+        'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
       );
     } catch (error) {}
   });
 }
+
+
+/*
+these are the method calls being run
+
+ */
+
+
+
 createTables();
+//createDummyData();
+
+
+
 
 function createDummyData() {
   db.transaction((tx) => {
@@ -101,3 +114,5 @@ export default createAppContainer(
     },
   ),
 );
+
+
