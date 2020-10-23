@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import {Cardio} from './WorkoutTabs';
+import * as SQLite from "expo-sqlite";
 
 export default class ChooseWorkoutScreen extends Component {
   constructor() {
@@ -18,6 +19,36 @@ export default class ChooseWorkoutScreen extends Component {
       selectedIndex: index,
     });
   };
+
+  //method returns a list of routines
+  //has not been tested
+  getRoutines(){
+    
+    const db = SQLite.openDatabase("workoutAppDB.db");
+
+    db.transaction(tx =>{
+      tx.executeSql("select * from routines;",[],(_,rows) =>{
+
+        let temp = [];
+        console.log("cWOSSQL", rows.rows)
+        console.log("cWOSSQL", rows.rows.length)
+
+
+        for(i = 0; i<rows.rows.length; i++){
+          temp.push(rows.rows._array[i].date)
+          //console.log("sqlloggg",rows.rows._array[i])
+        }
+
+        console.log("cWOSSQL", temp)
+
+        return rows;
+      })
+    })
+
+  }
+
+
+
 
   render() {
     return (
@@ -78,3 +109,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+
+class routien{
+
+}
+
