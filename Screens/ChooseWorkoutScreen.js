@@ -23,25 +23,14 @@ export default class ChooseWorkoutScreen extends Component {
   //method returns a list of routines
   //has not been tested
   getRoutines(){
-    
     const db = SQLite.openDatabase("workoutAppDB.db");
 
     db.transaction(tx =>{
       tx.executeSql("select * from routines;",[],(_,rows) =>{
 
-        let temp = [];
-        console.log("cWOSSQL", rows.rows)
-        console.log("cWOSSQL", rows.rows.length)
+        console.log("sqllog_ChooseWorkoutScreen_routines", rows.rows)
 
-
-        for(i = 0; i<rows.rows.length; i++){
-          temp.push(rows.rows._array[i].date)
-          //console.log("sqlloggg",rows.rows._array[i])
-        }
-
-        console.log("cWOSSQL", temp)
-
-        return rows;
+        return rows.rows;
       })
     })
 
@@ -109,9 +98,3 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-
-
-class routien{
-
-}
-

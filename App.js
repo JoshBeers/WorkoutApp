@@ -4,6 +4,7 @@ import LoadingScreen from './Screens/LoadingScreen';
 import LoginScreen from './Screens/LoginScreen';
 import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
+import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
 import * as SQLite from 'expo-sqlite';
 
@@ -81,7 +82,7 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: CreateRoutineScreen,
   // Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
   // FitnessAnalytics: FitnessAnalyticsScreen,
