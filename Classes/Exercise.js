@@ -55,7 +55,7 @@ export function updateExcerciseInfo(routineID, numberOfReps, numberOfSets, weigh
         })
 }
 
-export function saveExerciseData(routineID, exerciseID, numberOfReps, numberOfSets, weight) {
+export function saveExerciseData(exerciseID, numberOfReps, numberOfSets, weight, workOutID) {
     const db = SQLite.openDatabase("workoutAppDB.db");
     db.transaction(tx =>{
         tx.executeSql("insert into CompletedExercises(exerciseId,numberOfReps,numberOfSets,workOutID) values(" +
@@ -63,7 +63,7 @@ export function saveExerciseData(routineID, exerciseID, numberOfReps, numberOfSe
         numberOfReps + "," +
         numberOfSets + "," +
         weight + "," +
-        routineID +
+        workOutID +
         ");",)
     })
 }
