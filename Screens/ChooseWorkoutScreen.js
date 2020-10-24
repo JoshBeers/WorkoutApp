@@ -33,11 +33,7 @@ export default class ChooseWorkoutScreen extends Component {
         return rows.rows;
       })
     })
-
   }
-
-
-
 
   render() {
     return (
