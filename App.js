@@ -45,19 +45,13 @@ function createTables() {
   });
 }
 
-
 /*
 these are the method calls being run
 
  */
 
-
-
 createTables();
 //createDummyData();
-
-
-
 
 function createDummyData() {
   db.transaction((tx) => {
@@ -91,10 +85,10 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen,
-  // Workout: WorkoutScreen,
+  // Home: HomeScreen,
+  // HomeScreenWorkout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
-  // FitnessAnalytics: FitnessAnalyticsScreen,
+  FitnessAnalytics: FitnessAnalyticsScreen,
 });
 
 const AuthStack = createStackNavigator({
@@ -114,5 +108,3 @@ export default createAppContainer(
     },
   ),
 );
-
-
