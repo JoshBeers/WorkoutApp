@@ -14,7 +14,7 @@ class SavedRoutinesScreen extends Component {
     db.transaction(tx =>{
       tx.executeSql("select * from routines;",[],(_,rows) =>{
 
-        console.log("sqllog_ChooseWorkoutScreen_routines", rows.rows)
+        console.log("sqllog_SavedRoutinesScreen_routines", rows.rows)
 
         return rows.rows;
       })

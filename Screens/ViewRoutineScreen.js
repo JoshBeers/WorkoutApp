@@ -10,7 +10,7 @@ class ViewRoutineScreen extends Component {
         const db = SQLite.openDatabase("workoutAppDB.db");
     
         db.transaction(tx =>{
-          tx.executeSql("select name from exercises where Id = exerciseId;",[],(_,rows) =>{
+          tx.executeSql("select name from exercises where Id = " + exerciseId + ";",[],(_,rows) =>{
     
             console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
     
@@ -24,7 +24,7 @@ class ViewRoutineScreen extends Component {
         const db = SQLite.openDatabase("workoutAppDB.db");
     
         db.transaction(tx =>{
-          tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = routine_Id;",[],(_,rows) =>{
+          tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";",[],(_,rows) =>{
     
             console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
     
@@ -32,6 +32,10 @@ class ViewRoutineScreen extends Component {
           })
         })
       }
+
+      
+
+
 
 
     render() {
