@@ -4,70 +4,13 @@ import LoadingScreen from './Screens/LoadingScreen';
 import LoginScreen from './Screens/LoginScreen';
 import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
+import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
 import * as SQLite from 'expo-sqlite';
-
-//Sqlite stuff
-
-const db = SQLite.openDatabase('workoutAppDB.db');
-
-function createTables() {
-  db.transaction((tx) => {
-    try {
-      tx.executeSql(
-        'CREATE table if not exists Workouts(ID integer primary key DESC, date date not null);',
-      );
-    } catch (error) {}
-
-    try {
-      tx.executeSql(
-        'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeights boolean not null, weight integer);',
-      );
-    } catch (error) {}
-
-    try {
-      tx.executeSql(
-        'create table if not exists CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
-      );
-    } catch (error) {}
-
-    try {
-      tx.executeSql(
-        'create table if not exists WorkoutRoutines(ID integer primary key DESC, name varchar(30) not null);',
-      );
-    } catch (error) {}
-
-    try {
-      tx.executeSql(
-        'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
-      );
-    } catch (error) {}
-  });
-}
-
-/*
-these are the method calls being run
-
- */
-
-createTables();
-//createDummyData();
-
-function createDummyData() {
-  db.transaction((tx) => {
-    tx.executeSql("insert into workouts(date) values('2020-01-15');");
-  });
-}
-
-function clearDB() {
-  db.transaction((tx) => {
-    tx.executeSql('Delete from Workouts');
-  });
-}
-
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
 import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
+import {createDummyData, createTables} from './StartUpSQL';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -85,10 +28,10 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  // Home: HomeScreen,
-  // HomeScreenWorkout: WorkoutScreen,
+  Home: HomeScreen,
+  // Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
-  FitnessAnalytics: FitnessAnalyticsScreen,
+  // FitnessAnalytics: FitnessAnalyticsScreen,
 });
 
 const AuthStack = createStackNavigator({
@@ -108,3 +51,8 @@ export default createAppContainer(
     },
   ),
 );
+
+//startup sql
+
+createTables();
+createDummyData();
