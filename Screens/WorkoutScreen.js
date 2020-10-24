@@ -27,7 +27,7 @@ class WorkoutScreen extends Component {
     db.transaction(tx =>{
       tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";",[],(_,rows) =>{
 
-        console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
+        console.log("sqllog_WorkoutScreen_exercises_info", rows.rows)
 
         return rows.rows;
       })

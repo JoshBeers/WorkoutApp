@@ -12,7 +12,7 @@ class ViewRoutineScreen extends Component {
         db.transaction(tx =>{
           tx.executeSql("select name from exercises where Id = " + exerciseId + ";",[],(_,rows) =>{
     
-            console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
+            console.log("sqllog_ViewRoutineScreen_exercises_name", rows.rows)
     
             return rows.rows;
           })
@@ -26,14 +26,14 @@ class ViewRoutineScreen extends Component {
         db.transaction(tx =>{
           tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";",[],(_,rows) =>{
     
-            console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
+            console.log("sqllog_ViewRoutineScreen_exercises_info", rows.rows)
     
             return rows.rows;
           })
         })
       }
 
-      
+
 
 
 

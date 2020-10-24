@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as SQLite from "expo-sqlite";
 
 export class ExerciseWithinRoutine{
@@ -39,3 +40,19 @@ export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
         })
     }
 }
+
+export function updateExcerciseName(exerciseName, exerciseID) {
+    const db = SQLite.openDatabase("workoutAppDB.db");
+    db.transaction(tx =>{
+        tx.executeSql("update Exercises set name = " + exerciseName + " where ID = " + exerciseID + ";",)
+        })
+}
+
+export function updateExcerciseInfo(routineID, numberOfReps, numberOfSets, weight, placeInOrder) {
+    const db = SQLite.openDatabase("workoutAppDB.db");
+    db.transaction(tx =>{
+        tx.executeSql("update ExercisesWithinRoutines set numberOFRep = " + numberOfReps + ", numberOfSets = " + numberOfSets + ", weight = " + weight + ", placeInOrder = " + placeInOrder + " where routineID = " + routineID + ";",)
+        })
+}
+
+
