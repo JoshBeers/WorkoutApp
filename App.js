@@ -10,7 +10,7 @@ import * as SQLite from 'expo-sqlite';
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
 import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
-import {createDummyData, createTables} from "./StartUpSQL";
+import {createDummyData, createTables} from './StartUpSQL';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -54,5 +54,5 @@ export default createAppContainer(
 
 //startup sql
 
-createTables()
-createDummyData()
+createTables();
+createDummyData();

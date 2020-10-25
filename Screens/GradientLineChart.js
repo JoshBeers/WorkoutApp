@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Defs, LinearGradient, Stop} from 'react-native-svg';
 import {Grid, LineChart} from 'react-native-svg-charts';
+import Colors from '../Themes/Colors';
 
 export default class GradientLineChart extends PureComponent {
   render() {
