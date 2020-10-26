@@ -1,28 +1,14 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Defs, LinearGradient, Stop} from 'react-native-svg';
-import {Grid, LineChart} from 'react-native-svg-charts';
+import {Grid, LineChart, XAxis} from 'react-native-svg-charts';
 import Colors from '../Themes/Colors';
 
 export default class GradientLineChart extends PureComponent {
   render() {
-    const data = [
-      50,
-      10,
-      40,
-      95,
-      -4,
-      -24,
-      85,
-      91,
-      35,
-      53,
-      -53,
-      24,
-      50,
-      -20,
-      -80,
-    ];
+    const data = [85, 50, 10, 40, 95, -4, -24];
+    const xAxis = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    const yAxis = [];
 
     const Gradient = () => (
       <Defs key={'gradient'}>
@@ -38,7 +24,7 @@ export default class GradientLineChart extends PureComponent {
         <LineChart
           style={{height: 200}}
           data={data}
-          contentInset={{top: 20, bottom: 20}}
+          contentInset={{top: 10, bottom: 10}}
           svg={{
             strokeWidth: 2,
             stroke: 'url(#gradient)',
@@ -46,6 +32,13 @@ export default class GradientLineChart extends PureComponent {
           <Grid />
           <Gradient />
         </LineChart>
+        <XAxis
+          data={data}
+          style={{marginHorizontal: -10}}
+          contentInset={{left: 10, right: 10}}
+          svg={{fontSize: 10, fill: 'white'}}
+          formatLabel={(value) => xAxis[value]}
+        />
       </View>
     );
   }
