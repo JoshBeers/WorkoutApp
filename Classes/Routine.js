@@ -1,4 +1,4 @@
-import {addExerciseToRoutine, ExerciseWithinRoutine} from "./Exercise";
+import {addExerciseToRoutine, ExerciseWithinRoutine, getExerciseFromRoutine} from "./Exercise";
 import * as SQLite from "expo-sqlite";
 
 export class Routine{
@@ -31,3 +31,17 @@ export function addNewRoutine(routine:Routine){
 
     routine.exercises.forEach( exercise => addExerciseToRoutine(routineId, exercise))
 }
+
+export function getSpecificRoutine(routineID){
+    const db = SQLite.openDatabase("workoutAppDB.db");
+    let tempRoutine = new Routine()
+    db.transaction(tx =>{
+        tx.executeSql("select * from routines where ID ="+ routineID +";",[],(_,rows) =>{
+            tempRoutine.name = rows.rows[0].name
+            tempRoutine.placeInOrder = rows.rows[0].placeInOrder
+        })
+    })
+    tempRoutine.exercises = getExerciseFromRoutine(routineID)
+    return tempRoutine
+}
+
