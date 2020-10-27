@@ -1,8 +1,8 @@
 import * as SQLite from "expo-sqlite";
 import {db} from "./App";
 
-
-export function createTables() {
+//const db = SQLite.openDatabase("workoutAppDB.db");
+export function createTables(callback) {
     db.transaction((tx) => {
         try {
             tx.executeSql(
@@ -33,6 +33,7 @@ export function createTables() {
                 'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
             );
         } catch (error) {}
+        callback()
     });
 }
 

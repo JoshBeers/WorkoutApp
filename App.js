@@ -6,6 +6,7 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
+
 import * as SQLite from 'expo-sqlite';
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
@@ -14,7 +15,7 @@ import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from "./test/SQLTesting";
 
 
-//var testing = false
+var testing = true
 
 
 export const db = SQLite.openDatabase("workoutAppDB.db");
@@ -62,11 +63,13 @@ export default createAppContainer(
 
 //startup sql
 
-createTables();
-//createDummyData();
+createTables(function(){
+    createDummyData();
+});
 
-/*
+
+
 if(testing){
     runSQLTest()
 }
- */
+

@@ -1,4 +1,4 @@
-/*
+
 
 import {getExerciseFromRoutine} from "../Classes/Exercise";
 
@@ -13,11 +13,11 @@ function testGetExercisesFromRoutine1(){
 
 
 export function runSQLTest(){
-    //testGetExercisesFromRoutine1()
+    testGetExercisesFromRoutine1()
 }
 
 
- */
+
 
 
 

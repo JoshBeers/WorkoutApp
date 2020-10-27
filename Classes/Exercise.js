@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import * as SQLite from "expo-sqlite";
+import {db} from "../App";
 
 
 /*
@@ -17,7 +18,7 @@ export class ExerciseWithinRoutine{
 
 
 export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
 
     if(exercise.weight == null) {
         db.transaction(tx => {
@@ -31,7 +32,7 @@ export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
 }
 
 export function updateExerciseWithinRoutineFromExerciseWithinRoutine(exercise: ExerciseWithinRoutine){
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     if(exercise.weight == null || exercise.weight == 0) {
         db.transaction(tx => {
             tx.executeSql("update ExercisesWithinRoutines set" +
@@ -44,7 +45,7 @@ export function updateExerciseWithinRoutineFromExerciseWithinRoutine(exercise: E
 }
 
 export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     db.transaction(tx => {
         tx.executeSql("Delete from ExercisesWithinRoutines where " +
             "exerciseID = "+exercise.exerciseID+"," +
@@ -52,9 +53,9 @@ export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
     })
 }
 
-/*
+
 export function getExerciseFromRoutine(routineID, callback):ExerciseWithinRoutine[]{
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     db.transaction(tx =>{
         tx.executeSql("select * from ExercisesWithinRoutines where routineId ="+ routineID +";",[],(_,rows) => {
             console.log("sqllog_method_getExerciseFromRoutine",rows.rows)
@@ -71,13 +72,15 @@ export function getExerciseFromRoutine(routineID, callback):ExerciseWithinRoutin
             callback(tempExercises)
             console.log("sqllog_method_getExerciseFromRoutine","finished")
 
+             */
+
 
             callback(null)
         })
     })
 }
 
- */
+
 
 
 
@@ -102,7 +105,7 @@ export class Exercise{
 
 
 export function updateExerciseFromExercise(exercise:Exercise){
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
 
     db.transaction(tx =>{
         tx.executeSql("update Exercises set " +
@@ -114,7 +117,7 @@ export function updateExerciseFromExercise(exercise:Exercise){
 }
 
 export function createNewExerciseFromExercise(exercise: Exercise){
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
 
     //'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
     db.transaction(tx => {
@@ -130,14 +133,14 @@ export function createNewExerciseFromExercise(exercise: Exercise){
 
 all of this can be done eaiser by one method
 export function updateExerciseName(exerciseName, exerciseID) {
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     db.transaction(tx =>{
         tx.executeSql("update Exercises set name = " + exerciseName + " where ID = " + exerciseID + ";",)
         })
 }
 
 export function updateExcerciseInfo(routineID, numberOfReps, numberOfSets, weight, placeInOrder) {
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     db.transaction(tx =>{
         tx.executeSql("update ExercisesWithinRoutines set numberOFRep = " + numberOfReps + ", numberOfSets = " + numberOfSets + ", weight = " + weight + ", placeInOrder = " + placeInOrder + " where routineID = " + routineID + ";",)
         })
@@ -163,7 +166,7 @@ export class CompleteExercise{
 }
 
 export function saveExerciseFromCompletedExercises(exercise:CompleteExercise) {
-    const db = SQLite.openDatabase("workoutAppDB.db");
+
     db.transaction(tx =>{
         tx.executeSql("insert into CompletedExercises(exerciseId,numberOfReps,numberOfSets,workOutID) values(" +
         exercise.ID + "," +
