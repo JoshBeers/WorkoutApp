@@ -101,7 +101,7 @@ three exercises
  */
 export function createExercisesDD(callback){
     db.transaction((tx) => {
-        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight) values(1,'push up','it is a push up',false);");
+        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight) values(1,'push up','it is a push up',false);",);
     });
     db.transaction((tx) => {
         tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight) values(2,'dead lift','is a deadlift',true);");

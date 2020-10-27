@@ -54,25 +54,21 @@ export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
 }
 
 
+//works
 export function getExerciseFromRoutine(routineID, callback){
 
     db.transaction(tx =>{
         tx.executeSql("select * from ExercisesWithinRoutines where routineId ="+ routineID +";",[],(_,rows) => {
-            console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
-            //callback(rows.rows)
-
+            //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
             let tempExercises = []
 
 
             for(let i = 0;i<rows.rows.length;i++){
-                tempExercises.push(new ExerciseWithinRoutine(rows.rows[i].exerciseID,rows.rows[i].routineId,rows.rows[i].numberOfReps, rows.rows[i].numberOfSets,rows.rows[i].weight, rows.rows[i].placeInOrder))
+                //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
+                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).exerciseID,rows.rows.item(i).routineId, rows.rows.item(i).placeInOrder))
             }
-
             tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
             callback(tempExercises)
-            console.log("sqllog_method_getExerciseFromRoutine_tempExercises",tempExercises)
-
-
         })
     })
 }
