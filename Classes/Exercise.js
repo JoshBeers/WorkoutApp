@@ -82,22 +82,33 @@ export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
     })
 }
 
-export function getExerciseFromRoutine(routineID){
-    let temp = []
+/*
+export function getExerciseFromRoutine(routineID, callback):ExerciseWithinRoutine[]{
     const db = SQLite.openDatabase("workoutAppDB.db");
     db.transaction(tx =>{
         tx.executeSql("select * from ExercisesWithinRoutines where routineId ="+ routineID +";",[],(_,rows) => {
-            temp = rows.rows
+            console.log("sqllog_method_getExerciseFromRoutine",rows.rows)
+            callback(rows.rows)
+            /*
+            let tempExercises = []
+
+
+            for(let i = 0;i<rows.rows.length;i++){
+                tempExercises.push(new ExerciseWithinRoutine(rows.rows[i].exerciseID,rows.rows[i].routineId,rows.rows[i].numberOfReps, rows.rows[i].numberOfSets,rows.rows[i].weight, rows.rows[i].placeInOrder))
+            }
+
+            tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
+            callback(tempExercises)
+            console.log("sqllog_method_getExerciseFromRoutine","finished")
+
+
+            callback(null)
         })
     })
-
-    let tempExercises = []
-    temp.forEach( entry =>{
-        tempExercises.push(new ExerciseWithinRoutine(entry.exerciseID,entry.routineId,entry.numberOfReps, entry.numberOfSets,entry.weight, entry.placeInOrder))
-    })
-    tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
-    return tempExercises
 }
+
+ */
+
 
 
 

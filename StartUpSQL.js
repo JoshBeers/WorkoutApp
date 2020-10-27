@@ -1,6 +1,6 @@
 import * as SQLite from "expo-sqlite";
+import {db} from "./App";
 
-const db = SQLite.openDatabase('workoutAppDB.db');
 
 export function createTables() {
     db.transaction((tx) => {

@@ -15,6 +15,7 @@ import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
 import * as SQLite from 'expo-sqlite';
 
+
 export default class HomeScreen extends React.Component {
   constructor() {
     super();
@@ -44,6 +45,7 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+
   signOutUser = () => {
     firebase.auth().signOut();
   };
@@ -61,16 +63,12 @@ export default class HomeScreen extends React.Component {
       tx.executeSql("select date from Workouts;",[],(_,rows) =>{
 
         let temp = [];
-        console.log("sqllog", rows.rows)
-        console.log("sqllogg", rows.rows.length)
 
 
         for(i = 0; i<rows.rows.length; i++){
           temp.push(rows.rows._array[i].date)
           //console.log("sqlloggg",rows.rows._array[i])
         }
-
-        console.log("sqllog", temp)
 
         return rows;
       })

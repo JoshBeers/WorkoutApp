@@ -11,11 +11,19 @@ import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
 import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
 import {createDummyData, createTables} from './StartUpSQL';
+import {runSQLTest} from "./test/SQLTesting";
+
+
+//var testing = false
+
+
+export const db = SQLite.openDatabase("workoutAppDB.db");
+
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
   authDomain: 'ggc-fitness-app.firebaseapp.com',
-  databaseURL: 'https://ggc-fitness-app.firebaseio.com',
+  databaseURL: 'https://ggc-fitness-p.firebaseio.com',
   projectId: 'ggc-fitness-app',
   storageBucket: 'ggc-fitness-app.appspot.com',
   messagingSenderId: '83945559531',
@@ -55,4 +63,10 @@ export default createAppContainer(
 //startup sql
 
 createTables();
-createDummyData();
+//createDummyData();
+
+/*
+if(testing){
+    runSQLTest()
+}
+ */

@@ -1,5 +1,6 @@
 import {addExerciseToRoutine, ExerciseWithinRoutine, getExerciseFromRoutine} from "./Exercise";
 import * as SQLite from "expo-sqlite";
+import {db} from "../App";
 
 export class Routine{
     constructor(name,placeInOrder,exercises:ExerciseWithinRoutine[]) {
@@ -11,13 +12,12 @@ export class Routine{
 
 export function addNewRoutine(routine:Routine){
     //adds routine
-    const db = SQLite.openDatabase("workoutAppDB.db");
     db.transaction(tx =>{
         tx.executeSql("insert into routines(name,placeOnList) values('"+routine.name+"',"+routine.placeInOrder+");",)
     })
 
     //gets the id of the last added routine
-    var routineId = null;
+    let routineId = null;
     db.transaction(tx =>{
         tx.executeSql("select MAX(ID) from routines;",[],(_,rows) =>{
             console.log("sqllog_routines", rows.rows)
@@ -33,7 +33,6 @@ export function addNewRoutine(routine:Routine){
 }
 
 export function getSpecificRoutine(routineID){
-    const db = SQLite.openDatabase("workoutAppDB.db");
     let tempRoutine = new Routine()
     db.transaction(tx =>{
         tx.executeSql("select * from routines where ID ="+ routineID +";",[],(_,rows) =>{
