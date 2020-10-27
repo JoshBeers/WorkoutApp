@@ -8,13 +8,10 @@ stuff for exerciuses that are wiuthin a routine
  */
 export class ExerciseWithinRoutine{
 
-    constructor(exerciseID, routineId, numberOfReps,numberOfSets, weight, placeInOrder) {
+    constructor(exerciseID, routineId, placeInOrder) {
         this.exerciseID = exerciseID
         this.routineId = routineId
-        this.numberOfReps = numberOfReps
-        this.numberOfSets = numberOfSets
         this.placeInOrder = placeInOrder
-        this.weight = weight
     }
 }
 
@@ -24,23 +21,10 @@ export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
 
     if(exercise.weight == null) {
         db.transaction(tx => {
-            tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,numberOFReps,numberOfSets,placeInOrder) values(" +
+            tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(" +
                 exercise.exerciseID + "," +
                 routineID + "," +
-                exercise.numberOfReps + "," +
-                exercise.numberOfSets + "," +
                 exercise.placeInOrder +
-                ");",)
-        })
-    }else{
-        db.transaction(tx => {
-            tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,numberOFReps,numberOfSets,placeInOrder, weight) values(" +
-                exercise.exerciseID + "," +
-                routineID + "," +
-                exercise.numberOfReps + "," +
-                exercise.numberOfSets + "," +
-                exercise.placeInOrder +"," +
-                exercise.weight +
                 ");",)
         })
     }
@@ -51,21 +35,7 @@ export function updateExerciseWithinRoutineFromExerciseWithinRoutine(exercise: E
     if(exercise.weight == null || exercise.weight == 0) {
         db.transaction(tx => {
             tx.executeSql("update ExercisesWithinRoutines set" +
-                " numberOfReps = "+exercise.numberOfReps + "," +
-                " numberOfSets = "+exercise.numberOfSets + "," +
                 " placeInOrder = "+exercise.placeInOrder + "," +
-                " weight = null"+
-                "where " +
-                "exerciseID = "+exercise.exerciseID+"," +
-                "routineId = "+exercise.routineId+";" )
-        })
-    }else{
-        db.transaction(tx => {
-            tx.executeSql("update ExercisesWithinRoutines set" +
-                " numberOfReps = "+exercise.numberOfReps + "," +
-                " numberOfSets = "+exercise.numberOfSets + "," +
-                " placeInOrder = "+exercise.placeInOrder + "," +
-                " weight = "+exercise.weight +
                 "where " +
                 "exerciseID = "+exercise.exerciseID+"," +
                 "routineId = "+exercise.routineId+";" )

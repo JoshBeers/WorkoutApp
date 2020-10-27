@@ -30,7 +30,7 @@ export function createTables() {
 
         try {
             tx.executeSql(
-                'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, numberOFReps int not null, numberOfSets int not Null,weight integer, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
+                'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
             );
         } catch (error) {}
     });
@@ -113,19 +113,19 @@ export function createRoutinesDD(){
 
 /*
 3
-1. exerciseID = 1, routineID =1  numberOFReps = 3, numberOfSets = 2, weight = null, placeInOrder =1
-2. exerciseID = 2, routineID =1  numberOFReps = 5, numberOfSets = 3, weight = 5, placeInOrder =2
-2. exerciseID = 3, routineID =1  numberOFReps = 10, numberOfSets = 1, weight = null, placeInOrder =3
+1. exerciseID = 1, routineID =1  placeInOrder =1
+2. exerciseID = 2, routineID =1  placeInOrder =2
+2. exerciseID = 3, routineID =1   placeInOrder =3
  */
 export function createExercisesWithinRoutineDD(){
     db.transaction((tx) => {
-        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,numberOFReps,numberOfSets,placeInOrder) values(1,1,3,2,1);");
+        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(1,1,1);");
     });
     db.transaction((tx) => {
-        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,numberOFReps,numberOfSets,weight,placeInOrder) values(2,1,5,3,5,2);");
+        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);");
     });
     db.transaction((tx) => {
-        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,numberOFReps,numberOfSets,placeInOrder) values(3,1,10,1,3);");
+        tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(3,1,3);");
     });
     console.log("sqllog", "ExercisesWithinRoutine created")
 }
