@@ -64,12 +64,14 @@ export default createAppContainer(
 //startup sql
 
 createTables(function(){
-    createDummyData();
+    createDummyData(function(){
+        if(testing){
+            runSQLTest()
+        }
+    });
 });
+db.close()
 
 
 
-if(testing){
-    runSQLTest()
-}
 
