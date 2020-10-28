@@ -3,7 +3,8 @@ import * as SQLite from "expo-sqlite";
 import {db} from "../App";
 
 export class Routine{
-    constructor(name,placeInOrder,exercises:ExerciseWithinRoutine[]) {
+    constructor(id, name,placeInOrder,exercises:ExerciseWithinRoutine[]) {
+        this.id = id
         this.name= name
         this.placeInOrder =placeInOrder
         this.exercises = exercises

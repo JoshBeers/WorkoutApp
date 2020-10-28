@@ -1,0 +1,51 @@
+[
+  {
+    "id": 0,
+    "name": "My Basic Circuit",
+    "placeInOrder": 2,
+    "exercises": [
+      {
+        "exerciseID": 1,
+        "routineID": 0,
+        "placeInOrder": 1
+      },
+      {
+        "exerciseID": 2,
+        "routineID": 0,
+        "placeInOrder": 2
+      },
+      {
+        "exerciseID": 5,
+        "routineID": 0,
+        "placeInOrder": 3
+      },
+      {
+        "exerciseID": 3,
+        "routineID": 0,
+        "placeInOrder": 4
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Weights and More Weights",
+    "placeInOrder": 1,
+    "exercises": [
+      {
+        "exerciseID": 6,
+        "routineID": 0,
+        "placeInOrder": 1
+      },
+      {
+        "exerciseID": 7,
+        "routineID": 0,
+        "placeInOrder": 2
+      },
+      {
+        "exerciseID": 8,
+        "routineID": 0,
+        "placeInOrder": 3
+      }
+    ]
+  }
+]
