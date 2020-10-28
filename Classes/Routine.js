@@ -2,6 +2,7 @@ import {addExerciseToRoutine, ExerciseWithinRoutine, getExerciseFromRoutine} fro
 import * as SQLite from "expo-sqlite";
 import {db} from "../App";
 
+
 export class Routine{
     constructor(id, name,placeInOrder,exercises:ExerciseWithinRoutine[]) {
         this.id = id
