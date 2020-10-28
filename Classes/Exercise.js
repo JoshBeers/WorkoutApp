@@ -68,7 +68,9 @@ export function getExerciseFromRoutine(routineID, callback){
                 tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).exerciseID,rows.rows.item(i).routineId, rows.rows.item(i).placeInOrder))
             }
             tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
-            callback(tempExercises)
+            if(callback != null){
+                callback(tempExercises)
+            }
         })
     })
 }
@@ -141,6 +143,17 @@ export function getAllExercises(callback) {
             }
         })
 
+    })
+}
+
+export function deleteExerciseById(id, callback){
+    db.transaction(tx => {
+        tx.executeSql("delete from Exercises where ID = "+id+";", [], () => {
+            //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
+            if(callback != null){
+                callback()
+            }
+        })
     })
 }
 

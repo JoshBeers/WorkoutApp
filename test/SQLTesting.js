@@ -1,6 +1,12 @@
 
 
-import {createNewExerciseFromExercise, Exercise, getAllExercises, getExerciseFromRoutine} from "../Classes/Exercise";
+import {
+    createNewExerciseFromExercise,
+    deleteExerciseById,
+    Exercise,
+    getAllExercises,
+    getExerciseFromRoutine
+} from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
 
 function testGetExercisesFromRoutine1(callback){
@@ -55,11 +61,60 @@ function testCreateNewExerciseFromExercise(callback){
 }
 
 
+function testDeleteExerciseById(callback){
+    console.log("sqllog_test_DeleteExerciseById","the testDeleteExerciseById test has begun")
+    let temp = null
+
+    getAllExercises(function (result){
+        temp = result.length
+        deleteExerciseById(result.length-1,function (){
+
+            getAllExercises(function (result){
+
+                if(result.length == temp-1){
+                    console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method passed")
+                }else{
+                    console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method failed length init = "+temp+" after call = "+ result.length+" should be one less than init")
+                }
+            })
+        })
+    })
+
+
+    /*
+    deleteExerciseById(getAllExercises(function (result){
+        temp = result.length
+        return result.length-1
+    }), function (){
+
+        getAllExercises(function (result){
+
+            if(result.length-1 == temp){
+                console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method passed")
+            }else{
+                console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method failed length init = "+temp+" after call = "+ result.length+" should be one less than init")
+            }
+
+
+            if(callback != null){
+                callback()
+            }
+
+        })
+
+     */
+
+
+}
+
+
 export function runSQLTest(){
     createDummyData(function (){
         testGetExercisesFromRoutine1(function () {
             testGetAllExercises(function (){
-                testCreateNewExerciseFromExercise()
+                testCreateNewExerciseFromExercise( function (){
+                    testDeleteExerciseById()
+                })
             })
         })
     })
