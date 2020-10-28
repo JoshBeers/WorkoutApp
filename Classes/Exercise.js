@@ -109,18 +109,42 @@ export function updateExerciseFromExercise(exercise:Exercise){
     })
 }
 
-export function createNewExerciseFromExercise(exercise: Exercise){
-
-
+export function createNewExerciseFromExercise(exercise: Exercise, callback){
     //'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
     db.transaction(tx => {
-        tx.executeSql("insert into Exercises(name,description,doesUseWeight) values(" +
-            exercise.name + "," +
-            exercise.description + "," +
-            exercise.description +"," +
+        tx.executeSql("insert into Exercises(name,description,doesUseWeight) values('" +
+            exercise.name + "','" +
+            exercise.description + "'," +
+            exercise.doesUseWeight +
             ");",)
+        if(callback != null){
+            callback()
+        }
     })
 }
+
+export function getAllExercises(callback) {
+
+    db.transaction(tx => {
+        tx.executeSql("select * from Exercises;", [], (_, rows) => {
+            //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
+            let tempExercises = []
+
+
+            for (let i = 0; i < rows.rows.length; i++) {
+                //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
+                tempExercises.push(new Exercise(rows.rows.item(i).ID, rows.rows.item(i).name, rows.rows.item(i).description, rows.rows.item(i).doesUseWeight))
+            }
+            tempExercises.sort(((a: ExerciseWithinRoutine, b: ExerciseWithinRoutine) => a.placeInOrder - b.placeInOrder))
+            if(callback != null){
+                callback(tempExercises)
+            }
+        })
+
+    })
+}
+
+
 
 /*
 

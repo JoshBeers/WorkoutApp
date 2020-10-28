@@ -6,25 +6,25 @@ export function createTables(callback) {
     db.transaction((tx) => {
         try {
             tx.executeSql(
-                'CREATE table if not exists Workouts(ID integer primary key DESC, date date not null);',
+                'CREATE table if not exists Workouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, date date not null);',
             );
         } catch (error) {}
 
         try {
             tx.executeSql(
-                'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
+                'Create table if not exists Exercises(ID integer primary key AUTOINCREMENT, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
             );
         } catch (error) {}
 
         try {
             tx.executeSql(
-                'create table if not exists CompletedExercises(ID integer primary key DESC, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,weight integer, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
+                'create table if not exists CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,weight integer, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
             );
         } catch (error) {}
 
         try {
             tx.executeSql(
-                'create table if not exists routines(ID integer primary key DESC, name varchar(30) not null,placeOnList integer);',
+                'create table if not exists routines(ID integer primary key AUTOINCREMENT, name varchar(30) not null,placeOnList integer);',
             );
         } catch (error) {}
 
@@ -46,9 +46,10 @@ export function createDummyData(callback) {
                 creatCompletedExercisesDData(function (){
                     createRoutinesDD(function (){
                         createExercisesWithinRoutineDD(function (){
-                            logDataBase(function (){
+
+                            //logDataBase(function (){
                                 callback()
-                            })
+                            //})
                         })
                     })
                 })
@@ -151,6 +152,18 @@ export function createExercisesWithinRoutineDD(callback){
 export function clearDB(callback) {
     db.transaction((tx) => {
         tx.executeSql('Delete from Workouts');
+    });
+    db.transaction((tx) => {
+        tx.executeSql('Delete from Exercises');
+    });
+    db.transaction((tx) => {
+        tx.executeSql('Delete from CompletedExercises');
+    });
+    db.transaction((tx) => {
+        tx.executeSql('Delete from routines');
+    });
+    db.transaction((tx) => {
+        tx.executeSql('Delete from ExercisesWithinRoutines');
     });
     console.log("sqllog", "db cleared")
     callback()
