@@ -44,3 +44,24 @@ export function getSpecificRoutine(routineID){
     return tempRoutine
 }
 
+export function getAllRoutinesWithOutExercises(callback){
+    db.transaction(tx =>{
+        tx.executeSql("select * from routines;",[],(_,rows) =>{
+            let tempRoutines = []
+
+
+            for(let i = 0;i<rows.rows.length;i++){
+                //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
+                tempRoutines.push(new Routine(rows.rows.item(i).name,rows.rows.item(i).placeInOrder, []))
+            }
+           // tempRoutines.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
+            if(callback != null){
+                callback(tempRoutines)
+            }
+
+        })
+    })
+
+
+}
+

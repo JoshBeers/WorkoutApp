@@ -18,9 +18,6 @@ export class ExerciseWithinRoutine{
 
 
 export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
-
-
-    if(exercise.weight == null) {
         db.transaction(tx => {
             tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(" +
                 exercise.exerciseID + "," +
@@ -28,12 +25,9 @@ export function addExerciseToRoutine(routineID,exercise:ExerciseWithinRoutine){
                 exercise.placeInOrder +
                 ");",)
         })
-    }
 }
 
 export function updateExerciseWithinRoutineFromExerciseWithinRoutine(exercise: ExerciseWithinRoutine){
-
-    if(exercise.weight == null || exercise.weight == 0) {
         db.transaction(tx => {
             tx.executeSql("update ExercisesWithinRoutines set" +
                 " placeInOrder = "+exercise.placeInOrder + "," +
@@ -41,7 +35,6 @@ export function updateExerciseWithinRoutineFromExerciseWithinRoutine(exercise: E
                 "exerciseID = "+exercise.exerciseID+"," +
                 "routineId = "+exercise.routineId+";" )
         })
-    }
 }
 
 export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
