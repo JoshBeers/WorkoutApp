@@ -5,7 +5,7 @@ import {Card} from 'react-native-elements';
 import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {Exercise} from "../Classes/Exercise";
-import {dumDumExercise} from "../DummyData/DummyParse";
+
 
 let exercises = [];
 
@@ -20,9 +20,7 @@ class WorkoutScreen extends Component {
   }
 
   componentDidMount() {
-    for(let i = 0; i < this.state.exercisesWithin.length; i++){
-      exercises.push(dumDumExercise.get(this.state.exercisesWithin[i].exerciseID));
-    }
+
   }
 
   getExerciseName(exerciseId){

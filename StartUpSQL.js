@@ -132,7 +132,7 @@ export function createRoutinesDD(callback){
 3
 1. exerciseID = 1, routineID =1  placeInOrder =1
 2. exerciseID = 2, routineID =1  placeInOrder =2
-2. exerciseID = 3, routineID =1   placeInOrder =3
+3. exerciseID = 3, routineID =1   placeInOrder =3
  */
 export function createExercisesWithinRoutineDD(callback){
     db.transaction((tx) => {
@@ -144,6 +144,7 @@ export function createExercisesWithinRoutineDD(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(3,1,3);");
     });
+
     console.log("sqllog", "ExercisesWithinRoutine created")
     callback()
 }
@@ -162,9 +163,14 @@ export function clearDB(callback) {
     db.transaction((tx) => {
         tx.executeSql('Delete from routines');
     });
+
     db.transaction((tx) => {
         tx.executeSql('Delete from ExercisesWithinRoutines');
     });
+
+
+
+
     console.log("sqllog", "db cleared")
     callback()
 }
