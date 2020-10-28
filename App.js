@@ -15,7 +15,7 @@ import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from "./test/SQLTesting";
 
 
-var testing = true;
+var testing = false;
 
 
 export const db = SQLite.openDatabase("workoutAppDB.db");
@@ -37,8 +37,8 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  Home: HomeScreen,
-  // Workout: WorkoutScreen,
+  // Home: HomeScreen,
+  Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
   // FitnessAnalytics: FitnessAnalyticsScreen,
 });

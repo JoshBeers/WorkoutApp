@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
@@ -7,4 +8,14 @@
   "packagerNgrokUrl": "https://packager.2b-tih.joshbeers.workoutapp.exp.direct",
   "ngrokPid": 18180,
   "webpackServerPort": 19006
+=======
+  "devToolsPort": 19003,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
+>>>>>>> workout
 }
