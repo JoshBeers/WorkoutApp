@@ -20,7 +20,6 @@ var testing = true;
 
 export const db = SQLite.openDatabase("workoutAppDB.db");
 
-
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
   authDomain: 'ggc-fitness-app.firebaseapp.com',

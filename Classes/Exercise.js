@@ -16,7 +16,7 @@ export class ExerciseWithinRoutine{
     }
 }
 
-
+//tested
 export function addExerciseToRoutine(routineID,exercise, callback){
         db.transaction(tx => {
 
@@ -33,17 +33,22 @@ export function addExerciseToRoutine(routineID,exercise, callback){
         })
 }
 
-export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine){
+//tested
+export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine, callback){
 
     db.transaction(tx => {
         tx.executeSql("Delete from ExercisesWithinRoutines where " +
-            "exerciseID = "+exercise.exerciseID+"," +
+            "exerciseID = "+exercise.exerciseID+" and " +
             "routineId = "+exercise.routineId+";")
+        if (callback != null) {
+            callback()
+        }
     })
+
 }
 
 
-//works
+//tested
 export function getExerciseFromRoutine(routineID, callback){
 
     db.transaction(tx =>{
@@ -109,17 +114,16 @@ export class Exercise{
 
 
 export function updateExerciseFromExercise(exercise:Exercise){
-
-
     db.transaction(tx =>{
         tx.executeSql("update Exercises set " +
             "name = '" + exercise.name + "'," +
             "description = '" + exercise.description +"', " +
-            "doseUseWeight = '" + exercise.description +"'" +
+            "doseUseWeight = '" + exercise.doesUseWeight +"'" +
             "where ID = " + exercise.exerciseID + ";",)
     })
 }
 
+//tested
 export function createNewExerciseFromExercise(exercise: Exercise, callback){
     //'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
     db.transaction(tx => {
@@ -134,6 +138,7 @@ export function createNewExerciseFromExercise(exercise: Exercise, callback){
     })
 }
 
+//tested
 export function getAllExercises(callback) {
 
     db.transaction(tx => {
@@ -155,6 +160,7 @@ export function getAllExercises(callback) {
     })
 }
 
+//tested
 export function deleteExerciseById(id, callback){
     db.transaction(tx => {
         tx.executeSql("delete from Exercises where ID = "+id+";", [], () => {
