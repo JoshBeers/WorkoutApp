@@ -211,20 +211,7 @@ export class CompleteExercise{
 
 export function getAllCompleteExerciseBySpecificExerciseID(exerciseID, callback){
 
-    tx.executeSql("select * from CompletedExercises where exerciseID = ?;", [exerciseID], (_, rows) => {
-        //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
-        let tempExercises = []
 
-        for (let i = 0; i < rows.rows.length; i++) {
-            //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-            tempExercises.push(new CompleteExercise(rows.rows.item(i).ID, rows.rows.item(i).exerciseId, rows.rows.item(i).workOutID, rows.rows.item(i).numberOfReps,rows.rows.item(i).averageWeight, null ))
-        }
-
-        tempExercises.sort(((a: ExerciseWithinRoutine, b: ExerciseWithinRoutine) => a.placeInOrder - b.placeInOrder))
-        if(callback != null){
-            callback(tempExercises)
-        }
-    })
 
 
 

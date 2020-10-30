@@ -15,7 +15,7 @@ import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from "./test/SQLTesting";
 
 
-var testing = false;
+var testing = true;
 
 
 export const db = SQLite.openDatabase("workoutAppDB.db");
