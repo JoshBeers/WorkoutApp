@@ -21,19 +21,47 @@ all of the test for routines
 
 function testAddNewRoutine(callback){
     console.log("sqllog_test_AddNewRoutine","the test has begun")
-    let tE = [new ExerciseWithinRoutine(1,1,1),new ExerciseWithinRoutine(2,1,2)]
+    let tE = [new ExerciseWithinRoutine(1,1,1,1),new ExerciseWithinRoutine(2,1,2,5)]
     let tR =new Routine(null,'test adding new routine',4,tE)
-    addNewRoutine(tR,function (){
-        getAllRoutinesWithOutExercises(function (result){
-            console.log("sqllog_test_AddNewRoutine_result",result)
-            getAllExercisesWithinRoutines( function (result2){
-                console.log("sqllog_test_AddNewRoutine_result",result2)
-                if(callback != null){
-                    callback()
-                }
+
+    getAllRoutinesWithOutExercises(function (result){
+        let originalRoutineList = result
+        getAllExercisesWithinRoutines(function (re){
+            let originalExercises = re
+            addNewRoutine(tR,function (){
+                getAllRoutinesWithOutExercises(function (result){
+                    let testRoutines = result
+                    //console.log("sqllog_test_AddNewRoutine_result",result)
+                    getAllExercisesWithinRoutines( function (finalExercises){
+                        //console.log("sqllog_test_AddNewRoutine_result",result2)
+
+                        if(originalRoutineList.length+1 == testRoutines.length){
+                            colorTrace("sqllog_test_AddNewRoutine_result adding new routine routine list length test passed",'green')
+                        }else{
+                            colorTrace("sqllog_test_AddNewRoutine_result adding new routine routine list length test failed length expected = "+originalRoutineList.length +"result = "+testRoutines.length,'red')
+                        }
+
+                        if(originalExercises.length+2 == finalExercises.length){
+                            colorTrace("sqllog_test_AddNewRoutine_result adding new routine exercise list length test passed",'green')
+                        }else{
+                            colorTrace("sqllog_test_AddNewRoutine_result adding new routine exercise list length test faied length expected = "+originalExercises.length+2 +"result = "+finalExercises.length,'red')
+                        }
+
+
+
+
+
+
+                            if(callback != null){
+                                callback()
+                            }
+                    })
+                })
             })
+
         })
     })
+
 }
 
 
@@ -289,7 +317,6 @@ function routineTests(callback){
                             callback()
                          })
                     })
-
                 })
             })
         })
