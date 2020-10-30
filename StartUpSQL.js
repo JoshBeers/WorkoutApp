@@ -142,9 +142,9 @@ export function createRoutinesDD(callback){
 
 /*
 3
-1. exerciseID = 1, routineID =1  placeInOrder =1
-2. exerciseID = 2, routineID =1  placeInOrder =2
-3. exerciseID = 3, routineID =1   placeInOrder =3
+1. id= 1,exerciseID = 1, routineID =1  placeInOrder =1
+2. id = 2, exerciseID = 2, routineID =1  placeInOrder =2
+3. id = 3,exerciseID = 3, routineID =1   placeInOrder =3
  */
 export function createExercisesWithinRoutineDD(callback){
     db.transaction((tx) => {

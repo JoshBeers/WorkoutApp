@@ -39,7 +39,7 @@ function testAddNewRoutine(callback){
 
 
 function testGetAllRoutinesWithOutExercises(callback){
-    //console.log("sqllog_test_GetAllRoutinesWithOutExercises","the test has begun")
+    console.log("sqllog_test_GetAllRoutinesWithOutExercises","the test has begun")
     getAllRoutinesWithOutExercises(function(result){
         //console.log("sqllog_test_GetAllRoutinesWithOutExercises_result", result)
 
@@ -59,7 +59,7 @@ function testGetAllRoutinesWithOutExercises(callback){
 
 
 function testGetExercisesFromRoutine1(callback){
-    //console.log("sqllog_test_gettingExercisesFromRoutine1","the test has begun")
+    console.log("sqllog_test_gettingExercisesFromRoutine1","the test has begun")
     getExerciseFromRoutine(1, function(result) {
         //console.log("test_gettingExercisesFromRoutine1_result",result)
 
@@ -75,14 +75,12 @@ function testGetExercisesFromRoutine1(callback){
 }
 
 function testAddExerciseToRoutine(callback){
-    //console.log("sqllog_test_AddExerciseToRoutine","the test has begun")
+    console.log("sqllog_test_AddExerciseToRoutine","the test has begun")
     let data = new ExerciseWithinRoutine(1,4,1,5)
         addExerciseToRoutine(1,data, function(){
          //   console.log("sqllog_test_AddExerciseToRoutine","add exercise")
             getAllExercisesWithinRoutines(function (result){
                 //console.log("sqllog_test_AddExerciseToRoutine_ressult",result)
-
-
                 if(result.length == 4){
                     colorTrace("sqllog_test_AddExerciseToRoutine_ressult testAddExerciseToRoutine method passed",'green')
                 }else{
@@ -126,7 +124,7 @@ function testAddMultipleExercisesToRoutine(callback){
 
 
 function testDeleteExerciseFromRoutine(callback){
-    //console.log("sqllog_test_DeleteExerciseFromRoutine","the test has begun")
+    console.log("sqllog_test_DeleteExerciseFromRoutine","the test has begun")
     getAllExercisesWithinRoutines(function (result){
         let temp = result.length
         //console.log("sqllog_test_DeleteExerciseFromRoutine_result",result)
@@ -155,7 +153,7 @@ all the test for exercises
  */
 
 function testGetAllExercises(callback){
-    //console.log("sqllog_test_GetAllExercises","the testGetAllExercises test has begun")
+    console.log("sqllog_test_GetAllExercises","the testGetAllExercises test has begun")
     getAllExercises(function (result){
         //console.log("sqllog_test_testGetAllExercises_results",result)
 
@@ -171,7 +169,7 @@ function testGetAllExercises(callback){
 }
 
 function testCreateNewExerciseFromExercise(callback){
-    //console.log("sqllog_test_CreateNewExerciseFromExercise","the testGetAllExercises test has begun")
+    console.log("sqllog_test_CreateNewExerciseFromExercise","the testGetAllExercises test has begun")
     createNewExerciseFromExercise(new Exercise(1,"test exercise","this is a test val", false), function (){
         getAllExercises(function (result){
             //console.log("sqllog_test_CreateNewExerciseFromExercise_results",result[result.length-1])
@@ -191,7 +189,7 @@ function testCreateNewExerciseFromExercise(callback){
 
 
 function testDeleteExerciseById(callback){
-   ///console.log("sqllog_test_DeleteExerciseById","the testDeleteExerciseById test has begun")
+   console.log("sqllog_test_DeleteExerciseById","the testDeleteExerciseById test has begun")
     let temp = null
 
     getAllExercises(function (result){
@@ -222,7 +220,7 @@ completed workout test
  */
 
 function testGetListOfWorkoutsWithoutExercises(callback){
-    //console.log("sqllog_test_GetListOfWorkoutsWithoutExercises","the testGetListOfWorkoutsWithoutExercises test has begun")
+    console.log("sqllog_test_GetListOfWorkoutsWithoutExercises","the testGetListOfWorkoutsWithoutExercises test has begun")
     getMapOfCompleteWorkoutIDsToDates(function (result ){
         //console.log("sqllog_test_GetListOfWorkoutsWithoutExercises_result",result)
 
@@ -244,7 +242,7 @@ complete exercise test
  */
 
 function testGetAllCompleteExerciseBySpecificExerciseID(callback){
-    //console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID","the testGetAllCompleteExerciseBySpecificExerciseID test has begun")
+    console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID","the testGetAllCompleteExerciseBySpecificExerciseID test has begun")
 
     getAllCompleteExerciseBySpecificExerciseID(1 , function (result) {
         //console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result",result)
@@ -265,6 +263,9 @@ function testGetAllCompleteExerciseBySpecificExerciseID(callback){
 
 
 //actuall testing
+/*
+test 1-3
+ */
 
 function exerciseTests(callback){
     testGetAllExercises(function (){
@@ -283,7 +284,7 @@ function routineTests(callback){
                 testDeleteExerciseFromRoutine(function (){
                     testAddMultipleExercisesToRoutine(function (){
                         // testAddNewRoutine(function (){
-                        callback()
+                        //callback()
                         // })
                     })
 
