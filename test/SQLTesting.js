@@ -1,6 +1,7 @@
 
 
 import {
+    addExercisesToRoutine,
     addExerciseToRoutine,
     createNewExerciseFromExercise,
     deleteExerciseById, deleteExerciseFromRoutine,
@@ -9,7 +10,7 @@ import {
     getExerciseFromRoutine
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
-import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
+import {addNewRoutine, getAllRoutinesWithOutExercises, Routine} from "../Classes/Routine";
 import {
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
@@ -18,6 +19,23 @@ import {
 all of the test for routines
 
  */
+
+function testAddNewRoutine(callback){
+    console.log("sqllog_test_AddNewRoutine","the test has begun")
+    let tE = [new ExerciseWithinRoutine(1,1,1),new ExerciseWithinRoutine(2,1,2)]
+    let tR =new Routine(null,'test adding new routine',4,tE)
+    addNewRoutine(tR,function (){
+        getAllRoutinesWithOutExercises(function (result){
+            console.log("sqllog_test_AddNewRoutine_result",result)
+            getAllExercisesWithinRoutines( function (result2){
+                console.log("sqllog_test_AddNewRoutine_result",result2)
+                if(callback != null){
+                    callback()
+                }
+            })
+        })
+    })
+}
 
 
 function testGetAllRoutinesWithOutExercises(callback){
@@ -58,7 +76,7 @@ function testGetExercisesFromRoutine1(callback){
 
 function testAddExerciseToRoutine(callback){
     //console.log("sqllog_test_AddExerciseToRoutine","the test has begun")
-    let data = new ExerciseWithinRoutine(4,1,5)
+    let data = new ExerciseWithinRoutine(1,4,1,5)
         addExerciseToRoutine(1,data, function(){
          //   console.log("sqllog_test_AddExerciseToRoutine","add exercise")
             getAllExercisesWithinRoutines(function (result){
@@ -72,14 +90,39 @@ function testAddExerciseToRoutine(callback){
                 }
 
 
-
-
                 if(callback != null){
                     callback()
                 }
             })
         })
 }
+
+function testAddMultipleExercisesToRoutine(callback){
+    console.log("sqllog_test_AddMultipleExercisesToRoutine","the test has begun")
+    let data = [new ExerciseWithinRoutine(1,4,2,5),new ExerciseWithinRoutine(1,1,2,5)]
+    addExercisesToRoutine(2,data, function(){
+        //   console.log("sqllog_test_AddMultipleExercisesToRoutine","add exercise")
+        getAllExercisesWithinRoutines(function (result){
+            console.log("sqllog_test_AddMultipleExercisesToRoutine_ressult",result)
+
+
+            if(result.length == 4){
+                colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method passed",'green')
+            }else{
+                colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method failed the new data doesnt match the added data",'red')
+            }
+
+
+            if(callback != null){
+                callback()
+            }
+        })
+    })
+
+
+
+}
+
 
 
 function testDeleteExerciseFromRoutine(callback){
@@ -104,29 +147,6 @@ function testDeleteExerciseFromRoutine(callback){
         })
     })
 }
-
-
-
-/*
-function testCreateNewExerciseFromExercise(callback){
-    //console.log("sqllog_test_CreateNewExerciseFromExercise","the testGetAllExercises test has begun")
-    createNewExerciseFromExercise(new Exercise(1,"test exercise","this is a test val", false), function (){
-        getAllExercises(function (result){
-            console.log("sqllog_test_CreateNewExerciseFromExercise_results",result[result.length-1])
-
-            if(result[result.length-1].name = "test exercise"){
-                console.log("sqllog_test_CreateNewExerciseFromExercise_results","CreateNewExerciseFromExercise method passed")
-            }else{
-                console.log("sqllog_test_CreateNewExerciseFromExercise_results","CreateNewExerciseFromExercise method failed resulting array this should match the dummy data array that is 3 long = "+result.length)
-            }
-
-            if(callback != null){
-                callback()
-            }
-        })
-    })
-}
- */
 
 
 /*
@@ -250,7 +270,7 @@ function exerciseTests(callback){
     testGetAllExercises(function (){
         testCreateNewExerciseFromExercise( function (){
             testDeleteExerciseById(function (){
-                callback()
+                    callback()
             })
         })
     })
@@ -260,7 +280,14 @@ function routineTests(callback){
     testGetAllRoutinesWithOutExercises(function(){
         testGetExercisesFromRoutine1(function () {
             testAddExerciseToRoutine(function (){
-                testDeleteExerciseFromRoutine(callback)
+                testDeleteExerciseFromRoutine(function (){
+                    testAddMultipleExercisesToRoutine(function (){
+                        // testAddNewRoutine(function (){
+                        callback()
+                        // })
+                    })
+
+                })
             })
         })
     })

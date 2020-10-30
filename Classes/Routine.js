@@ -1,6 +1,7 @@
 import {addExerciseToRoutine, ExerciseWithinRoutine, getExerciseFromRoutine} from "./Exercise";
 import * as SQLite from "expo-sqlite";
 import {db} from "../App";
+import {call} from "react-native-reanimated";
 
 
 export class Routine{
@@ -17,27 +18,20 @@ export function addNewRoutine(routine:Routine,callback){
     db.transaction(tx =>{
         tx.executeSql("insert into routines(name,placeOnList) values('"+routine.name+"',"+routine.placeInOrder+");",[],function(){
 
-            //gets the id of the last added routine
-            let routineId = null;
             db.transaction(tx =>{
-                tx.executeSql("select MAX(ID) from routines;",[],(_,rows) =>{
-                    console.log("sqllog_routines", rows.rows)
-                    routineId = rows.rows[0]
+                tx.executeSql("select Max(ID) from routines;",[],(_,rows)=>{
+
+                    addMultiple(rows.rows.item(0).ID,routine.exercises,0, callback)
                 })
             })
-
-            if(routineId==null){
-                throw  new Error("no routines in db")
-            }
-
-            routine.exercises.forEach( exercise => addExerciseToRoutine(routineId, exercise))
-
-
         })
     })
-
-
 }
+
+
+
+
+
 
 export function getSpecificRoutine(routineID){
     let tempRoutine = new Routine()

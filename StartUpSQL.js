@@ -30,7 +30,7 @@ export function createTables(callback) {
 
         try {
             tx.executeSql(
-                'create table if not exists ExercisesWithinRoutines(exerciseID int not null, routineID int not null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID), Primary key(exerciseId,routineID));',
+                'create table if not exists ExercisesWithinRoutines(ID integer primary key AUTOINCREMENT,exerciseID int not null, routineID int not null, placeInOrder int not null, FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(routineID) REFERENCES WorkoutRoutines(ID));',
             );
         } catch (error) {}
         callback()

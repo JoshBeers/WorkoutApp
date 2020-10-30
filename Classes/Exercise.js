@@ -9,8 +9,8 @@ stuff for exerciuses that are wiuthin a routine
 
  */
 export class ExerciseWithinRoutine{
-
-    constructor(exerciseID, routineId, placeInOrder) {
+    constructor(ID,exerciseID, routineId, placeInOrder) {
+        this.ID = ID
         this.exerciseID = exerciseID
         this.routineId = routineId
         this.placeInOrder = placeInOrder
@@ -19,6 +19,7 @@ export class ExerciseWithinRoutine{
 
 //tested
 export function addExerciseToRoutine(routineID,exercise, callback){
+    //console.log("sqllog_method_addExerciseToRoutine")
         db.transaction(tx => {
 
             //insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);
@@ -26,13 +27,46 @@ export function addExerciseToRoutine(routineID,exercise, callback){
                 exercise.exerciseID + " , " +
                 routineID + " , " +
                 exercise.placeInOrder +
-                " );")
-            if (callback != null) {
-                callback()
-            }
+                " );",[],function (){
+                if (callback != null) {
+                    callback()
+                }
+            })
+
 
         })
 }
+
+
+export function addExercisesToRoutine(routineID,exercises, callback){
+
+    let message = ''
+    for(let i = 0; i<exercises.length; i++){
+
+        message += "insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(" +
+            exercises[i].exerciseID + " , " +
+            routineID + " , " +
+            exercises[i].placeInOrder +
+            " );"
+
+    }
+
+    console.log("sqllog_method_addExercisesToRoutine",message)
+
+    db.transaction(tx => {
+
+        //insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);
+        tx.executeSql(message,[],)
+        if (callback != null) {
+            callback()
+        }
+
+
+    })
+
+
+}
+
 
 //tested
 export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine, callback){
@@ -60,7 +94,7 @@ export function getExerciseFromRoutine(routineID, callback){
 
             for(let i = 0;i<rows.rows.length;i++){
                 //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder))
+                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(1).ID,rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder))
             }
             tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
             if(callback != null){
@@ -89,6 +123,8 @@ export function getAllExercisesWithinRoutines(callback){
         })
     })
 }
+
+
 
 
 
