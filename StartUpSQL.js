@@ -6,7 +6,7 @@ export function createTables(callback) {
     db.transaction((tx) => {
         try {
             tx.executeSql(
-                'CREATE table if not exists Workouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, date date not null);',
+                'CREATE table if not exists CompletedWorkouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, date date not null);',
             );
         } catch (error) {}
 
@@ -18,7 +18,7 @@ export function createTables(callback) {
 
         try {
             tx.executeSql(
-                'create table if not exists CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,weight integer, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
+                'create table if not exists CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,averageWeight integer, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
             );
         } catch (error) {}
 
@@ -66,7 +66,7 @@ one workout with date 10/20/2020 and id 1
  */
 export function createWorkoutDummyData(callback){
     db.transaction((tx) => {
-        tx.executeSql("insert into workouts(id,date) values(1,'2020-10-20');");
+        tx.executeSql("insert into CompletedWorkouts(id,date) values(1,'2020-10-20');");
     });
     console.log("sqllog", "workouts created")
     callback()
@@ -83,7 +83,7 @@ export function creatCompletedExercisesDData(callback){
         tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(1,1,5,3,1);");
     });
     db.transaction((tx) => {
-        tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID,weight) values(2,2,6,2,1, 5);");
+        tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID,averageWeight) values(2,2,6,2,1, 5);");
     });
     db.transaction((tx) => {
         tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(3,3,5,6,1);");
@@ -152,7 +152,7 @@ export function createExercisesWithinRoutineDD(callback){
 
 export function clearDB(callback) {
     db.transaction((tx) => {
-        tx.executeSql('Delete from Workouts');
+        tx.executeSql('Delete from CompletedWorkouts');
     });
     db.transaction((tx) => {
         tx.executeSql('Delete from Exercises');
@@ -179,7 +179,7 @@ export function logDataBase(callback) {
 
     //logs workout table
     db.transaction(tx =>{
-        tx.executeSql("select * from Workouts;",[],(_,rows) =>{
+        tx.executeSql("select * from CompletedWorkouts;",[],(_,rows) =>{
             console.log("sqllog_Workouts", rows.rows)
         })
     })
