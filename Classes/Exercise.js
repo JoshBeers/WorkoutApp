@@ -35,35 +35,21 @@ export function addExerciseToRoutine(routineID,exercise, callback){
 }
 
 
-export function addExercisesToRoutine(routineID,exercises, callback){
+export function addMultipleExercisesToRoutine(routineID,exercises, callback){
 
-    let message = ''
-    for(let i = 0; i<exercises.length; i++){
-
-        message += "insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(" +
-            exercises[i].exerciseID + " , " +
-            routineID + " , " +
-            exercises[i].placeInOrder +
-            " );"
-
-    }
-
-    console.log("sqllog_method_addExercisesToRoutine",message)
-
-    db.transaction(tx => {
-
-        //insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);
-        tx.executeSql(message,[],(_,rows) =>{
-            //console.log("sqllog_method_addExerciseToRoutine")
-            if (callback != null) {
+    for(let i = 0; i<exercises.length ; i++){
+        if(i == exercises.length-1){
+            addExerciseToRoutine(routineID, exercises[i], function (){
                 callback()
-            }
-        })
-
-    })
-
-
+            })
+        }else{
+            addExerciseToRoutine(routineID, exercises[i])
+        }
+        //console.log("sqllog_method_addExercisesToRoutine",i)
+    }
 }
+
+
 
 
 //tested

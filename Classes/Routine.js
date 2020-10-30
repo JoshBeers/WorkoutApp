@@ -21,7 +21,7 @@ export function addNewRoutine(routine:Routine,callback){
             db.transaction(tx =>{
                 tx.executeSql("select Max(ID) from routines;",[],(_,rows)=>{
 
-                    addMultiple(rows.rows.item(0).ID,routine.exercises,0, callback)
+                    //addMultiple(rows.rows.item(0).ID,routine.exercises,0, callback)
                 })
             })
         })

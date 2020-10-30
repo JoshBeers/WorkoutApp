@@ -1,8 +1,7 @@
 
 
 import {
-    addExercisesToRoutine,
-    addExerciseToRoutine,
+    addExerciseToRoutine, addMultipleExercisesToRoutine,
     createNewExerciseFromExercise,
     deleteExerciseById, deleteExerciseFromRoutine,
     Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
@@ -98,27 +97,30 @@ function testAddExerciseToRoutine(callback){
 function testAddMultipleExercisesToRoutine(callback){
     console.log("sqllog_test_AddMultipleExercisesToRoutine","the test has begun")
     let data = [new ExerciseWithinRoutine(1,4,2,5),new ExerciseWithinRoutine(1,1,2,5)]
-    addExercisesToRoutine(2,data, function(){
-        //   console.log("sqllog_test_AddMultipleExercisesToRoutine","add exercise")
-        getAllExercisesWithinRoutines(function (result){
-            console.log("sqllog_test_AddMultipleExercisesToRoutine_ressult",result)
 
 
-            if(result.length == 4){
-                colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method passed",'green')
-            }else{
-                colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method failed the new data doesnt match the added data",'red')
-            }
+    getAllExercisesWithinRoutines(function (result){
+
+        let temp = result
+        addMultipleExercisesToRoutine(2,data, function(){
+               //console.log("sqllog_test_AddMultipleExercisesToRoutine","add exercise")
+            getAllExercisesWithinRoutines(function (result){
+                //console.log("sqllog_test_AddMultipleExercisesToRoutine_ressult",temp.length)
 
 
-            if(callback != null){
-                callback()
-            }
+                if(result.length == temp.length+2){
+                    colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method passed",'green')
+                }else{
+                    colorTrace("sqllog_test_AddMultipleExercisesToRoutine_ressult testAddExerciseToRoutine method failed the new data doesnt match the added data",'red')
+                }
+
+
+                if(callback != null){
+                    callback()
+                }
+            })
         })
     })
-
-
-
 }
 
 
@@ -283,9 +285,9 @@ function routineTests(callback){
             testAddExerciseToRoutine(function (){
                 testDeleteExerciseFromRoutine(function (){
                     testAddMultipleExercisesToRoutine(function (){
-                        // testAddNewRoutine(function (){
-                        //callback()
-                        // })
+                         testAddNewRoutine(function (){
+                            callback()
+                         })
                     })
 
                 })
