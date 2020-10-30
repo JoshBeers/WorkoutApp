@@ -14,7 +14,7 @@ import moment from 'moment';
 import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
 import * as SQLite from 'expo-sqlite';
-
+import {WorkoutScreen} from "../Screens/WorkoutScreen";
 
 export default class HomeScreen extends React.Component {
   constructor() {
