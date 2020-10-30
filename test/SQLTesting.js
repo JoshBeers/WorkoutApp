@@ -3,7 +3,7 @@
 import {
     addExerciseToRoutine, addMultipleExercisesToRoutine,
     createNewExerciseFromExercise,
-    deleteExerciseById, deleteExerciseFromRoutine,
+    deleteExerciseById, deleteExerciseFromRoutine, deleteExercisesUnderARoutine,
     Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
     getAllExercises, getAllExercisesWithinRoutines,
     getExerciseFromRoutine
@@ -177,6 +177,29 @@ function testDeleteExerciseFromRoutine(callback){
 }
 
 
+function testDeleteExercisesFromSpecificRoutine(callback){
+    console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine","the test has begun")
+    getAllRoutinesWithOutExercises(function (res){
+        let routineIdToDelete = res[0].id
+        console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine_result",res[0].id)
+        deleteExercisesUnderARoutine(routineIdToDelete,function (){
+            getExerciseFromRoutine(routineIdToDelete, function (finalList){
+                console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine_result",finalList)
+                if(finalList.length == 0){
+                    colorTrace("sqllog_test_DeleteEcercisesFromSpecificRoutine testDeleteEcercisesFromSpecificRoutine method passed",'green')
+                }else{
+                    colorTrace("sqllog_test_DeleteEcercisesFromSpecificRoutine testDeleteEcercisesFromSpecificRoutine method failed list returned was not empty its length was = "+finalList.length,'red')
+                }
+                if(callback != null){
+                    callback()
+                }
+            })
+        })
+    })
+
+}
+
+
 /*
 all the test for exercises
 
@@ -314,7 +337,9 @@ function routineTests(callback){
                 testDeleteExerciseFromRoutine(function (){
                     testAddMultipleExercisesToRoutine(function (){
                          testAddNewRoutine(function (){
-                            callback()
+                             testDeleteExercisesFromSpecificRoutine(function (){
+                                 callback()
+                             })
                          })
                     })
                 })

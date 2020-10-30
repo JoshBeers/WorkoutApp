@@ -49,6 +49,16 @@ export function addMultipleExercisesToRoutine(routineID,exercises, callback){
     }
 }
 
+export function deleteExercisesUnderARoutine(routineID,callback){
+    db.transaction(tx => {
+        tx.executeSql("Delete from ExercisesWithinRoutines where routineID = ? ;",[routineID], (_,rows) =>{
+            if (callback != null) {
+                callback()
+            }
+        })
+    })
+}
+
 
 
 

@@ -33,10 +33,6 @@ export function addNewRoutine(routine:Routine,callback){
 }
 
 
-
-
-
-
 export function getSpecificRoutine(routineID){
     let tempRoutine = new Routine()
     db.transaction(tx =>{
@@ -66,7 +62,13 @@ export function getAllRoutinesWithOutExercises(callback){
 
         })
     })
+}
+
+export function updateRoutine(routine:Routine, callback){
+
 
 
 }
+
+
 
