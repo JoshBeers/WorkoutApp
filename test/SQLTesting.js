@@ -4,13 +4,15 @@ import {
     addExerciseToRoutine,
     createNewExerciseFromExercise,
     deleteExerciseById, deleteExerciseFromRoutine,
-    Exercise, ExerciseWithinRoutine,
+    Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
     getAllExercises, getAllExercisesWithinRoutines,
     getExerciseFromRoutine
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
 import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
-import {getListOfWorkoutsWithoutExercises} from "../Classes/Workout";
+import {
+    getMapOfCompleteWorkoutIDsToDates
+} from "../Classes/Workout";
 
 /*
 all of the test for routines
@@ -24,9 +26,10 @@ function testGetAllRoutinesWithOutExercises(callback){
         //console.log("sqllog_test_GetAllRoutinesWithOutExercises_result", result)
 
         if(result.length == 1){
-            console.log("sqllog_test_GetAllRoutinesWithOutExercises_result","testGetAllRoutinesWithOutExercises method passed")
+            let msg = "sqllog_test_GetAllRoutinesWithOutExercises_result testGetAllRoutinesWithOutExercises method passed"
+            colorTrace(msg,'green')
         }else{
-            console.log("sqllog_test_GetAllRoutinesWithOutExercises_result","testGetAllRoutinesWithOutExercises method failed resulting array this should match the dummy data array that is 1 long = "+result.length)
+            colorTrace("sqllog_test_GetAllRoutinesWithOutExercises_result testGetAllRoutinesWithOutExercises method failed resulting array this should match the dummy data array that is 1 long = "+result.length,'red')
         }
 
 
@@ -43,9 +46,9 @@ function testGetExercisesFromRoutine1(callback){
         //console.log("test_gettingExercisesFromRoutine1_result",result)
 
         if(result.length == 3){
-            console.log("sqllog_test_gettingExercisesFromRoutine1_result","testGetExercisesFromRoutine1 method passed")
+            colorTrace("sqllog_test_gettingExercisesFromRoutine1_result testGetExercisesFromRoutine1 method passed",'green')
         }else{
-            console.log("sqllog_test_gettingExercisesFromRoutine1_result","testGetExercisesFromRoutine1 method failed resulting array this should match the dummy data array that is 3 long = "+result.length)
+            colorTrace("sqllog_test_gettingExercisesFromRoutine1_result testGetExercisesFromRoutine1 method failed resulting array this should match the dummy data array that is 3 long = "+result.length,'red')
         }
         if(callback != null){
             callback()
@@ -63,9 +66,9 @@ function testAddExerciseToRoutine(callback){
 
 
                 if(result.length == 4){
-                    console.log("sqllog_test_AddExerciseToRoutine_ressult","testAddExerciseToRoutine method passed")
+                    colorTrace("sqllog_test_AddExerciseToRoutine_ressult testAddExerciseToRoutine method passed",'green')
                 }else{
-                    console.log("sqllog_test_AddExerciseToRoutine_ressult","testAddExerciseToRoutine method failed the new data doesnt match the added data")
+                    colorTrace("sqllog_test_AddExerciseToRoutine_ressult testAddExerciseToRoutine method failed the new data doesnt match the added data",'red')
                 }
 
 
@@ -89,9 +92,9 @@ function testDeleteExerciseFromRoutine(callback){
             getAllExercisesWithinRoutines(function (result){
                 //console.log("sqllog_test_DeleteExerciseFromRoutine_result",result)
                 if(result.length == temp-1){
-                    console.log("sqllog_test_DeleteExerciseFromRoutine_result","testDeleteExerciseFromRoutine method passed")
+                    colorTrace("sqllog_test_DeleteExerciseFromRoutine_result testDeleteExerciseFromRoutine method passed",'green')
                 }else{
-                    console.log("sqllog_test_DeleteExerciseFromRoutine_result","testDeleteExerciseFromRoutine method failed length init = "+temp+" after call = "+ result.length+" should be one less than init")
+                    colorTrace("sqllog_test_DeleteExerciseFromRoutine_result testDeleteExerciseFromRoutine method failed length init = "+temp+" after call = "+ result.length+" should be one less than init",'red')
                 }
                 if(callback != null){
                     callback()
@@ -137,9 +140,9 @@ function testGetAllExercises(callback){
         //console.log("sqllog_test_testGetAllExercises_results",result)
 
         if(result.length == 3){
-            console.log("sqllog_test_testGetAllExercises_results","testGetAllExercises method passed")
+            colorTrace("sqllog_test_testGetAllExercises_results testGetAllExercises method passed",'green')
         }else{
-            console.log("sqllog_test_testGetAllExercises_results","testGetAllExercises method failed resulting array this should match the dummy data array that is 3 long = "+result.length)
+            colorTrace("sqllog_test_testGetAllExercises_results testGetAllExercises method failed resulting array this should match the dummy data array that is 3 long = "+result.length,'red')
         }
         if(callback != null){
             callback()
@@ -154,9 +157,9 @@ function testCreateNewExerciseFromExercise(callback){
             //console.log("sqllog_test_CreateNewExerciseFromExercise_results",result[result.length-1])
 
             if(result[result.length-1].name = "test exercise"){
-                console.log("sqllog_test_CreateNewExerciseFromExercise_results","CreateNewExerciseFromExercise method passed")
+                colorTrace("sqllog_test_CreateNewExerciseFromExercise_results CreateNewExerciseFromExercise method passed",'green')
             }else{
-                console.log("sqllog_test_CreateNewExerciseFromExercise_results","CreateNewExerciseFromExercise method failed resulting array this should match the dummy data array that is 3 long = "+result.length)
+                colorTrace("sqllog_test_CreateNewExerciseFromExercise_results CreateNewExerciseFromExercise method failed resulting array this should match the dummy data array that is 3 long = "+result.length,'red')
             }
 
             if(callback != null){
@@ -178,9 +181,9 @@ function testDeleteExerciseById(callback){
             getAllExercises(function (result){
 
                 if(result.length == temp-1){
-                    console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method passed")
+                    colorTrace("sqllog_test_DeleteExerciseById_results testDeleteExerciseById method passed",'green')
                 }else{
-                    console.log("sqllog_test_DeleteExerciseById_results","testDeleteExerciseById method failed length init = "+temp+" after call = "+ result.length+" should be one less than init")
+                    colorTrace("sqllog_test_DeleteExerciseById_results testDeleteExerciseById method failed length init = "+temp+" after call = "+ result.length+" should be one less than init",'red')
                 }
                 if(callback != null){
                     callback()
@@ -199,18 +202,44 @@ completed workout test
  */
 
 function testGetListOfWorkoutsWithoutExercises(callback){
-    console.log("sqllog_test_GetListOfWorkoutsWithoutExercises","the testGetListOfWorkoutsWithoutExercises test has begun")
-    getListOfWorkoutsWithoutExercises(function (result){
-        console.log("sqllog_test_GetListOfWorkoutsWithoutExercises_result",result)
+    //console.log("sqllog_test_GetListOfWorkoutsWithoutExercises","the testGetListOfWorkoutsWithoutExercises test has begun")
+    getMapOfCompleteWorkoutIDsToDates(function (result ){
+        //console.log("sqllog_test_GetListOfWorkoutsWithoutExercises_result",result)
 
-        if(result.length == 1){
-            console.log("sqllog_test_GetListOfWorkoutsWithoutExercises_results","testGetListOfWorkoutsWithoutExercises method passed")
+        if(result.size == 2){
+            colorTrace("sqllog_test_GetListOfWorkoutsWithoutExercises_results testGetListOfWorkoutsWithoutExercises method length test passed",'green')
         }else{
-            console.log("sqllog_test_GetListOfWorkoutsWithoutExercises_results","testGetListOfWorkoutsWithoutExercises method failed length should be 1 is = "+ result.length)
+            colorTrace("sqllog_test_GetListOfWorkoutsWithoutExercises_results testGetListOfWorkoutsWithoutExercises method failed length should be 2 is = "+ result.size,'red')
         }
+
         if(callback != null){
             callback()
         }
+    })
+}
+
+
+/*
+complete exercise test
+ */
+
+function testGetAllCompleteExerciseBySpecificExerciseID(callback){
+    //console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID","the testGetAllCompleteExerciseBySpecificExerciseID test has begun")
+
+    getAllCompleteExerciseBySpecificExerciseID(1 , function (result) {
+        //console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result",result)
+
+
+        if(result.length == 3){
+            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result testGetAllCompleteExerciseBySpecificExerciseID method  length test passed",'green')
+        }else{
+            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result testGetAllCompleteExerciseBySpecificExerciseID method failed length should be 3 is = "+ result.length,'red')
+        }
+
+        if(callback != null){
+            callback()
+        }
+
     })
 }
 
@@ -239,18 +268,28 @@ function routineTests(callback){
 
 function completeWorkoutsTest(callback){
     testGetListOfWorkoutsWithoutExercises(callback)
-
 }
+
+function completeExerciseTest(callback) {
+    testGetAllCompleteExerciseBySpecificExerciseID(callback)
+}
+
 
 
 export function runSQLTest(){
     createDummyData(function (){
         exerciseTests(function (){
             routineTests(function (){
-                completeWorkoutsTest()
+                completeWorkoutsTest(function (){
+                    completeExerciseTest()
+                })
             })
         })
     })
+}
+
+function colorTrace(msg, color) {
+    console.log("%c" + msg, "color:" + color + ";font-weight:bold;");
 }
 
 

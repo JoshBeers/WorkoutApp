@@ -62,21 +62,27 @@ export function createDummyData(callback) {
 }
 
 /*
-one workout with date 10/20/2020 and id 1
+1. id=1 date = 10/20/2020
+2. id = 2 date = 10/15/2020
  */
 export function createWorkoutDummyData(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into CompletedWorkouts(id,date) values(1,'2020-10-20');");
+    });
+    db.transaction((tx) => {
+        tx.executeSql("insert into CompletedWorkouts(id,date) values(2,'2020-10-15');");
     });
     console.log("sqllog", "workouts created")
     callback()
 }
 
 /*
-three completed exercises
+5 completed exercises
 1. id = 1, exerciseId= 1, numberOfReps =5, numberOfSets = 3,weight = null, workOutID =1
 2. id = 2, exerciseId= 2, numberOfReps =6, numberOfSets = 2,weight = 5, workOutID =1
 3. id = 3, exerciseId= 3, numberOfReps =5, numberOfSets = 6,weight = null,  workOutID =1
+4. id = 4, exerciseId= 1, numberOfReps =2, numberOfSets = 1,weight = null, workOutID =1
+5. id = 5, exerciseId= 1, numberOfReps =1, numberOfSets = 3,weight = null, workOutID =2
  */
 export function creatCompletedExercisesDData(callback){
     db.transaction((tx) => {
@@ -87,6 +93,12 @@ export function creatCompletedExercisesDData(callback){
     });
     db.transaction((tx) => {
         tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(3,3,5,6,1);");
+    });
+    db.transaction((tx) => {
+        tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(4,1,2,1,1);");
+    });
+    db.transaction((tx) => {
+        tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(5,1,1,3,2);");
     });
     console.log("sqllog", "completed exercises created")
     callback()
