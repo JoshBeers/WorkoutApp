@@ -10,7 +10,7 @@ import {
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
 import {
-    addNewRoutine,
+    addNewRoutine, deleteRoutine,
     getAllRoutinesWithOutExercises, getSpecificRoutine,
     Routine,
     updateRoutine
@@ -410,6 +410,26 @@ function testGetCompleteWorkout(callback){
     })
 }
 
+function testDeleteWorkout(callback){
+    console.log("sqllog_test_DeleteWorkout"," test has begun")
+    createDummyData(function (){
+        deleteRoutine(new Routine(1), function () {
+            getAllRoutinesWithOutExercises(function (result) {
+                //console.log("sqllog_test_DeleteWorkout_result",result)
+                if(result.length ==0 ){
+                    colorTrace("sqllog_test_DeleteWorkout_result method length test passed",'green')
+                }else{
+                    colorTrace("sqllog_test_DeleteWorkout_result method length test failed",'red')
+                }
+                if(callback != null){
+                    callback()
+                }
+
+            })
+        })
+    })
+}
+
 
 
 /*
@@ -465,7 +485,9 @@ function routineTests(callback){
                              testDeleteExercisesFromSpecificRoutine(function (){
                                  testUpdatingRoutine(function (){
                                      testGetSpecificRoutine(function (){
-                                         createDummyData(callback)
+                                         createDummyData(function (){
+                                             testDeleteWorkout(callback)
+                                         })
                                        //  callback()
                                      })
                                  })

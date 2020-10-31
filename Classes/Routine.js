@@ -89,5 +89,18 @@ export function updateRoutine(routine:Routine, callback){
     })
 }
 
+export function deleteRoutine(routine:Routine, callback){
+    deleteExercisesUnderARoutine(routine.id, function (){
+        db.transaction(tx => {
+            tx.executeSql("delete from routines where ID = "+routine.id+";", [], (_,rows) =>{
+                //console.log("sqllog_method_addExerciseToRoutine")
+                if (callback != null) {
+                    callback()
+                }
+            })
+        })
+    })
+}
+
 
 
