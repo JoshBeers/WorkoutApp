@@ -15,7 +15,6 @@ export class CompletedWorkout{
 
 //tested
 export function getMapOfCompleteWorkoutIDsToDates(callback){
-
     db.transaction(tx => {
         tx.executeSql("select * from CompletedWorkouts;", [], (_, rows) => {
             //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
@@ -32,4 +31,25 @@ export function getMapOfCompleteWorkoutIDsToDates(callback){
             }
         })
     })
+}
+
+export function getCompleteWorkoutsWithoutExercises(callback){
+    db.transaction(tx => {
+        tx.executeSql("select * from CompletedWorkouts;", [], (_, rows) => {
+            //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows",rows.rows)
+            let tempWorkouts = []
+
+
+            for (let i = 0; i < rows.rows.length; i++) {
+                //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows_individually",rows.rows.item(i))
+                tempWorkouts.push(new CompletedWorkout(rows.rows.item(i).ID,rows.rows.item(i).date))
+            }
+
+            if(callback != null){
+                callback(tempWorkouts)
+            }
+        })
+    })
+
+
 }

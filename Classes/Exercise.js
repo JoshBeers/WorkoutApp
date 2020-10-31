@@ -259,14 +259,7 @@ function getCompleteExercisesForSpecificExerciseID(exerciseID,callback){
             }
         })
     })
-
-
-
 }
-
-
-
-
 
 
 

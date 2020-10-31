@@ -16,6 +16,7 @@ import {
     updateRoutine
 } from "../Classes/Routine";
 import {
+    getCompleteWorkoutsWithoutExercises,
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
 
@@ -337,7 +338,6 @@ function testDeleteExerciseById(callback){
 
 /*
 completed workout test
-
  */
 
 function testGetListOfWorkoutsWithoutExercises(callback){
@@ -357,22 +357,41 @@ function testGetListOfWorkoutsWithoutExercises(callback){
     })
 }
 
+function testGetCompleteWorkoutsWithoutExercises(callback){
+    console.log("sqllog_test_GetCompleteWorkoutsWithoutExercises"," test has begun")
+    createDummyData(function (){
+        getCompleteWorkoutsWithoutExercises(function (res){
+            //console.log("sqllog_test_GetCompleteWorkoutsWithoutExercises_result",res)
+
+            if(res.length ==2){
+                colorTrace("sqllog_test_GetCompleteWorkoutsWithoutExercises_result method length test passed",'green')
+            }else {
+                colorTrace("sqllog_test_GetCompleteWorkoutsWithoutExercises_result method length test failed",'false')
+            }
+            if(callback != null){
+                callback()
+            }
+
+        })
+    })
+}
+
 
 /*
 complete exercise test
  */
 
 function testGetAllCompleteExerciseBySpecificExerciseID(callback){
-    console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID","the testGetAllCompleteExerciseBySpecificExerciseID test has begun")
+    console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID","the test has begun")
 
     getAllCompleteExerciseBySpecificExerciseID(1 , function (result) {
         //console.log("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result",result)
 
 
         if(result.length == 3){
-            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result testGetAllCompleteExerciseBySpecificExerciseID method  length test passed",'green')
+            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result  method  length test passed",'green')
         }else{
-            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result testGetAllCompleteExerciseBySpecificExerciseID method failed length should be 3 is = "+ result.length,'red')
+            colorTrace("sqllog_test_GetAllCompleteExerciseBySpecificExerciseID_result  method failed length should be 3 is = "+ result.length,'red')
         }
 
         if(callback != null){
@@ -423,7 +442,9 @@ function routineTests(callback){
 }
 
 function completeWorkoutsTest(callback){
-    testGetListOfWorkoutsWithoutExercises(callback)
+    testGetListOfWorkoutsWithoutExercises(function (){
+        testGetCompleteWorkoutsWithoutExercises(callback)
+    })
 }
 
 function completeExerciseTest(callback) {
