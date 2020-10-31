@@ -181,10 +181,6 @@ export function clearDB(callback) {
     db.transaction((tx) => {
         tx.executeSql('Delete from ExercisesWithinRoutines');
     });
-
-
-
-
     //console.log("sqllog", "db cleared")
     callback()
 }

@@ -143,17 +143,6 @@ export class Exercise{
 
 }
 
-
-export function updateExerciseFromExercise(exercise:Exercise){
-    db.transaction(tx =>{
-        tx.executeSql("update Exercises set " +
-            "name = '" + exercise.name + "'," +
-            "description = '" + exercise.description +"', " +
-            "doseUseWeight = '" + exercise.doesUseWeight +"'" +
-            "where ID = " + exercise.exerciseID + ";",)
-    })
-}
-
 //tested
 export function createNewExerciseFromExercise(exercise: Exercise, callback){
     //'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
@@ -209,8 +198,8 @@ export function deleteExerciseById(id, callback){
 /*
 completed exercise stuff
 
-create table if not exists CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,averageWeight integer, workOutID int not null,FOREIGN KEY(exerciseId) REFERENCES Exercises(ID),FOREIGN KEY(workOutID) REFERENCES Workouts(ID));',
- */
+CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,averageWeight integer, workOutID int not null,
+*/
 export class CompleteExercise{
     constructor(ID: number, exerciseId: number,workoutID:number, numberOfReps:number , numberOfSets:number, averageWeight, date) {
         this.ID =ID
@@ -279,16 +268,15 @@ export function getCompletedExercisesForWorkout(workoutID,callback){
     })
 }
 
-export function saveExerciseFromCompletedExercises(exercise:CompleteExercise) {
+export function saveExerciseFromCompletedExercises(exercise:CompleteExercise, callback) {
     db.transaction(tx =>{
-        tx.executeSql("insert into CompletedExercises(exerciseId,numberOfReps,numberOfSets,workOutID) values(" +
-        exercise.ID + "," +
+        tx.executeSql("insert into CompletedExercises(exerciseId,numberOfReps,numberOfSets,averageWeight,workOutID) values('" +
+        exercise.exerciseId + "'," +
         exercise.numberOfReps + "," +
         exercise.numberOfSets + "," +
-        exercise.weight + "," +
-        exercise.workoutId +
-        ");",(_,rows) =>{
-            //console.log("sqllog_method_addExerciseToRoutine")
+        exercise.averageWeight + "," +
+        exercise.workoutID +
+        ");",[],(_,rows) =>{
             if (callback != null) {
                 callback()
             }

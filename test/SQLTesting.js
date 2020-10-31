@@ -1,12 +1,12 @@
 
 
 import {
-    addExerciseToRoutine, addMultipleExercisesToRoutine,
+    addExerciseToRoutine, addMultipleExercisesToRoutine, CompleteExercise,
     createNewExerciseFromExercise,
     deleteExerciseById, deleteExerciseFromRoutine, deleteExercisesUnderARoutine,
     Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
     getAllExercises, getAllExercisesWithinRoutines, getCompletedExercisesForWorkout,
-    getExerciseFromRoutine
+    getExerciseFromRoutine, saveExerciseFromCompletedExercises
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
 import {
@@ -415,16 +415,45 @@ function testDeleteWorkout(callback){
     createDummyData(function (){
         deleteRoutine(new Routine(1), function () {
             getAllRoutinesWithOutExercises(function (result) {
-                //console.log("sqllog_test_DeleteWorkout_result",result)
-                if(result.length ==0 ){
-                    colorTrace("sqllog_test_DeleteWorkout_result method length test passed",'green')
+                let routinList = result
+                getExerciseFromRoutine(1,function (exerciseList){
+                    //console.log("sqllog_test_DeleteWorkout_result",result)
+                    if(routinList.length ==0 ){
+                        colorTrace("sqllog_test_DeleteWorkout_result method routine list length test passed",'green')
+                    }else{
+                        colorTrace("sqllog_test_DeleteWorkout_result method routine list length test failed",'red')
+                    }
+
+                    if(exerciseList.length ==0 ){
+                        colorTrace("sqllog_test_DeleteWorkout_result method exercise list length test passed",'green')
+                    }else{
+                        colorTrace("sqllog_test_DeleteWorkout_result method exercise list length test failed",'red')
+                    }
+                    if(callback != null){
+                        callback()
+                    }
+                })
+            })
+        })
+    })
+}
+
+function testSaveExerciseFromCompletedExercises(callback){
+    console.log("sqllog_test_SaveExerciseFromCompletedExercises"," test has begun")
+    createDummyData(function () {
+        saveExerciseFromCompletedExercises(new CompleteExercise(1,1,3,1,1,1,"2020-01-01"),function () {
+            //console.log("sqllog_test_SaveExerciseFromCompletedExercises")
+            getCompletedExercisesForWorkout(3, function (result) {
+                console.log("sqllog_test_SaveExerciseFromCompletedExercises_result",result)
+
+                if(result.length == 1){
+                    colorTrace("sqllog_test_SaveExerciseFromCompletedExercises_result method exercise list length test passed",'green')
                 }else{
-                    colorTrace("sqllog_test_DeleteWorkout_result method length test failed",'red')
+                    colorTrace("sqllog_test_SaveExerciseFromCompletedExercises_result method exercise list length test passed",'red')
                 }
                 if(callback != null){
                     callback()
                 }
-
             })
         })
     })
@@ -455,9 +484,6 @@ function testGetAllCompleteExerciseBySpecificExerciseID(callback){
 
     })
 }
-
-
-
 
 //actuall testing
 /*
@@ -511,7 +537,9 @@ function completeWorkoutsTest(callback){
 }
 
 function completeExerciseTest(callback) {
-    testGetAllCompleteExerciseBySpecificExerciseID(callback)
+    testGetAllCompleteExerciseBySpecificExerciseID(function (){
+        testSaveExerciseFromCompletedExercises(callback)
+    })
 }
 
 
