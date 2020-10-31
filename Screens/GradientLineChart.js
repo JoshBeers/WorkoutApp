@@ -1,14 +1,29 @@
 import React, {PureComponent} from 'react';
 import {View} from 'react-native';
 import {Defs, LinearGradient, Stop} from 'react-native-svg';
-import {Grid, LineChart, XAxis} from 'react-native-svg-charts';
+import {Grid, LineChart, XAxis, YAxis} from 'react-native-svg-charts';
 import Colors from '../Themes/Colors';
 
 export default class GradientLineChart extends PureComponent {
   render() {
     const data = [85, 50, 10, 40, 95, -4, -24];
-    const xAxis = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    const xAxisDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    const xAxisMonth = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const yAxis = [];
+    const contentInset = {top: 20, bottom: 20};
 
     const Gradient = () => (
       <Defs key={'gradient'}>
@@ -20,11 +35,18 @@ export default class GradientLineChart extends PureComponent {
     );
 
     return (
-      <View style={{marginVertical: 43}}>
-        <LineChart
-          style={{height: 200}}
+      <View style={{marginVertical: 43, flexDirection: 'row'}}>
+        <YAxis
           data={data}
-          contentInset={{top: 10, bottom: 10}}
+          contentInset={contentInset}
+          svg={{fontSize: 10, fill: 'white'}}
+          numberOfTicks={7}
+          formatLabel={(value) => `${value}ºC`}
+        />
+        <LineChart
+          style={{height: 200, flex: 1}}
+          data={data}
+          contentInset={contentInset}
           svg={{
             strokeWidth: 2,
             stroke: 'url(#gradient)',
@@ -35,9 +57,9 @@ export default class GradientLineChart extends PureComponent {
         <XAxis
           data={data}
           style={{marginHorizontal: -10}}
-          contentInset={{left: 10, right: 10}}
+          contentInset={contentInset}
           svg={{fontSize: 10, fill: 'white'}}
-          formatLabel={(value) => xAxis[value]}
+          formatLabel={(value) => xAxisDay[value]}
         />
       </View>
     );
