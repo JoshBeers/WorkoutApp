@@ -3,7 +3,12 @@ CREATE table if not exists CompletedWorkouts(ID INTEGER PRIMARY KEY AUTOINCREMEN
  */
 
 import {db} from "../App";
-import {Exercise, ExerciseWithinRoutine, getCompletedExercisesForWorkout} from "./Exercise";
+import {
+    addMultipleCompleteExercisesToCompleteWorkout,
+    Exercise,
+    ExerciseWithinRoutine,
+    getCompletedExercisesForWorkout
+} from "./Exercise";
 
 export class CompletedWorkout{
     constructor(ID, date, completedExercises) {
@@ -53,6 +58,7 @@ export function getAllCompleteWorkoutsWithoutExercises(callback){
 }
 
 export function getCompleteWorkout(workoutID, callback){
+    //console.log("sqllog_method_getCompleteWorkout_rows",workoutID)
     db.transaction(tx => {
         tx.executeSql("select * from CompletedWorkouts where ID = "+workoutID+";", [], (_, rows) => {
             //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows",rows.rows)
@@ -69,15 +75,17 @@ export function getCompleteWorkout(workoutID, callback){
 //CompletedWorkouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, date date not null)
 export function saveCompleteWorkout(completeWorkout:CompletedWorkout, callback){
     db.transaction(tx =>{
-        tx.executeSql("insert into CompletedWorkouts(numberOfReps,date) values('" +
-            completeWorkout.date+");",[],(_,rows) =>{
+        tx.executeSql("insert into CompletedWorkouts(date) values('" + completeWorkout.date+"');",[],(_,rows) =>{
+            //console.log("sqllog_method_saveCompleteWorkout")
             db.transaction(tx =>{
                 tx.executeSql("select Max(ID) as ID from CompletedWorkouts;" ,[],(_,rows) =>{
-                    let id = rows.rows.item(0).ID
-
-                    if (callback != null) {
-                        callback()
-                    }
+                    //console.log("sqllog_method_saveCompleteWorkout",rows.rows.item(0).ID)
+                    completeWorkout.ID = rows.rows.item(0).ID
+                    addMultipleCompleteExercisesToCompleteWorkout(completeWorkout,function () {
+                        if (callback != null) {
+                            callback()
+                        }
+                    })
                 })
             })
         })

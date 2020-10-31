@@ -28,7 +28,7 @@ import {
 import {
     CompletedWorkout,
     getAllCompleteWorkoutsWithoutExercises, getCompleteWorkout,
-    getMapOfCompleteWorkoutIDsToDates
+    getMapOfCompleteWorkoutIDsToDates, saveCompleteWorkout
 } from "../Classes/Workout";
 
 /*
@@ -489,6 +489,37 @@ function testAddMultipleCompleteExercisesToCompleteWorkout(callback){
     })
 }
 
+function testSaveCompleteWorkout(callback){
+    console.log("sqllog_test_SaveCompleteWorkout"," test has begun")
+    saveCompleteWorkout(new CompletedWorkout(1, "2020-02-02",[new CompleteExercise(1,1,1,1,1,1,""),new CompleteExercise(1,2,2,2,1,1,"")]),function () {
+        getAllCompleteWorkoutsWithoutExercises(function (result) {
+            //console.log("sqllog_test_SaveCompleteWorkout_result",result)
+            getCompleteWorkout(result[result.length-1].ID,function (result:CompletedWorkout) {
+                //console.log("sqllog_test_SaveCompleteWorkout_result",result)
+
+                if(result.date == "2020-02-02"){
+                    colorTrace("sqllog_test_SaveCompleteWorkout_result method date test passed",'green')
+                }else{
+                    colorTrace("sqllog_test_SaveCompleteWorkout_result method date test failed",'red')
+                }
+
+                if(result.completedExercises.length == 2){
+                    colorTrace("sqllog_test_SaveCompleteWorkout_result method exercise list length test passed",'green')
+                }else{
+                    colorTrace("sqllog_test_SaveCompleteWorkout_result method exercise list length test failed",'red')
+                }
+                if(callback != null){
+                    createDummyData(callback)
+                }
+            })
+
+        })
+    })
+
+
+
+}
+
 
 
 /*
@@ -561,7 +592,9 @@ function completeWorkoutsTest(callback){
         testGetCompleteWorkoutsWithoutExercises(function (){
             testGetCompletedExercisesForWorkout(function (){
                 testGetCompleteWorkout(function (){
-                    testAddMultipleCompleteExercisesToCompleteWorkout(callback)
+                    testAddMultipleCompleteExercisesToCompleteWorkout(function (){
+                        testSaveCompleteWorkout(callback)
+                    })
                 })
             })
         })
