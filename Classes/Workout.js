@@ -66,3 +66,21 @@ export function getCompleteWorkout(workoutID, callback){
     })
 }
 
+//CompletedWorkouts(ID INTEGER PRIMARY KEY AUTOINCREMENT, date date not null)
+export function saveCompleteWorkout(completeWorkout:CompletedWorkout, callback){
+    db.transaction(tx =>{
+        tx.executeSql("insert into CompletedWorkouts(numberOfReps,date) values('" +
+            completeWorkout.date+");",[],(_,rows) =>{
+            db.transaction(tx =>{
+                tx.executeSql("select Max(ID) as ID from CompletedWorkouts;" ,[],(_,rows) =>{
+                    let id = rows.rows.item(0).ID
+
+                    if (callback != null) {
+                        callback()
+                    }
+                })
+            })
+        })
+    })
+}
+

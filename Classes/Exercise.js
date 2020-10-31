@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import * as SQLite from "expo-sqlite";
 import {db} from "../App";
-import { getMapOfCompleteWorkoutIDsToDates} from "./Workout";
+import {CompletedWorkout, getMapOfCompleteWorkoutIDsToDates} from "./Workout";
 
 
 /*
@@ -284,5 +284,18 @@ export function saveExerciseFromCompletedExercises(exercise:CompleteExercise, ca
     })
 }
 
+export function addMultipleCompleteExercisesToCompleteWorkout(completeWorkout:CompletedWorkout, callback){
+    for(let i = 0; i<completeWorkout.completedExercises.length ; i++){
+        completeWorkout.completedExercises[i].workoutID = completeWorkout.ID
+        if(i == completeWorkout.completedExercises.length-1){
+            saveExerciseFromCompletedExercises(completeWorkout.completedExercises[i], function (){
+                callback()
+            })
+        }else{
+            saveExerciseFromCompletedExercises(completeWorkout.completedExercises[i])
+        }
+        //console.log("sqllog_method_addExercisesToRoutine",i)
+    }
+}
 
 

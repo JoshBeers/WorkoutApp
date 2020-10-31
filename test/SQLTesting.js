@@ -1,12 +1,22 @@
 
 
 import {
-    addExerciseToRoutine, addMultipleExercisesToRoutine, CompleteExercise,
+    addExerciseToRoutine,
+    addMultipleCompleteExercisesToCompleteWorkout,
+    addMultipleExercisesToRoutine,
+    CompleteExercise,
     createNewExerciseFromExercise,
-    deleteExerciseById, deleteExerciseFromRoutine, deleteExercisesUnderARoutine,
-    Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
-    getAllExercises, getAllExercisesWithinRoutines, getCompletedExercisesForWorkout,
-    getExerciseFromRoutine, saveExerciseFromCompletedExercises
+    deleteExerciseById,
+    deleteExerciseFromRoutine,
+    deleteExercisesUnderARoutine,
+    Exercise,
+    ExerciseWithinRoutine,
+    getAllCompleteExerciseBySpecificExerciseID,
+    getAllExercises,
+    getAllExercisesWithinRoutines,
+    getCompletedExercisesForWorkout,
+    getExerciseFromRoutine,
+    saveExerciseFromCompletedExercises
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
 import {
@@ -16,6 +26,7 @@ import {
     updateRoutine
 } from "../Classes/Routine";
 import {
+    CompletedWorkout,
     getAllCompleteWorkoutsWithoutExercises, getCompleteWorkout,
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
@@ -459,6 +470,25 @@ function testSaveExerciseFromCompletedExercises(callback){
     })
 }
 
+function testAddMultipleCompleteExercisesToCompleteWorkout(callback){
+    console.log("sqllog_test_AddMultipleCompleteExercisesToCompleteWorkout"," test has begun")
+    addMultipleCompleteExercisesToCompleteWorkout(new CompletedWorkout(4, "", [new CompleteExercise(1,1,1,1,1,1,""),new CompleteExercise(1,2,2,2,1,1,"")]),function () {
+        getCompletedExercisesForWorkout(4 ,function (result) {
+           // console.log("sqllog_test_AddMultipleCompleteExercisesToCompleteWorkout_result",result)
+
+            if(result.length == 2){
+                colorTrace("sqllog_test_AddMultipleCompleteExercisesToCompleteWorkout_result method exercise list length test passed",'green')
+            }else{
+                colorTrace("sqllog_test_AddMultipleCompleteExercisesToCompleteWorkout_result method exercise list length test passed",'red')
+            }
+            if(callback != null){
+                createDummyData(callback)
+            }
+
+        })
+    })
+}
+
 
 
 /*
@@ -530,7 +560,9 @@ function completeWorkoutsTest(callback){
     testGetListOfWorkoutsWithoutExercises(function (){
         testGetCompleteWorkoutsWithoutExercises(function (){
             testGetCompletedExercisesForWorkout(function (){
-                testGetCompleteWorkout(callback)
+                testGetCompleteWorkout(function (){
+                    testAddMultipleCompleteExercisesToCompleteWorkout(callback)
+                })
             })
         })
     })
