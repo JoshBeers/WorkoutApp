@@ -3,7 +3,7 @@ CREATE table if not exists CompletedWorkouts(ID INTEGER PRIMARY KEY AUTOINCREMEN
  */
 
 import {db} from "../App";
-import {Exercise, ExerciseWithinRoutine} from "./Exercise";
+import {Exercise, ExerciseWithinRoutine, getCompletedExercisesForWorkout} from "./Exercise";
 
 export class CompletedWorkout{
     constructor(ID, date, completedExercises) {
@@ -56,8 +56,13 @@ export function getCompleteWorkout(workoutID, callback){
     db.transaction(tx => {
         tx.executeSql("select * from CompletedWorkouts where ID = "+workoutID+";", [], (_, rows) => {
             //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows",rows.rows)
-            let tempWorkout = rows.rows.item(0)
-
+            let temp = rows.rows.item(0)
+            let workout = new CompletedWorkout(temp.ID, temp.date, null)
+            getCompletedExercisesForWorkout(workoutID, function (res){
+                workout.completedExercises = res
+                callback(workout)
+            })
         })
     })
 }
+

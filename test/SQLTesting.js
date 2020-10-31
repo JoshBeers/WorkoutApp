@@ -16,7 +16,7 @@ import {
     updateRoutine
 } from "../Classes/Routine";
 import {
-    getAllCompleteWorkoutsWithoutExercises,
+    getAllCompleteWorkoutsWithoutExercises, getCompleteWorkout,
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
 
@@ -386,7 +386,29 @@ function testGetCompletedExercisesForWorkout(callback){
     })
 }
 
+function testGetCompleteWorkout(callback){
+    console.log("sqllog_test_GetCompleteWorkout"," test has begun")
+    createDummyData(function (){
+        getCompleteWorkout(1,function (response){
+            //console.log("sqllog_test_GetCompleteWorkout_response",response)
 
+            if(response.date == "2020-10-20"){
+                colorTrace("sqllog_test_GetCompleteWorkout_response method date test passed",'green')
+            }else{
+                colorTrace("sqllog_test_GetCompleteWorkout_response method date test failed",'red')
+            }
+
+            if(response.completedExercises.length == 4){
+                colorTrace("sqllog_test_GetCompleteWorkout_response method exercise list length test passed",'green')
+            }else{
+                colorTrace("sqllog_test_GetCompleteWorkout_response method exercise list length test failed",'red')
+            }
+            if(callback != null){
+                callback()
+            }
+        })
+    })
+}
 
 
 
@@ -459,7 +481,9 @@ function routineTests(callback){
 function completeWorkoutsTest(callback){
     testGetListOfWorkoutsWithoutExercises(function (){
         testGetCompleteWorkoutsWithoutExercises(function (){
-            testGetCompletedExercisesForWorkout(callback)
+            testGetCompletedExercisesForWorkout(function (){
+                testGetCompleteWorkout(callback)
+            })
         })
     })
 }

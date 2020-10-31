@@ -261,7 +261,6 @@ function getCompleteExercisesForSpecificExerciseID(exerciseID,callback){
     })
 }
 
-
 export function getCompletedExercisesForWorkout(workoutID,callback){
     db.transaction(tx => {
         tx.executeSql("select * from CompletedExercises where workOutID = ?;", [workoutID], (_, rows) => {
@@ -279,8 +278,6 @@ export function getCompletedExercisesForWorkout(workoutID,callback){
         })
     })
 }
-
-
 
 export function saveExerciseFromCompletedExercises(exercise:CompleteExercise) {
     db.transaction(tx =>{
