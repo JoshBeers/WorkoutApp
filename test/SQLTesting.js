@@ -9,7 +9,12 @@ import {
     getExerciseFromRoutine
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
-import {addNewRoutine, getAllRoutinesWithOutExercises, Routine, updateRoutine} from "../Classes/Routine";
+import {
+    addNewRoutine,
+    getAllRoutinesWithOutExercises, getSpecificRoutine,
+    Routine,
+    updateRoutine
+} from "../Classes/Routine";
 import {
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
@@ -201,7 +206,7 @@ function testDeleteExercisesFromSpecificRoutine(callback){
 
 function testUpdatingRoutine(callback){
     console.log("sqllog_test_UpdatingRoutine","test has begun")
-    //createDummyData(function (){
+    createDummyData(function (){
         let tE = [new ExerciseWithinRoutine(1,1,1,1),new ExerciseWithinRoutine(2,1,1,1)]
         getAllRoutinesWithOutExercises(function (res){
             let routine =res[0]
@@ -217,10 +222,10 @@ function testUpdatingRoutine(callback){
 
 
 
-                        if(fLOR.length == 2 && fLOR[0].name == "testing updating routine"){
+                        if(fLOR[0].name == "testing updating routine"){
                             colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine routine name test passed",'green')
                         }else{
-                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine method failed expected list lenth =2 found ="+fLOE.length,'red')
+                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine method failed expected routine name =  testing updating routine fount = "+fLOR[0].name,'red')
                         }
 
                         if(fLOE.length == 2){
@@ -239,7 +244,25 @@ function testUpdatingRoutine(callback){
                 })
             })
         })
-  //  })
+    })
+}
+
+function testGetSpecificRoutine(callback){
+    console.log("sqllog_test_GetSpecificRoutine","test has begun")
+    createDummyData(function (){
+        getSpecificRoutine(1, function (routine:Routine){
+            console.log("sqllog_test_GetSpecificRoutine_result",routine)
+
+            if(routine.name == "main routine" && routine.exercises.length == 3){
+                colorTrace("sqllog_test_GetSpecificRoutine_restult geting routine name and exercuse lenght test passed",'green')
+            }else{
+                colorTrace("sqllog_test_GetSpecificRoutine_restult geting routine name and exercuse lenght test failed",'red')
+            }
+            if(callback != null){
+                callback()
+            }
+        })
+    })
 }
 
 
@@ -385,8 +408,10 @@ function routineTests(callback){
                          testAddNewRoutine(function (){
                              testDeleteExercisesFromSpecificRoutine(function (){
                                  testUpdatingRoutine(function (){
-                                     //createDummyData(callback)
-                                     callback()
+                                     testGetSpecificRoutine(function (){
+                                         createDummyData(callback)
+                                       //  callback()
+                                     })
                                  })
                              })
                          })

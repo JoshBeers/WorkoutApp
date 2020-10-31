@@ -88,7 +88,7 @@ export function getExerciseFromRoutine(routineID, callback){
 
             for(let i = 0;i<rows.rows.length;i++){
                 //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(1).ID,rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder))
+                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).ID,rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder))
             }
            // tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
             if(callback != null){
@@ -204,23 +204,6 @@ export function deleteExerciseById(id, callback){
     })
 }
 
-
-/*
-all of this can be done eaiser by one method
-export function updateExerciseName(exerciseName, exerciseID) {
-
-    db.transaction(tx =>{
-        tx.executeSql("update Exercises set name = " + exerciseName + " where ID = " + exerciseID + ";",)
-        })
-}
-
-export function updateExcerciseInfo(routineID, numberOfReps, numberOfSets, weight, placeInOrder) {
-
-    db.transaction(tx =>{
-        tx.executeSql("update ExercisesWithinRoutines set numberOFRep = " + numberOfReps + ", numberOfSets = " + numberOfSets + ", weight = " + weight + ", placeInOrder = " + placeInOrder + " where routineID = " + routineID + ";",)
-        })
-}
- */
 
 
 /*
