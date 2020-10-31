@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, StatusBar} from 'react-native';
-import {Card} from 'react-native-elements';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Colors from '../Themes/Colors';
+import {listStyle} from '../Themes/Styles';
 
 export default class SavedRoutinesScreen extends Component {
 
@@ -20,7 +20,6 @@ export default class SavedRoutinesScreen extends Component {
         return rows.rows;
       });
     });
-
   }
 
   render() {
@@ -52,8 +51,8 @@ export default class SavedRoutinesScreen extends Component {
     ];
 
     const Item = ({title}) => (
-        <View style={styles.item}>
-          <Text style={styles.title}>{title}</Text>
+        <View style={listStyle.item}>
+          <Text style={listStyle.text}>{title}</Text>
         </View>
     );
 
@@ -64,9 +63,9 @@ export default class SavedRoutinesScreen extends Component {
     };
 
     return (
-        <View style={styles.savedRoutine}>
-          <View style={styles.container}>
-            <Text style={styles.titleText}>Saved Routines</Text>
+        <View style={listStyle.screen}>
+          <View style={listStyle.container}>
+            <Text style={listStyle.titleText}>Saved Routines</Text>
           </View>
           <FlatList
               data={savedData}
@@ -77,25 +76,3 @@ export default class SavedRoutinesScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  savedRoutine: {
-    backgroundColor: Colors.background,
-    flex: 1,
-  },
-  container: {
-    marginVertical: 25,
-    marginHorizontal: 25,
-  },
-  titleText: {
-    color: Colors.text,
-    fontSize: 27,
-    marginBottom: 20,
-  },
-  item: {
-    backgroundColor: Colors.card,
-    padding: 35,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-});

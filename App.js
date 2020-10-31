@@ -6,7 +6,6 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
-
 import * as SQLite from 'expo-sqlite';
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
@@ -14,6 +13,7 @@ import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
 import SavedRoutinesScreen from './Screens/SavedRoutinesScreen';
 import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from './test/SQLTesting';
+import ViewRoutineScreen from './Screens/ViewRoutineScreen';
 
 var testing = true;
 
@@ -40,6 +40,7 @@ const AppStack = createStackNavigator({
   // ChooseWorkout: ChooseWorkoutScreen,
   // FitnessAnalytics: FitnessAnalyticsScreen,
   SavedRoutinesScreen: SavedRoutinesScreen,
+  // ViewRoutineScreen: ViewRoutineScreen,
 });
 
 const AuthStack = createStackNavigator({
