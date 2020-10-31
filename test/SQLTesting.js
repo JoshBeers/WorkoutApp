@@ -5,7 +5,7 @@ import {
     createNewExerciseFromExercise,
     deleteExerciseById, deleteExerciseFromRoutine, deleteExercisesUnderARoutine,
     Exercise, ExerciseWithinRoutine, getAllCompleteExerciseBySpecificExerciseID,
-    getAllExercises, getAllExercisesWithinRoutines,
+    getAllExercises, getAllExercisesWithinRoutines, getCompletedExercisesForWorkout,
     getExerciseFromRoutine
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
@@ -16,7 +16,7 @@ import {
     updateRoutine
 } from "../Classes/Routine";
 import {
-    getCompleteWorkoutsWithoutExercises,
+    getAllCompleteWorkoutsWithoutExercises,
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
 
@@ -54,10 +54,6 @@ function testAddNewRoutine(callback){
                         }
 
 
-
-
-
-
                             if(callback != null){
                                 callback()
                             }
@@ -69,7 +65,6 @@ function testAddNewRoutine(callback){
     })
 
 }
-
 
 function testGetAllRoutinesWithOutExercises(callback){
     console.log("sqllog_test_GetAllRoutinesWithOutExercises","the test has begun")
@@ -89,7 +84,6 @@ function testGetAllRoutinesWithOutExercises(callback){
         }
     })
 }
-
 
 function testGetExercisesFromRoutine1(callback){
     console.log("sqllog_test_gettingExercisesFromRoutine1","the test has begun")
@@ -157,8 +151,6 @@ function testAddMultipleExercisesToRoutine(callback){
     })
 }
 
-
-
 function testDeleteExerciseFromRoutine(callback){
     console.log("sqllog_test_DeleteExerciseFromRoutine","the test has begun")
     getAllExercisesWithinRoutines(function (result){
@@ -181,7 +173,6 @@ function testDeleteExerciseFromRoutine(callback){
         })
     })
 }
-
 
 function testDeleteExercisesFromSpecificRoutine(callback){
     console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine","the test has begun")
@@ -309,7 +300,6 @@ function testCreateNewExerciseFromExercise(callback){
     })
 }
 
-
 function testDeleteExerciseById(callback){
    console.log("sqllog_test_DeleteExerciseById","the testDeleteExerciseById test has begun")
     let temp = null
@@ -332,6 +322,7 @@ function testDeleteExerciseById(callback){
         })
     })
 }
+
 
 
 
@@ -360,13 +351,13 @@ function testGetListOfWorkoutsWithoutExercises(callback){
 function testGetCompleteWorkoutsWithoutExercises(callback){
     console.log("sqllog_test_GetCompleteWorkoutsWithoutExercises"," test has begun")
     createDummyData(function (){
-        getCompleteWorkoutsWithoutExercises(function (res){
+        getAllCompleteWorkoutsWithoutExercises(function (res){
             //console.log("sqllog_test_GetCompleteWorkoutsWithoutExercises_result",res)
 
             if(res.length ==2){
                 colorTrace("sqllog_test_GetCompleteWorkoutsWithoutExercises_result method length test passed",'green')
             }else {
-                colorTrace("sqllog_test_GetCompleteWorkoutsWithoutExercises_result method length test failed",'false')
+                colorTrace("sqllog_test_GetCompleteWorkoutsWithoutExercises_result method length test failed",'red')
             }
             if(callback != null){
                 callback()
@@ -375,6 +366,28 @@ function testGetCompleteWorkoutsWithoutExercises(callback){
         })
     })
 }
+
+function testGetCompletedExercisesForWorkout(callback){
+    console.log("sqllog_test_GetCompletedExercisesForWorkout"," test has begun")
+    createDummyData(function (){
+        getCompletedExercisesForWorkout(1,function (res){
+            console.log("sqllog_test_GetCompletedExercisesForWorkout_result",res)
+
+            if(res.length ==4){
+                colorTrace("sqllog_test_GetCompletedExercisesForWorkout_result method length test passed",'green')
+            }else {
+                colorTrace("sqllog_test_GetCompletedExercisesForWorkout_result method length test failed",'red')
+            }
+            if(callback != null){
+                callback()
+            }
+
+        })
+    })
+}
+
+
+
 
 
 /*
@@ -400,6 +413,8 @@ function testGetAllCompleteExerciseBySpecificExerciseID(callback){
 
     })
 }
+
+
 
 
 //actuall testing
@@ -443,7 +458,9 @@ function routineTests(callback){
 
 function completeWorkoutsTest(callback){
     testGetListOfWorkoutsWithoutExercises(function (){
-        testGetCompleteWorkoutsWithoutExercises(callback)
+        testGetCompleteWorkoutsWithoutExercises(function (){
+            testGetCompletedExercisesForWorkout(callback)
+        })
     })
 }
 

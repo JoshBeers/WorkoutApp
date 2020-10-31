@@ -33,7 +33,7 @@ export function getMapOfCompleteWorkoutIDsToDates(callback){
     })
 }
 
-export function getCompleteWorkoutsWithoutExercises(callback){
+export function getAllCompleteWorkoutsWithoutExercises(callback){
     db.transaction(tx => {
         tx.executeSql("select * from CompletedWorkouts;", [], (_, rows) => {
             //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows",rows.rows)
@@ -50,6 +50,14 @@ export function getCompleteWorkoutsWithoutExercises(callback){
             }
         })
     })
+}
 
+export function getCompleteWorkout(workoutID, callback){
+    db.transaction(tx => {
+        tx.executeSql("select * from CompletedWorkouts where ID = "+workoutID+";", [], (_, rows) => {
+            //console.log("sqllog_method_getCompleteWorkoutsWithoutExercises_rows",rows.rows)
+            let tempWorkout = rows.rows.item(0)
 
+        })
+    })
 }
