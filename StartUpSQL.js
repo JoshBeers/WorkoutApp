@@ -48,7 +48,9 @@ export function createDummyData(callback) {
                         createExercisesWithinRoutineDD(function (){
 
                             //logDataBase(function (){
+                            if(callback != null){
                                 callback()
+                            }
                             //})
                         })
                     })
@@ -72,7 +74,7 @@ export function createWorkoutDummyData(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into CompletedWorkouts(id,date) values(2,'2020-10-15');");
     });
-    console.log("sqllog", "workouts created")
+    //console.log("sqllog", "workouts created")
     callback()
 }
 
@@ -100,7 +102,7 @@ export function creatCompletedExercisesDData(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into CompletedExercises(ID,exerciseId,numberOfReps,numberOfSets,workOutID) values(5,1,1,3,2);");
     });
-    console.log("sqllog", "completed exercises created")
+    //console.log("sqllog", "completed exercises created")
     callback()
 }
 
@@ -122,7 +124,7 @@ export function createExercisesDD(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into Exercises(ID,name,doesUseWeight) values(3,'curl up',false);");
     });
-    console.log("sqllog", "exercises created")
+    //console.log("sqllog", "exercises created")
     callback()
 }
 
@@ -136,7 +138,7 @@ export function createRoutinesDD(callback){
     db.transaction((tx) => {
         tx.executeSql("insert into routines(ID,name,placeOnList) values(1,'main routine',1);");
     });
-    console.log("sqllog", "routine created")
+    //console.log("sqllog", "routine created")
     callback()
 }
 
@@ -157,7 +159,7 @@ export function createExercisesWithinRoutineDD(callback){
         tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(3,1,3);");
     });
 
-    console.log("sqllog", "ExercisesWithinRoutine created")
+    //console.log("sqllog", "ExercisesWithinRoutine created")
     callback()
 }
 
@@ -183,7 +185,7 @@ export function clearDB(callback) {
 
 
 
-    console.log("sqllog", "db cleared")
+    //console.log("sqllog", "db cleared")
     callback()
 }
 

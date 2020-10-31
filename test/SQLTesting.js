@@ -9,7 +9,7 @@ import {
     getExerciseFromRoutine
 } from "../Classes/Exercise";
 import {createDummyData} from "../StartUpSQL";
-import {addNewRoutine, getAllRoutinesWithOutExercises, Routine} from "../Classes/Routine";
+import {addNewRoutine, getAllRoutinesWithOutExercises, Routine, updateRoutine} from "../Classes/Routine";
 import {
     getMapOfCompleteWorkoutIDsToDates
 } from "../Classes/Workout";
@@ -181,6 +181,7 @@ function testDeleteExercisesFromSpecificRoutine(callback){
     console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine","the test has begun")
     getAllRoutinesWithOutExercises(function (res){
         let routineIdToDelete = res[0].id
+        routineIdToDelete.name = "test updating"
         console.log("sqllog_test_DeleteEcercisesFromSpecificRoutine_result",res[0].id)
         deleteExercisesUnderARoutine(routineIdToDelete,function (){
             getExerciseFromRoutine(routineIdToDelete, function (finalList){
@@ -196,8 +197,52 @@ function testDeleteExercisesFromSpecificRoutine(callback){
             })
         })
     })
-
 }
+
+function testUpdatingRoutine(callback){
+    console.log("sqllog_test_UpdatingRoutine","test has begun")
+    //createDummyData(function (){
+        let tE = [new ExerciseWithinRoutine(1,1,1,1),new ExerciseWithinRoutine(2,1,1,1)]
+        getAllRoutinesWithOutExercises(function (res){
+            let routine =res[0]
+            routine.exercises = tE
+            routine.placeInOrder = 45
+            routine.name = "testing updating routine"
+            updateRoutine(routine, function (){
+                getExerciseFromRoutine(routine.id,function (finalListOfExercises){
+                    console.log("sqllog_test_UpdatingRoutine_result",finalListOfExercises)
+                    let fLOE= finalListOfExercises
+                    getAllRoutinesWithOutExercises(function (fLOR){
+                        console.log("sqllog_test_UpdatingRoutine_result",fLOR)
+
+
+
+                        if(fLOR.length == 2 && fLOR[0].name == "testing updating routine"){
+                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine routine name test passed",'green')
+                        }else{
+                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine method failed expected list lenth =2 found ="+fLOE.length,'red')
+                        }
+
+                        if(fLOE.length == 2){
+                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine exercise length passed",'green')
+                        }else{
+                            colorTrace("ssqllog_test_UpdatingRoutine_result testUpdatingRoutine exercise length failed",'green')
+                        }
+
+
+                        if(callback != null){
+                            callback()
+                        }
+
+                    })
+
+                })
+            })
+        })
+  //  })
+}
+
+
 
 
 /*
@@ -324,7 +369,8 @@ function exerciseTests(callback){
     testGetAllExercises(function (){
         testCreateNewExerciseFromExercise( function (){
             testDeleteExerciseById(function (){
-                    callback()
+                createDummyData(callback)
+                //callback()
             })
         })
     })
@@ -338,7 +384,10 @@ function routineTests(callback){
                     testAddMultipleExercisesToRoutine(function (){
                          testAddNewRoutine(function (){
                              testDeleteExercisesFromSpecificRoutine(function (){
-                                 callback()
+                                 testUpdatingRoutine(function (){
+                                     //createDummyData(callback)
+                                     callback()
+                                 })
                              })
                          })
                     })

@@ -1,5 +1,5 @@
 import {
-    addMultipleExercisesToRoutine,
+    addMultipleExercisesToRoutine, deleteExercisesUnderARoutine,
     ExerciseWithinRoutine,
     getExerciseFromRoutine
 } from "./Exercise";
@@ -64,10 +64,22 @@ export function getAllRoutinesWithOutExercises(callback){
     })
 }
 
+//s routines(ID integer primary key AUTOINCREMENT, name varchar(30) not null,placeOnList integer);
 export function updateRoutine(routine:Routine, callback){
+    deleteExercisesUnderARoutine(routine.id, function (){
+        console.log("sqllog_method_updateRoutine",routine.name)
+        db.transaction(tx =>{
+            tx.executeSql("update routines set name = '"+routine.name+"',placeOnList = "+routine.placeInOrder+" where ID = "+routine.id+";",[],(_,rows) =>{
+                addMultipleExercisesToRoutine(routine.id,routine.exercises,function () {
+                    if(callback != null){
+                        callback()
+                    }
+                })
+            })
+        })
 
 
-
+    })
 }
 
 
