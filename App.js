@@ -11,14 +11,13 @@ import * as SQLite from 'expo-sqlite';
 import * as firebase from 'firebase';
 import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
 import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
+import SavedRoutinesScreen from './Screens/SavedRoutinesScreen';
 import {createDummyData, createTables} from './StartUpSQL';
-import {runSQLTest} from "./test/SQLTesting";
-
+import {runSQLTest} from './test/SQLTesting';
 
 var testing = true;
 
-
-export const db = SQLite.openDatabase("workoutAppDB.db");
+export const db = SQLite.openDatabase('workoutAppDB.db');
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -37,9 +36,10 @@ if (!firebase.apps.length) {
 
 const AppStack = createStackNavigator({
   // Home: HomeScreen,
-  Workout: WorkoutScreen,
+  // Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
   // FitnessAnalytics: FitnessAnalyticsScreen,
+  SavedRoutinesScreen: SavedRoutinesScreen,
 });
 
 const AuthStack = createStackNavigator({
@@ -62,10 +62,8 @@ export default createAppContainer(
 
 //startup sql
 
-createTables(function(){
-        if(testing){
-            runSQLTest()
-        }
+createTables(function () {
+  if (testing) {
+    runSQLTest();
+  }
 });
-
-

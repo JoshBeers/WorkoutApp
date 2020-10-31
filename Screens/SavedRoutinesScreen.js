@@ -37,6 +37,18 @@ export default class SavedRoutinesScreen extends Component {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
         title: 'Third Item',
       },
+      {
+        id: '57694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Fourth Item',
+      },
+      {
+        id: '56694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Fifth Item',
+      },
+      {
+        id: '55694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Sixth Item',
+      },
     ];
 
     const Item = ({title}) => (
@@ -56,13 +68,11 @@ export default class SavedRoutinesScreen extends Component {
           <View style={styles.container}>
             <Text style={styles.titleText}>Saved Routines</Text>
           </View>
-          <View style={styles.listContainer}>
-            <FlatList
-                data={savedData}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
-          </View>
+          <FlatList
+              data={savedData}
+              renderItem={renderItem}
+              keyExtractor={item => item.id}
+          />
         </View>
     );
   }
@@ -74,16 +84,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    marginVertical: 30,
-    marginHorizontal: 30,
+    marginVertical: 25,
+    marginHorizontal: 25,
   },
   titleText: {
     color: Colors.text,
     fontSize: 27,
     marginBottom: 20,
   },
-  listContainer: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+  item: {
+    backgroundColor: Colors.card,
+    padding: 35,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });
