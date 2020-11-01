@@ -39,8 +39,8 @@ const AppStack = createStackNavigator({
   // Workout: WorkoutScreen,
   // ChooseWorkout: ChooseWorkoutScreen,
   // FitnessAnalytics: FitnessAnalyticsScreen,
-  SavedRoutinesScreen: SavedRoutinesScreen,
-  // ViewRoutineScreen: ViewRoutineScreen,
+  // SavedRoutinesScreen: SavedRoutinesScreen,
+  ViewRoutineScreen: ViewRoutineScreen,
 });
 
 const AuthStack = createStackNavigator({
