@@ -87,6 +87,7 @@ export default class ViewRoutineScreen extends Component {
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                 />
+
             </View>
         );
     }
