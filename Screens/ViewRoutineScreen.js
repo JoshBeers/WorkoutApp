@@ -38,11 +38,21 @@ class ViewRoutineScreen extends Component {
 
 
 
-    render() {
+      render() {
+        return (
+            <View style={styles.container}>
+                <Text>ViewRoutineScreen</Text>
+            </View>
+        );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    }
 });
 
 module.exports = ViewRoutineScreen;

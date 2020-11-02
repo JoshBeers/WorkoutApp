@@ -23,11 +23,21 @@ class SavedRoutinesScreen extends Component {
   } 
 
   
-    render() {
-    }
+  render() {
+    return (
+        <View style={styles.container}>
+            <Text>SavedRoutinesScreen</Text>
+        </View>
+    );
+}
 }
 
 const styles = StyleSheet.create({
+container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+}
 });
 
 module.exports = SavedRoutinesScreen;
