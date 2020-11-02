@@ -47,9 +47,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 var testing = false;
 
-
-export const db = SQLite.openDatabase("workoutAppDB.db");
-
+export const db = SQLite.openDatabase('workoutAppDB.db');
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -110,6 +108,7 @@ const AppTabNavigator = createBottomTabNavigator(
 //   // FitnessAnalytics: FitnessAnalyticsScreen,
 // });
 
+
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Signup: SignUpScreen,
@@ -130,10 +129,8 @@ export default createAppContainer(
 
 //startup sql
 
-createTables(function(){
-        if(testing){
-            runSQLTest()
-        }
+createTables(function () {
+  if (testing) {
+    runSQLTest();
+  }
 });
-
-

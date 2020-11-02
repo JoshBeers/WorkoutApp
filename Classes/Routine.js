@@ -1,6 +1,12 @@
-import {addExerciseToRoutine, ExerciseWithinRoutine, getExerciseFromRoutine} from "./Exercise";
+import {
+    addMultipleExercisesToRoutine, deleteExercisesUnderARoutine,
+    ExerciseWithinRoutine,
+    getExerciseFromRoutine
+} from "./Exercise";
 import * as SQLite from "expo-sqlite";
 import {db} from "../App";
+import {call} from "react-native-reanimated";
+
 
 export class Routine{
     constructor(id, name,placeInOrder,exercises:ExerciseWithinRoutine[]) {
@@ -16,38 +22,34 @@ export function addNewRoutine(routine:Routine,callback){
     db.transaction(tx =>{
         tx.executeSql("insert into routines(name,placeOnList) values('"+routine.name+"',"+routine.placeInOrder+");",[],function(){
 
-            //gets the id of the last added routine
-            let routineId = null;
             db.transaction(tx =>{
-                tx.executeSql("select MAX(ID) from routines;",[],(_,rows) =>{
-                    console.log("sqllog_routines", rows.rows)
-                    routineId = rows.rows[0]
+                tx.executeSql("select Max(ID) as ID from routines;",[],(_,rows)=>{
+                    //console.log("sqllog_method_addNewRoutiney",rows.rows.item(0))
+                    addMultipleExercisesToRoutine(rows.rows.item(0).ID,routine.exercises, callback)
                 })
             })
-
-            if(routineId==null){
-                throw  new Error("no routines in db")
-            }
-
-            routine.exercises.forEach( exercise => addExerciseToRoutine(routineId, exercise))
-
-
         })
     })
-
-
 }
 
-export function getSpecificRoutine(routineID){
+
+export function getSpecificRoutine(routineID,callback){
     let tempRoutine = new Routine()
     db.transaction(tx =>{
         tx.executeSql("select * from routines where ID ="+ routineID +";",[],(_,rows) =>{
+            tempRoutine.id = rows.rows[0].ID
             tempRoutine.name = rows.rows[0].name
-            tempRoutine.placeInOrder = rows.rows[0].placeInOrder
+            tempRoutine.placeInOrder = rows.rows[0].placeOnList
+            getExerciseFromRoutine(routineID,function (res) {
+                tempRoutine.exercises = res
+                if(callback != null){
+                    callback(tempRoutine)
+                }
+            })
+
         })
     })
-    tempRoutine.exercises = getExerciseFromRoutine(routineID)
-    return tempRoutine
+
 }
 
 export function getAllRoutinesWithOutExercises(callback){
@@ -57,8 +59,8 @@ export function getAllRoutinesWithOutExercises(callback){
 
 
             for(let i = 0;i<rows.rows.length;i++){
-                //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-                tempRoutines.push(new Routine(rows.rows.item(i).ID,rows.rows.item(i).name,rows.rows.item(i).placeInOrder, []))
+               // console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
+                tempRoutines.push(new Routine(rows.rows.item(i).ID,rows.rows.item(i).name,rows.rows.item(i).placeOnList, []))
             }
            // tempRoutines.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
             if(callback != null){
@@ -67,7 +69,38 @@ export function getAllRoutinesWithOutExercises(callback){
 
         })
     })
-
-
 }
+
+//s routines(ID integer primary key AUTOINCREMENT, name varchar(30) not null,placeOnList integer);
+export function updateRoutine(routine:Routine, callback){
+    deleteExercisesUnderARoutine(routine.id, function (){
+        console.log("sqllog_method_updateRoutine",routine.name)
+        db.transaction(tx =>{
+            tx.executeSql("update routines set name = '"+routine.name+"',placeOnList = "+routine.placeInOrder+" where ID = "+routine.id+";",[],(_,rows) =>{
+                addMultipleExercisesToRoutine(routine.id,routine.exercises,function () {
+                    if(callback != null){
+                        callback()
+                    }
+                })
+            })
+        })
+
+
+    })
+}
+
+export function deleteRoutine(routine:Routine, callback){
+    deleteExercisesUnderARoutine(routine.id, function (){
+        db.transaction(tx => {
+            tx.executeSql("delete from routines where ID = "+routine.id+";", [], (_,rows) =>{
+                //console.log("sqllog_method_addExerciseToRoutine")
+                if (callback != null) {
+                    callback()
+                }
+            })
+        })
+    })
+}
+
+
 
