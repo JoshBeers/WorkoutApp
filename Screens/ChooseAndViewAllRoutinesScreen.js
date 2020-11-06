@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite';
 import Colors from '../Themes/Colors';
 import {listStyle} from '../Themes/Styles';
 
-export default class SavedRoutinesScreen extends Component {
+export default class ChooseAndViewAllRoutinesScreen extends Component {
 
   //method returns a list of routines
   //has not been tested

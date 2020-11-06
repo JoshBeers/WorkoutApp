@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from "react";
 import HomeScreen from "../Screens/HomeScreen";
-import FitnessAnalyticsScreen from "../Screens/FitnessAnalyticsScreen";
-import ViewRoutineScreen from "../Screens/ViewRoutineScreen"
+import StatisticsScreen from "../Screens/StatisticsScreen";
+import ViewAndEditSingleRoutine from "../Screens/ViewAndEditSingleRoutine"
 import Colors from "../Themes/Colors";
 
 
@@ -34,8 +34,8 @@ export default class NavBar extends React.Component{
                 }}
             >
                 <Tab.Screen name= "Home" component={HomeScreen}/>
-                <Tab.Screen name= "Progress" component={FitnessAnalyticsScreen}/>
-                <Tab.Screen name= "View Routines" component={ViewRoutineScreen}/>
+                <Tab.Screen name= "Progress" component={StatisticsScreen}/>
+                <Tab.Screen name= "View Routines" component={ViewAndEditSingleRoutine}/>
             </Tab.Navigator>
         );
     }

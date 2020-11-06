@@ -4,9 +4,15 @@ import {Text, View, FlatList} from 'react-native';
 import { listStyle } from '../Themes/Styles';
 import * as SQLite from 'expo-sqlite';
 import {Abs, Arm, Back, Chest, Rear} from '../img/WorkoutIcons';
-import {addNewRoutine, Routine} from '../Classes/Routine';
+import {getAllRoutinesWithOutExercises, Routine} from '../Classes/Routine';
 
-export default class ViewRoutineScreen extends Component {
+export default class ViewAndEditSingleRoutine extends Component {
+
+    constructor() {
+        super();
+    }
+
+
 
     getExerciseName(exerciseId){
         const db = SQLite.openDatabase('workoutAppDB.db');

@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../Screens/HomeScreen";
-import FitnessAnalyticsScreen from '../Screens/FitnessAnalyticsScreen';
-import ViewRoutineScreen from '../Screens/ViewRoutineScreen';
+import StatisticsScreen from '../Screens/StatisticsScreen';
+import ViewAndEditSingleRoutine from '../Screens/ViewAndEditSingleRoutine';
 
 
 export default MainStackScreens = () => {
@@ -58,8 +58,8 @@ export default MainStackScreens = () => {
     return (
         <MainStack.Navigator tabBarOptions={tabBarOptions} screenOptions={screenOptions}>
             <MainStack.Screen name="Home" component={HomeScreen} />
-            <MainStack.Screen name="ViewRoutines" component={ViewRoutineScreen} />
-            <MainStack.Screen name="Analytics" component={FitnessAnalyticsScreen} />
+            <MainStack.Screen name="ViewRoutines" component={ViewAndEditSingleRoutine} />
+            <MainStack.Screen name="Analytics" component={StatisticsScreen} />
         </MainStack.Navigator>
     );
 };

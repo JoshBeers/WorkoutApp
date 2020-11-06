@@ -14,11 +14,11 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
-import ChooseWorkoutScreen from './Screens/ChooseWorkoutScreen';
-import FitnessAnalyticsScreen from './Screens/FitnessAnalyticsScreen';
-import ExerciseScreen from './Screens/ExerciseScreen';
-import SavedRoutinesScreen from './Screens/SavedRoutinesScreen';
-import ViewRoutineScreen from './Screens/ViewRoutineScreen';
+import ChooseWorkoutScreen from './Screens which are not in doc/ChooseWorkoutScreen';
+import StatisticsScreen from './Screens/StatisticsScreen';
+import ExerciseScreen from './Screens/ViewAndEditAllExercises';
+import ChooseAndViewAllRoutinesScreen from './Screens/ChooseAndViewAllRoutinesScreen';
+import ViewAndEditSingleRoutine from './Screens/ViewAndEditSingleRoutine';
 
 
 import * as SQLite from 'expo-sqlite';
@@ -47,7 +47,16 @@ import { NavigationContainer } from "@react-navigation/native";
 
 var testing = false;
 
+
+
 export const db = SQLite.openDatabase('workoutAppDB.db');
+
+createTables(function () {
+    createDummyData()
+    if (testing) {
+        runSQLTest();
+    }
+});
 
 var firebaseConfig = {
   apiKey: 'AIzaSyBuyPSc2O6-BZ7oj0AKGxm7pUdApKxAFUI',
@@ -73,7 +82,7 @@ const AppTabNavigator = createBottomTabNavigator(
       }
     },
     ViewRoutineScreen: {
-      screen: ViewRoutineScreen,
+      screen: ViewAndEditSingleRoutine,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
       }
@@ -85,7 +94,7 @@ const AppTabNavigator = createBottomTabNavigator(
       }
     },
     FitnessAnalyticsScreen: {
-      screen: FitnessAnalyticsScreen,
+      screen: StatisticsScreen,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => <Ionicons name="md-stats" size={24} color={tintColor}/>
       }
@@ -105,7 +114,7 @@ const AppTabNavigator = createBottomTabNavigator(
 //   Home: HomeScreen,
 //    //Workout: WorkoutScreen,
 //   // ChooseWorkout: ChooseWorkoutScreen,
-//   // FitnessAnalytics: FitnessAnalyticsScreen,
+//   // FitnessAnalytics: StatisticsScreen,
 // });
 
 
@@ -129,8 +138,5 @@ export default createAppContainer(
 
 //startup sql
 
-createTables(function () {
-  if (testing) {
-    runSQLTest();
-  }
-});
+
+

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import {Cardio} from './WorkoutTabs';
+import {Cardio} from '../Screens/WorkoutTabs';
 import * as SQLite from "expo-sqlite";
 
 export default class ChooseWorkoutScreen extends Component {

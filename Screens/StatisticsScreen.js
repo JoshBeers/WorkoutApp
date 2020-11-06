@@ -5,7 +5,7 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import GradientLineChart from './GradientLineChart';
 import {Calories, Duration, Workouts} from '../img/AnalyticsIcons';
 
-export default class FitnessAnalyticsScreen extends Component {
+export default class StatisticsScreen extends Component {
   constructor() {
     super();
     this.state = {

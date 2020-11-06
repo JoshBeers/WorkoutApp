@@ -13,23 +13,22 @@ import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
-import * as SQLite from 'expo-sqlite';
-import {WorkoutScreen} from "../Screens/WorkoutScreen";
+import {getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
 
 export default class HomeScreen extends React.Component {
+
   constructor() {
     super();
-    this.state = { marked: null, };
+    this.state = { marked: null,
+      email: '',
+      displayName: '',
+      dates: []
+    };
   }
   stepPercentage = 0.6; //Place holder variable
   stepCount = 2500; // Place holder variable
   today = moment().format('YYYY-MM-DD');
 
-  state = {
-    email: '',
-    displayName: '',
-    dates: []
-  };
   componentDidMount() {
     firebase.firestore().collection('Users').doc(firebase.auth().currentUser.uid).get().then((doc) =>{
       //alert(doc.data())
@@ -40,24 +39,43 @@ export default class HomeScreen extends React.Component {
 
     });
 
-    this.setState({
-      dates: this.getDates()
+    this.getDates((result)=>{
+      this.setState({
+        dates : result
+      })
+      //console.log("dataLog_HomeScreen_AfterGettingDates",this.state)
     })
+
   }
 
 
   signOutUser = () => {
     firebase.auth().signOut();
   };
-
+/*
   markDates = () => {
     let aDate = this.getDates().reduce((a, b) => Object.assign(a, {[b]: {selected: true, dotColor: Colors.positive}}), {});
     this.setState({marked : aDate});
   }
 
-  getDates(){
+ */
 
-    const db = SQLite.openDatabase("workoutAppDB.db");
+  getDates(callback){
+
+    getAllCompleteWorkoutsWithoutExercises(function (result) {
+      let temp = [];
+
+
+      for(let i = 0; i<result.length; i++){
+        temp.push(result[i].date)
+        console.log("sqllog_HomeScreen_getDates",result[i])
+      }
+      console.log("sqllog_HomeScreen_getDates",temp)
+      callback(temp)
+      return temp;
+    })
+
+    /*
 
     db.transaction(tx =>{
       tx.executeSql("select date from Workouts;",[],(_,rows) =>{
@@ -67,12 +85,14 @@ export default class HomeScreen extends React.Component {
 
         for(i = 0; i<rows.rows.length; i++){
           temp.push(rows.rows._array[i].date)
-          //console.log("sqlloggg",rows.rows._array[i])
+          console.log("sqllog_HomeScreen_getDates",rows.rows._array[i])
         }
 
         return rows;
       })
     })
+
+     */
   }
 
   render() {

@@ -4,21 +4,18 @@ import {StyleSheet, TextInput, Text, View, Button, FlatList} from 'react-native'
 import {Card} from 'react-native-elements';
 import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
-import {Exercise} from "../Classes/Exercise";
 
 import {dumDumExercise, dumDumRoutines} from "../DummyData/DummyParse";
-import Dimensions from "react-native-web/src/exports/Dimensions";
 
 let exercises = [];
 let exerciseWithin = dumDumRoutines[0].exercises; // Some temp bullshit
 
-class WorkoutScreen extends Component {
+class WorkoutScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.fillArray();
   }
-
 
   // Fills the exercise array with exercise objects current just pulling form json object
   fillArray() {
