@@ -4,22 +4,25 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Colors from '../Themes/Colors';
 import {listStyle} from '../Themes/Styles';
+import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
 
 export default class ChooseAndViewAllRoutinesScreen extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      routineList: []
+    }
+  }
+
   //method returns a list of routines
   //has not been tested
-  getRoutines(){
-    const db = SQLite.openDatabase('workoutAppDB.db');
-
-    db.transaction(tx =>{
-      tx.executeSql('select * from routines;',[],(_,rows) =>{
-
-        console.log('sqllog_SavedRoutinesScreen_routines', rows.rows);
-
-        return rows.rows;
-      });
-    });
+  componentDidMount() {
+    getAllRoutinesWithOutExercises((result)=>{
+      this.setState({
+        routineList: result
+      })
+    })
   }
 
   render() {

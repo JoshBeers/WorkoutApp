@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "../Screens/HomeScreen";
 import StatisticsScreen from '../Screens/StatisticsScreen';
 import ViewAndEditSingleRoutine from '../Screens/ViewAndEditSingleRoutine';
+import ChooseAndViewAllRoutinesScreen from "../Screens/ChooseAndViewAllRoutinesScreen";
 
 
 export default MainStackScreens = () => {
@@ -58,7 +59,7 @@ export default MainStackScreens = () => {
     return (
         <MainStack.Navigator tabBarOptions={tabBarOptions} screenOptions={screenOptions}>
             <MainStack.Screen name="Home" component={HomeScreen} />
-            <MainStack.Screen name="ViewRoutines" component={ViewAndEditSingleRoutine} />
+            <MainStack.Screen name="ViewRoutines" component={ChooseAndViewAllRoutinesScreen} />
             <MainStack.Screen name="Analytics" component={StatisticsScreen} />
         </MainStack.Navigator>
     );

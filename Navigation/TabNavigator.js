@@ -6,6 +6,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import StatisticsScreen from "../Screens/StatisticsScreen";
 import ViewAndEditSingleRoutine from "../Screens/ViewAndEditSingleRoutine"
 import Colors from "../Themes/Colors";
+import ChooseAndViewAllRoutinesScreen from "../Screens/ChooseAndViewAllRoutinesScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -35,7 +36,7 @@ export default class NavBar extends React.Component{
             >
                 <Tab.Screen name= "Home" component={HomeScreen}/>
                 <Tab.Screen name= "Progress" component={StatisticsScreen}/>
-                <Tab.Screen name= "View Routines" component={ViewAndEditSingleRoutine}/>
+                <Tab.Screen name= "View Routines" component={ChooseAndViewAllRoutinesScreen}/>
             </Tab.Navigator>
         );
     }

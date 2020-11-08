@@ -7,6 +7,16 @@ import {ExerciseWithinRoutine} from "../Classes/Exercise";
 
 class CreateRoutineScreen extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+
+        }
+    }
+
+
+
+
     render() {
         return (
             <View style={styles.container}>

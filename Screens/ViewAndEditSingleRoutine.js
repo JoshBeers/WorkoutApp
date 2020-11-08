@@ -4,15 +4,27 @@ import {Text, View, FlatList} from 'react-native';
 import { listStyle } from '../Themes/Styles';
 import * as SQLite from 'expo-sqlite';
 import {Abs, Arm, Back, Chest, Rear} from '../img/WorkoutIcons';
-import {getAllRoutinesWithOutExercises, Routine} from '../Classes/Routine';
+import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Classes/Routine';
 
 export default class ViewAndEditSingleRoutine extends Component {
 
-    constructor() {
-        super();
+    //no idea if this works
+    constructor(props) {
+        super(props);
+        this.routineId = props.navigation.state.params.routineId;
+        this.state ={
+            routine: null
+        }
     }
 
-
+    //no idea if this works
+    componentDidMount() {
+        getSpecificRoutine(this.routineId, (result)=>{
+            this.setState({
+                routine:result
+            })
+        })
+    }
 
     getExerciseName(exerciseId){
         const db = SQLite.openDatabase('workoutAppDB.db');
