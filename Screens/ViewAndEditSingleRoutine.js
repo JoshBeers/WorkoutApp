@@ -16,20 +16,18 @@ export default class ViewAndEditSingleRoutine extends Component {
     }
     constructor(props) {
         super(props);
-        this.state.routineName = props.name;
         this.state.routineId = props.id;
-        this.state.exerciseWithin = props.exerciseWithin;
     }
 
-   /* //no idea if this works
+    //no idea if this works
     componentDidMount() {
-        getSpecificRoutine(this.routineId, (result)=>{
+        getSpecificRoutine(this.state.routineId, (result)=>{
             this.setState({
-                routine:result
+                routineName: result.name,
+                exerciseWithin: result.exercises,
             })
         })
     }
-    */
     getExerciseName(exerciseId){
         const db = SQLite.openDatabase('workoutAppDB.db');
 
@@ -58,52 +56,12 @@ export default class ViewAndEditSingleRoutine extends Component {
       }
 
     render() {
-        /*const allRoutineData = [
-            {
-                id: '1',
-                title: 'workout name 1',
-                icon: <Abs />,
-            },
-            {
-                id: '2',
-                title: 'workout name 2',
-                icon: <Chest />,
-            },
-            {
-                id: '3',
-                title: 'workout name 3',
-                icon: <Arm />,
-            },
-            {
-                id: '4',
-                title: 'workout name 4',
-                icon: <Chest />,
-            },
-            {
-                id: '5',
-                title: 'workout name 5',
-                icon: <Abs />,
-            },
-        ];*/
-
-        const Item = ({title}) => (
-            <View style={listStyle.item}>
-                <Text style={listStyle.titleText}>{title}</Text>
-            </View>
-        );
-
-        const renderItem = ({item}) => {
-            return (
-                // <Item title={item.icon} />
-                <Item title={item.title}/>
-            );
-        };
-
         return (
             <View style={listStyle.screen}>
                 <View style={listStyle.container}>
                     <Text style={listStyle.titleText}>Routine Name</Text>
                 </View>
+                <Text>{this.state.routineName}</Text>
                 <FlatList
                     data={this.state.exerciseWithin}
                     renderItem={({item}) => (

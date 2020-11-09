@@ -1,16 +1,24 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Colors from '../Themes/Colors';
 import {Card} from 'react-native-elements';
 import {listStyle} from '../Themes/Styles';
 import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
+import * as navigation from "react-navigation";
+import ViewAndEditSingleRoutine from "./ViewAndEditSingleRoutine";
+import NativeStackNavigator from "react-native-screens/src/native-stack/navigators/createNativeStackNavigator";
+
+const routineStack = NativeStackNavigator({
+    ViewDetails: {screen: ViewAndEditSingleRoutine},
+});
 
 export default class ChooseAndViewAllRoutinesScreen extends Component {
   state = {
     routineList: [],
   }
+
   constructor() {
     super();
   }
@@ -27,36 +35,12 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
       });
   }
 
+  seeDetails(id){
+        this.props.navigator.push("ViewDetails");
+  }
+
   render() {
-    /*const savedData = [
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-      {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-      },
-      {
-        id: '57694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Fourth Item',
-      },
-      {
-        id: '56694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Fifth Item',
-      },
-      {
-        id: '55694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Sixth Item',
-      },
-    ];*/
-
-
-    return (
+      return (
         <View style={listStyle.screen}>
           <View style={listStyle.container}>
             <Text style={listStyle.titleText}>Saved Routines</Text>
@@ -64,9 +48,11 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
           <FlatList
               data={this.state.routineList}
               renderItem={({item}) => (
-                  <Card>
-                    <Text>{item.name}</Text>
-                  </Card>
+                  <TouchableOpacity onPress= {() => this.seeDetails(item.id)}>
+                      <Card containerStyle={listStyle.item}>
+                        <Text>{item.name}</Text>
+                      </Card>
+                  </TouchableOpacity>
               )}
               //keyExtractor={item => item.id}
           />
