@@ -59,6 +59,10 @@ class WorkoutScreen extends React.Component {
         <View style={styles.workout}>
           <FlatList
               horizontal
+              decelerationRate={0}
+              snapToInterval={400}
+              snapToAlignment={"center"}
+              disableIntervalMomentum={ true }
               data={exercises} renderItem={({item}) => (
               <WorkoutCard
                   id={item.exerciseID}
@@ -66,7 +70,7 @@ class WorkoutScreen extends React.Component {
                   isWeight={item.doesUseWeight}
               />
 
-          )}/>
+          )} keyExtractor={item => item.exerciseID}/>
         </View>
     )
   }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, Text, View, Button} from 'react-native';
+import {StyleSheet, TextInput, Text, View, Button, ScrollView} from 'react-native';
 import {Card} from 'react-native-elements';
 import Colors from "../../Themes/Colors";
 
@@ -121,11 +121,13 @@ export class WorkoutCard extends Component{
             <View>
                 <Card containerStyle={styles.card}>
                     <Text style = {styles.titleText}>{this.state.name}</Text>
-                    {this.state.textInput.map((value) => {
-                        return value
-                    })}
+                        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                            {this.state.textInput.map((value) => {
+                                return value
+                            })}
+                        </ScrollView>
                     <View style={styles.buttonView}>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = '-'
                                 color={Colors.negative}
@@ -133,7 +135,7 @@ export class WorkoutCard extends Component{
                                 <Text style={styles.buttonText}>-</Text>
                             </Button>
                         </View>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = 'Finish'
                                 color = {Colors.btn}
@@ -141,7 +143,7 @@ export class WorkoutCard extends Component{
                                 <Text style={styles.buttonText}>FINISH</Text>
                             </Button>
                         </View>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = '+'
                                 color = {Colors.positive}
@@ -158,12 +160,13 @@ export class WorkoutCard extends Component{
 
 const styles = StyleSheet.create({
     card: {
-        marginTop: 10,
+        marginTop: 50,
         width: 370,
-        height: 550,
+        height: 600,
         backgroundColor: Colors.card,
         borderWidth: 0,
         alignSelf: 'center',
+        alignItems: 'center',
     },
     titleText: {
         color: Colors.text,
@@ -192,7 +195,9 @@ const styles = StyleSheet.create({
     },
     buttonView: {
         flexDirection: 'row',
-        marginTop: 60,
-        marginBottom: 30,
+        marginTop: 40,
+        marginBottom: 15,
+        alignItems: 'center',
+        alignSelf: 'center',
     },
 })

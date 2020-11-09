@@ -10,10 +10,6 @@ import * as navigation from "react-navigation";
 import ViewAndEditSingleRoutine from "./ViewAndEditSingleRoutine";
 import NativeStackNavigator from "react-native-screens/src/native-stack/navigators/createNativeStackNavigator";
 
-const routineStack = NativeStackNavigator({
-    ViewDetails: {screen: ViewAndEditSingleRoutine},
-});
-
 export default class ChooseAndViewAllRoutinesScreen extends Component {
   state = {
     routineList: [],
