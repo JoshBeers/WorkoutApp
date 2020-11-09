@@ -88,7 +88,7 @@ const AppTabNavigator = createBottomTabNavigator(
       }
     },
     ExerciseScreen: {
-      screen: ExerciseScreen,
+      screen: WorkoutScreen,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
       }
