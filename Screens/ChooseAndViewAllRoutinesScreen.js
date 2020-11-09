@@ -7,17 +7,19 @@ import {Card} from 'react-native-elements';
 import {listStyle} from '../Themes/Styles';
 import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
 
-export default class ChooseAndViewAllRoutinesScreen extends Component {
+export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   state = {
     routineList: [],
   }
   constructor() {
     super();
+      console.log("test")
   }
 
   //method returns a list of routines
   //has not been tested
   componentDidMount() {
+      console.log("test")
       getAllRoutinesWithOutExercises((result)=>{
           this.setState({
               routineList: result
@@ -28,7 +30,7 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
   }
 
   render() {
-    /*const savedData = [
+    const savedData = [
       {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         title: 'First Item',
@@ -53,7 +55,7 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
         id: '55694a0f-3da1-471f-bd96-145571e29d72',
         title: 'Sixth Item',
       },
-    ];*/
+    ];
 
 
     return (
