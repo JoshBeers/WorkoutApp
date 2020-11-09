@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, Text, View, Button} from 'react-native';
+import {StyleSheet, TextInput, Text, View, Button, ScrollView} from 'react-native';
 import {Card} from 'react-native-elements';
 import Colors from "../../Themes/Colors";
 
@@ -11,14 +11,14 @@ export class WorkoutCard extends Component{
         isDone: false,
         textInput: [],
         inputData: [],
-        count: 1
+        count: 1,
     }
 
     constructor(props){
         super(props);
         this.state.id = props.id;
         this.state.name = props.name;
-        this.state.isWeighted = props.isWeight.toString();
+        this.state.isWeighted = props.isWeight;
     }
 
     updateCount(val){
@@ -35,7 +35,7 @@ export class WorkoutCard extends Component{
         let setInfo = [];
         if (this.state.isWeighted === true) {
             textInput.push(
-                <View stype = {styles.textLine}>
+                <View contentContainerStyle = {styles.textLine}>
                     <View style={styles.textField}>
                         <Text>{this.state.count}</Text>
                     </View>
@@ -44,6 +44,7 @@ export class WorkoutCard extends Component{
                             placeholder="REP"
                             onChangeText={(text) => rep = text}
                             keyboardType={"number-pad"}
+                            style = {{flex: 1}}
                         />
                     </View>
                     <View style={styles.textField}>
@@ -51,6 +52,7 @@ export class WorkoutCard extends Component{
                             placeholder="WEIGHT"
                             onChangeText={(text) => weight = text}
                             keyboardType={"number-pad"}
+                            style = {{flex: 1}}
                         />
                     </View>
                 </View>
@@ -112,8 +114,8 @@ export class WorkoutCard extends Component{
     }
 
     finish(){
-        this.state.isDone = true;
-        return(this.state);
+        this.setState({isDone : true});
+        this.props.finishFunction(this.state.id, this.state.name, this.state.inputData);
     }
 
     render(){
@@ -121,11 +123,13 @@ export class WorkoutCard extends Component{
             <View>
                 <Card containerStyle={styles.card}>
                     <Text style = {styles.titleText}>{this.state.name}</Text>
-                    {this.state.textInput.map((value) => {
-                        return value
-                    })}
+                        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                            {this.state.textInput.map((value) => {
+                                return value
+                            })}
+                        </ScrollView>
                     <View style={styles.buttonView}>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = '-'
                                 color={Colors.negative}
@@ -133,7 +137,7 @@ export class WorkoutCard extends Component{
                                 <Text style={styles.buttonText}>-</Text>
                             </Button>
                         </View>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = 'Finish'
                                 color = {Colors.btn}
@@ -141,7 +145,7 @@ export class WorkoutCard extends Component{
                                 <Text style={styles.buttonText}>FINISH</Text>
                             </Button>
                         </View>
-                        <View>
+                        <View style={{margin: 5}}>
                             <Button
                                 title = '+'
                                 color = {Colors.positive}
@@ -158,12 +162,13 @@ export class WorkoutCard extends Component{
 
 const styles = StyleSheet.create({
     card: {
-        marginTop: 10,
+        marginTop: 50,
         width: 370,
-        height: 550,
+        height: 600,
         backgroundColor: Colors.card,
         borderWidth: 0,
         alignSelf: 'center',
+        alignItems: 'center',
     },
     titleText: {
         color: Colors.text,
@@ -173,13 +178,15 @@ const styles = StyleSheet.create({
     },
     textLine:{
         flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-around',
     },
     textField: {
         alignSelf: 'center',
         backgroundColor: Colors.textFieldBackground,
         color: Colors.card,
         height: 40,
-        width: 75,
+        width: 70,
         marginTop: 5,
         marginBottom: 5,
         borderWidth: 2,
@@ -192,7 +199,9 @@ const styles = StyleSheet.create({
     },
     buttonView: {
         flexDirection: 'row',
-        marginTop: 60,
-        marginBottom: 30,
+        marginTop: 40,
+        marginBottom: 15,
+        alignItems: 'center',
+        alignSelf: 'center',
     },
 })

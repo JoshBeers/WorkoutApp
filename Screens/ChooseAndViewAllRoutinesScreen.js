@@ -1,16 +1,20 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Colors from '../Themes/Colors';
 import {Card} from 'react-native-elements';
 import {listStyle} from '../Themes/Styles';
 import {getAllRoutinesWithOutExercises} from "../Classes/Routine";
+import * as navigation from "react-navigation";
+import ViewAndEditSingleRoutine from "./ViewAndEditSingleRoutine";
+import NativeStackNavigator from "react-native-screens/src/native-stack/navigators/createNativeStackNavigator";
 
 export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   state = {
     routineList: [],
   }
+
   constructor() {
     super();
       console.log("test")
@@ -29,6 +33,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
       });
   }
 
+<<<<<<< HEAD
   render() {
     const savedData = [
       {
@@ -57,8 +62,14 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
       },
     ];
 
+=======
+  seeDetails(id){
+        // this.props.navigator.push("ViewDetails");
+  }
+>>>>>>> 29b958a4035aab5acae21a63aa1ea51c0836ef7a
 
-    return (
+  render() {
+      return (
         <View style={listStyle.screen}>
           <View style={listStyle.container}>
             <Text style={listStyle.titleText}>Saved Routines</Text>
@@ -66,9 +77,11 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
           <FlatList
               data={this.state.routineList}
               renderItem={({item}) => (
-                  <Card>
-                    <Text>{item.name}</Text>
-                  </Card>
+                  <TouchableOpacity onPress= {() => this.seeDetails(item.id)}>
+                      <Card containerStyle={listStyle.item}>
+                        <Text>{item.name}</Text>
+                      </Card>
+                  </TouchableOpacity>
               )}
               //keyExtractor={item => item.id}
           />
