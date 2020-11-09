@@ -58,6 +58,16 @@ class WorkoutScreen extends React.Component {
     })
   }
 
+  //create method for removing exercise from exercise list
+  removeExercise(exercise:Exercise){
+    console.log("removeExercise-Pre-", this.state.exercises)
+    const index = this.state.exercises.indexOf(exercise)
+    if(index> -1){
+      this.state.exercises.slice(index,1)
+      console.log("removeExercise-Result-", this.state.exercises)
+    }
+  }
+
   finish(id, name, inputData){
     /*
     state = {
