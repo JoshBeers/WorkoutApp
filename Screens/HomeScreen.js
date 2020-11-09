@@ -19,6 +19,7 @@ export default class HomeScreen extends React.Component {
 
   constructor() {
     super();
+    this.steps = 0
     this.state = { marked: null,
       email: '',
       displayName: '',
@@ -75,24 +76,6 @@ export default class HomeScreen extends React.Component {
       return temp;
     })
 
-    /*
-
-    db.transaction(tx =>{
-      tx.executeSql("select date from Workouts;",[],(_,rows) =>{
-
-        let temp = [];
-
-
-        for(i = 0; i<rows.rows.length; i++){
-          temp.push(rows.rows._array[i].date)
-          console.log("sqllog_HomeScreen_getDates",rows.rows._array[i])
-        }
-
-        return rows;
-      })
-    })
-
-     */
   }
 
   render() {

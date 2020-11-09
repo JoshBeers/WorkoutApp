@@ -21,7 +21,10 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
     getAllRoutinesWithOutExercises((result)=>{
       this.setState({
         routineList: result
+      }, function (){
+        console.log(this.state)
       })
+
     })
   }
 
