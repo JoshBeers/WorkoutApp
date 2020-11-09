@@ -36,7 +36,7 @@ export default class ChooseAndViewAllRoutinesScreen extends Component {
   }
 
   seeDetails(id){
-        this.props.navigator.push("ViewDetails");
+        // this.props.navigator.push("ViewDetails");
   }
 
   render() {
