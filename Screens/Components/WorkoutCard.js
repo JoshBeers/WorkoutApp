@@ -11,14 +11,14 @@ export class WorkoutCard extends Component{
         isDone: false,
         textInput: [],
         inputData: [],
-        count: 1
+        count: 1,
     }
 
     constructor(props){
         super(props);
         this.state.id = props.id;
         this.state.name = props.name;
-        this.state.isWeighted = props.isWeight.toString();
+        this.state.isWeighted = props.isWeight;
     }
 
     updateCount(val){
@@ -35,7 +35,7 @@ export class WorkoutCard extends Component{
         let setInfo = [];
         if (this.state.isWeighted === true) {
             textInput.push(
-                <View stype = {styles.textLine}>
+                <View contentContainerStyle = {styles.textLine}>
                     <View style={styles.textField}>
                         <Text>{this.state.count}</Text>
                     </View>
@@ -44,6 +44,7 @@ export class WorkoutCard extends Component{
                             placeholder="REP"
                             onChangeText={(text) => rep = text}
                             keyboardType={"number-pad"}
+                            style = {{flex: 1}}
                         />
                     </View>
                     <View style={styles.textField}>
@@ -51,6 +52,7 @@ export class WorkoutCard extends Component{
                             placeholder="WEIGHT"
                             onChangeText={(text) => weight = text}
                             keyboardType={"number-pad"}
+                            style = {{flex: 1}}
                         />
                     </View>
                 </View>
@@ -112,8 +114,8 @@ export class WorkoutCard extends Component{
     }
 
     finish(){
-        this.state.isDone = true;
-        return(this.state);
+        this.setState({isDone : true});
+        this.props.finishFunction(this.state.id, this.state.name, this.state.inputData);
     }
 
     render(){
@@ -176,13 +178,15 @@ const styles = StyleSheet.create({
     },
     textLine:{
         flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-around',
     },
     textField: {
         alignSelf: 'center',
         backgroundColor: Colors.textFieldBackground,
         color: Colors.card,
         height: 40,
-        width: 75,
+        width: 70,
         marginTop: 5,
         marginBottom: 5,
         borderWidth: 2,

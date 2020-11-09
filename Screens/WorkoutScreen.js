@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, TextInput, Text, View, Button, FlatList} from 'react-native';
 import {Card} from 'react-native-elements';
 import * as SQLite from "expo-sqlite";
@@ -9,10 +9,12 @@ import {Exercise} from "../Classes/Exercise";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
-let exercises = [];
-let exerciseWithin = dumDumRoutines[1].exercises; // Some temp bullshit
+let exerciseWithin = dumDumRoutines[0].exercises; // Some temp bullshit
 
 class WorkoutScreen extends React.Component {
+  state ={
+    exercises: [],
+  }
 
   constructor(props) {
     super(props);
@@ -21,11 +23,13 @@ class WorkoutScreen extends React.Component {
 
   // Fills the exercise array with exercise objects current just pulling form json object
   fillArray() {
+    let tempExercise = [];
     for (let i = 0; i < exerciseWithin.length; i++) {
       let tempExer = dumDumExercise.find(temp => temp.exerciseID === exerciseWithin[i].exerciseID);
       console.log(tempExer.name);
-      exercises.push(tempExer);
+      tempExercise.push(tempExer);
     }
+    this.state.exercises = tempExercise;
   }
 
   getExerciseName(exerciseId) {
@@ -54,23 +58,49 @@ class WorkoutScreen extends React.Component {
     })
   }
 
+  finish(id, name, inputData){
+    /*
+    state = {
+        id: '',
+        name: '',
+        isWeighted: false,
+        isDone: false,
+        textInput: [],
+        inputData: [],
+        count: 1
+    }
+     */
+    let today = new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay();
+    let tempArray = this.state.exercises;
+    let index = tempArray.indexOf(id);
+    tempArray.splice(index, 1);
+    this.state.exercises = tempArray;
+
+  }
+
   render() {
     return (
         <View style={styles.workout}>
           <FlatList
+              style={{
+                flexDirection: 'row',
+                flex: 1,
+              }}
               horizontal
               decelerationRate={0}
               snapToInterval={400}
               snapToAlignment={"center"}
               disableIntervalMomentum={ true }
-              data={exercises} renderItem={({item}) => (
+              data={this.state.exercises} renderItem={({item}) => (
               <WorkoutCard
                   id={item.exerciseID}
                   name={item.name}
                   isWeight={item.doesUseWeight}
+                  finishFunction={this.finish()}
               />
 
           )} keyExtractor={item => item.exerciseID}/>
+
         </View>
     )
   }

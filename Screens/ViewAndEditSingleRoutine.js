@@ -28,6 +28,7 @@ export default class ViewAndEditSingleRoutine extends Component {
             })
         })
     }
+
     getExerciseName(exerciseId){
         const db = SQLite.openDatabase('workoutAppDB.db');
 
