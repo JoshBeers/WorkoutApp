@@ -3,21 +3,25 @@ import React, {Component} from 'react';
 import {Text, View, FlatList} from 'react-native';
 import { listStyle } from '../Themes/Styles';
 import * as SQLite from 'expo-sqlite';
+import {Card} from 'react-native-elements';
 import {Abs, Arm, Back, Chest, Rear} from '../img/WorkoutIcons';
 import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Classes/Routine';
 
 export default class ViewAndEditSingleRoutine extends Component {
 
-    //no idea if this works
+    state = {
+        routineName: '',
+        routineId: '',
+        exerciseWithin: [],
+    }
     constructor(props) {
         super(props);
-        this.routineId = props.navigation.state.params.routineId;
-        this.state ={
-            routine: null
-        }
+        this.state.routineName = props.name;
+        this.state.routineId = props.id;
+        this.state.exerciseWithin = props.exerciseWithin;
     }
 
-    //no idea if this works
+   /* //no idea if this works
     componentDidMount() {
         getSpecificRoutine(this.routineId, (result)=>{
             this.setState({
@@ -25,7 +29,7 @@ export default class ViewAndEditSingleRoutine extends Component {
             })
         })
     }
-
+    */
     getExerciseName(exerciseId){
         const db = SQLite.openDatabase('workoutAppDB.db');
 
@@ -54,7 +58,7 @@ export default class ViewAndEditSingleRoutine extends Component {
       }
 
     render() {
-        const allRoutineData = [
+        /*const allRoutineData = [
             {
                 id: '1',
                 title: 'workout name 1',
@@ -80,7 +84,7 @@ export default class ViewAndEditSingleRoutine extends Component {
                 title: 'workout name 5',
                 icon: <Abs />,
             },
-        ];
+        ];*/
 
         const Item = ({title}) => (
             <View style={listStyle.item}>
@@ -101,8 +105,12 @@ export default class ViewAndEditSingleRoutine extends Component {
                     <Text style={listStyle.titleText}>Routine Name</Text>
                 </View>
                 <FlatList
-                    data={allRoutineData}
-                    renderItem={renderItem}
+                    data={this.state.exerciseWithin}
+                    renderItem={({item}) => (
+                        <Card>
+                            <Text>{item.name}</Text>
+                        </Card>
+                    )}
                     keyExtractor={item => item.id}
                 />
 

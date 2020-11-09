@@ -21,18 +21,18 @@ class WorkoutScreen extends React.Component {
 
   // Fills the exercise array with exercise objects current just pulling form json object
   fillArray() {
-    for(let i = 0; i < exerciseWithin.length; i++){
+    for (let i = 0; i < exerciseWithin.length; i++) {
       let tempExer = dumDumExercise.find(temp => temp.exerciseID === exerciseWithin[i].exerciseID);
       console.log(tempExer.name);
       exercises.push(tempExer);
     }
   }
 
-  getExerciseName(exerciseId){
+  getExerciseName(exerciseId) {
     const db = SQLite.openDatabase("workoutAppDB.db");
 
-    db.transaction(tx =>{
-      tx.executeSql("select name from exercises where Id = " + exerciseId + ";",[],(_,rows) =>{
+    db.transaction(tx => {
+      tx.executeSql("select name from exercises where Id = " + exerciseId + ";", [], (_, rows) => {
 
         console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
 
@@ -44,8 +44,8 @@ class WorkoutScreen extends React.Component {
   getExerciseInfo(routine_Id) {
     const db = SQLite.openDatabase("workoutAppDB.db");
 
-    db.transaction(tx =>{
-      tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";",[],(_,rows) =>{
+    db.transaction(tx => {
+      tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";", [], (_, rows) => {
 
         console.log("sqllog_WorkoutScreen_exercises_info", rows.rows)
 
@@ -55,20 +55,21 @@ class WorkoutScreen extends React.Component {
   }
 
   render() {
-    return(
-    <View style = {styles.workout}>
-      <FlatList
-          horizontal
-          data={exercises} renderItem={({item}) =>(
-            <WorkoutCard
-                id = {item.exerciseID}
-                name = {item.name}
-                isWeight = {item.doesUseWeight}
-            />
+    return (
+        <View style={styles.workout}>
+          <FlatList
+              horizontal
+              data={exercises} renderItem={({item}) => (
+              <WorkoutCard
+                  id={item.exerciseID}
+                  name={item.name}
+                  isWeight={item.doesUseWeight}
+              />
 
-        )}/>
-    </View>
-    )}
+          )}/>
+        </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

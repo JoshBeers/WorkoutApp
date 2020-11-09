@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, TextInput, Text, View, Button} from 'react-native';
 import {Card} from 'react-native-elements';
 import Colors from "../../Themes/Colors";

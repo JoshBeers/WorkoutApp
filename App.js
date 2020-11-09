@@ -45,7 +45,7 @@ import { NavigationContainer } from "@react-navigation/native";
 //     );
 // };
 
-var testing = false;
+var testing = true;
 
 
 
