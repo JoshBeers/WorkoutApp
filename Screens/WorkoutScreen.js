@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {StyleSheet, TextInput, Text, View, Button, FlatList} from 'react-native';
+import {StyleSheet, TextInput, Text, View, Button, FlatList, Modal, Image} from 'react-native';
 import {Card} from 'react-native-elements';
 import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
@@ -9,16 +9,23 @@ import {Exercise} from "../Classes/Exercise";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
-let exerciseWithin = dumDumRoutines[0].exercises; // Some temp bullshit
+let exerciseWithin = dumDumRoutines[1].exercises; // Some temp bullshit
 
 class WorkoutScreen extends React.Component {
-  state ={
-    exercises: [],
-  }
 
   constructor(props) {
     super(props);
-    this.fillArray();
+    this.state ={
+      exercises: [],
+      today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
+      userDone: false,
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      exercises: this.fillArray(),
+    })
   }
 
   // Fills the exercise array with exercise objects current just pulling form json object
@@ -29,7 +36,7 @@ class WorkoutScreen extends React.Component {
       console.log(tempExer.name);
       tempExercise.push(tempExer);
     }
-    this.state.exercises = tempExercise;
+    return tempExercise;
   }
 
   getExerciseName(exerciseId) {
@@ -58,17 +65,8 @@ class WorkoutScreen extends React.Component {
     })
   }
 
-  //create method for removing exercise from exercise list
-  removeExercise(exercise:Exercise){
-    console.log("removeExercise-Pre-", this.state.exercises)
-    const index = this.state.exercises.indexOf(exercise)
-    if(index> -1){
-      this.state.exercises.slice(index,1)
-      console.log("removeExercise-Result-", this.state.exercises)
-    }
-  }
-
-  finish(id, name, inputData){
+  // Takes finished exercise id, name, and input data, removes the the exercise from the array
+  finish = (id, name, inputData) => {
     /*
     state = {
         id: '',
@@ -80,17 +78,56 @@ class WorkoutScreen extends React.Component {
         count: 1
     }
      */
-    let today = new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay();
     let tempArray = this.state.exercises;
-    let index = tempArray.indexOf(id);
-    tempArray.splice(index, 1);
-    this.state.exercises = tempArray;
+    let index = 0;
 
+    for(let i = 0; i < tempArray.length; i++){
+      if(tempArray[i].exerciseID === id)
+        index = i;
+    }
+
+    console.log(index);
+    tempArray.splice(index, 1);
+    this.setState({
+      exercise: tempArray});
+
+    console.log(this.state.exercises);
+    if(this.state.exercises.length === 0)
+      this.setState({userDone: true})
   }
 
   render() {
+
     return (
         <View style={styles.workout}>
+          <View>
+            <Modal
+              animationType={'slide'}
+              visible={this.state.userDone}
+              transparent={true}
+              >
+              <View style = {styles.modalStyle}>
+                <Text style={styles.modalText}>GREAT WORK!</Text>
+                <Image source={require('../img/finish.png')}
+                  style={{
+                    width: 200,
+                    height: 150,
+                    margin: 50,
+                  }}/>
+                <Button
+                  title="Return"
+                  color={Colors.positive}
+                  onPress={console.log("IVE BEEN CLICKED!")}
+                  style={{
+                    alignSelf: 'center',
+                    marginTop: 20,
+                    marginBottom: 40,
+                  }}>
+                  <Text style={styles.buttonText}>RETURN</Text>
+                </Button>
+              </View>
+            </Modal>
+          </View>
           <FlatList
               style={{
                 flexDirection: 'row',
@@ -106,10 +143,10 @@ class WorkoutScreen extends React.Component {
                   id={item.exerciseID}
                   name={item.name}
                   isWeight={item.doesUseWeight}
-                  finishFunction={this.finish()}
+                  finishFunction={this.finish}
               />
 
-          )} keyExtractor={item => item.exerciseID}/>
+          )} keyExtractor={(item, index) => item.exerciseID.toString()}/>
 
         </View>
     )
@@ -122,8 +159,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  modalStyle: {
+    alignSelf: 'center',
+    backgroundColor: Colors.card,
+    alignItems: 'center',
+    marginTop: 100,
+    height: 400,
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: Colors.text,
+    alignSelf: 'center'
+  },
+  modalText: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginTop: 40,
+    color: Colors.text,
+  },
   card: {
-    marginTop: 10,
+    marginTop: 150,
     width: 370,
     height: 550,
     backgroundColor: Colors.card,
