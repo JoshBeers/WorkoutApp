@@ -294,7 +294,7 @@ function testGetAllExercises(callback){
 
 function testCreateNewExerciseFromExercise(callback){
     console.log("sqllog_test_CreateNewExerciseFromExercise","the testGetAllExercises test has begun")
-    createNewExerciseFromExercise(new Exercise(1,"test exercise","this is a test val", false), function (){
+    createNewExerciseFromExercise(new Exercise(1,"test exercise","this is a test val", false,false), function (){
         getAllExercises(function (result){
             //console.log("sqllog_test_CreateNewExerciseFromExercise_results",result[result.length-1])
 

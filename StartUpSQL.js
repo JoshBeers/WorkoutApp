@@ -12,7 +12,7 @@ export function createTables(callback) {
 
         try {
             tx.executeSql(
-                'Create table if not exists Exercises(ID integer primary key AUTOINCREMENT, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
+                'Create table if not exists Exercises(ID integer primary key AUTOINCREMENT, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null, isCardio boolean not null);',
             );
         } catch (error) {}
 
@@ -109,20 +109,20 @@ export function creatCompletedExercisesDData(callback){
 
 /*
 three exercises
-1. id = 1, name = 'push up', description = 'it is a push up', doesUseWeight = false
-2. id = 2, name = 'dead lift', description = 'is a deadlift', doesUseWeight = true
-2. id = 3, name = 'curl up', description = null, doesUseWeight = false
+1. id = 1, name = 'push up', description = 'it is a push up', doesUseWeight = false, isCardio = true
+2. id = 2, name = 'dead lift', description = 'is a deadlift', doesUseWeight = true, isCardio = false
+3. id = 3, name = 'curl up', description = null, doesUseWeight = false, isCardio = true
 
  */
 export function createExercisesDD(callback){
     db.transaction((tx) => {
-        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight) values(1,'push up','it is a push up',false);",);
+        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight,isCardio) values(1,'push up','it is a push up',false,true);",);
     });
     db.transaction((tx) => {
-        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight) values(2,'dead lift','is a deadlift',true);");
+        tx.executeSql("insert into Exercises(ID,name,description,doesUseWeight, isCardio) values(2,'dead lift','is a deadlift',true,false);");
     });
     db.transaction((tx) => {
-        tx.executeSql("insert into Exercises(ID,name,doesUseWeight) values(3,'curl up',false);");
+        tx.executeSql("insert into Exercises(ID,name,doesUseWeight,isCardio) values(3,'curl up',false,true);");
     });
     //console.log("sqllog", "exercises created")
     callback()
