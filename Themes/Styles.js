@@ -5,6 +5,7 @@ const listStyle = StyleSheet.create({
   screen: {
     backgroundColor: Colors.background,
     flex: 1,
+    alignItems: 'center',
   },
   container: {
     marginVertical: 25,
@@ -13,6 +14,7 @@ const listStyle = StyleSheet.create({
   titleText: {
     color: Colors.text,
     fontSize: 27,
+    marginTop: 30,
   },
   text: {
     color: Colors.text,

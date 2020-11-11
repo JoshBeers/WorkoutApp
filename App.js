@@ -19,7 +19,7 @@ import StatisticsScreen from './Screens/StatisticsScreen';
 import ExerciseScreen from './Screens/ViewAndEditAllExercises';
 import ChooseAndViewAllRoutinesScreen from './Screens/ChooseAndViewAllRoutinesScreen';
 import ViewAndEditSingleRoutine from './Screens/ViewAndEditSingleRoutine';
-
+import CreateNewExerciseScreen from "./Screens/CreateNewExerciseScreen";
 
 import * as SQLite from 'expo-sqlite';
 import * as firebase from 'firebase';
@@ -45,7 +45,7 @@ import { NavigationContainer } from "@react-navigation/native";
 //     );
 // };
 
-var testing = false;
+var testing = true;
 
 
 
@@ -92,6 +92,12 @@ const AppTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
       }
     },
+      CreateNewExerciseScreen: {
+          screen: CreateNewExerciseScreen,
+          navigationOptions: {
+              tabBarIcon: ({tintColor}) => <Ionicons name="md-create" size={24} color={tintColor}/>
+          }
+      },
     ExerciseScreen: {
       screen: WorkoutScreen,
       navigationOptions: {

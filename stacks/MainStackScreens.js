@@ -6,6 +6,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import StatisticsScreen from '../Screens/StatisticsScreen';
 import ViewAndEditSingleRoutine from '../Screens/ViewAndEditSingleRoutine';
 import ChooseAndViewAllRoutinesScreen from "../Screens/ChooseAndViewAllRoutinesScreen";
+import CreateNewExerciseScreen from "../Screens/CreateNewExerciseScreen";
 
 
 export default MainStackScreens = () => {
@@ -61,6 +62,7 @@ export default MainStackScreens = () => {
             <MainStack.Screen name="Home" component={HomeScreen} />
             <MainStack.Screen name="ViewRoutines" component={ChooseAndViewAllRoutinesScreen} />
             <MainStack.Screen name="Analytics" component={StatisticsScreen} />
+            <MainStack.Screen name="CreateExercise" component={CreateNewExerciseScreen}/>
         </MainStack.Navigator>
     );
 };

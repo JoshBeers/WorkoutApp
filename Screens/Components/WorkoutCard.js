@@ -8,7 +8,6 @@ export class WorkoutCard extends Component{
         id: '',
         name: '',
         isWeighted: false,
-        isDone: false,
         textInput: [],
         inputData: [],
         count: 1,
@@ -35,7 +34,8 @@ export class WorkoutCard extends Component{
         let setInfo = [];
         if (this.state.isWeighted === true) {
             textInput.push(
-                <View contentContainerStyle = {styles.textLine}>
+                <View contentContainerStyle = {styles.textLine}
+                      key={this.state.count}>
                     <View style={styles.textField}>
                         <Text>{this.state.count}</Text>
                     </View>
@@ -60,7 +60,8 @@ export class WorkoutCard extends Component{
             setInfo.push({'set': this.state.count, 'rep': rep, 'weight': weight});
         } else {
             textInput.push(
-                <View style={styles.textField}>
+                <View style={styles.textField}
+                      key={this.state.count}>
                     <Text>{this.state.count}</Text>
                 </View>
             );
@@ -113,7 +114,7 @@ export class WorkoutCard extends Component{
         this.setState({textInput, inputData});
     }
 
-    finish(){
+    finish = () => {
         this.setState({isDone : true});
         this.props.finishFunction(this.state.id, this.state.name, this.state.inputData);
     }
@@ -141,7 +142,9 @@ export class WorkoutCard extends Component{
                             <Button
                                 title = 'Finish'
                                 color = {Colors.btn}
-                                onPress={() => this.finish()}>
+                                onPress={() => this.finish()}
+                                disabled={this.state.inputData.length === 0}>
+
                                 <Text style={styles.buttonText}>FINISH</Text>
                             </Button>
                         </View>

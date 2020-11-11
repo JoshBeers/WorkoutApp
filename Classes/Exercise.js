@@ -21,7 +21,6 @@ export class ExerciseWithinRoutine{
 export function addExerciseToRoutine(routineID,exercise, callback){
     //console.log("sqllog_method_addExerciseToRoutine")
         db.transaction(tx => {
-
             //insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);
             tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(?,?,?);",[exercise.exerciseID,routineID,exercise.placeInOrder],(_,rows) =>{
                // console.log("sqllog_method_addExerciseToRoutine")
@@ -34,9 +33,7 @@ export function addExerciseToRoutine(routineID,exercise, callback){
         })
 }
 
-
 export function addMultipleExercisesToRoutine(routineID,exercises, callback){
-
     for(let i = 0; i<exercises.length ; i++){
         if(i == exercises.length-1){
             addExerciseToRoutine(routineID, exercises[i], function (){
@@ -120,37 +117,30 @@ export function getAllExercisesWithinRoutines(callback){
 
 
 
-
-
-
-
-
 /*
 stuff for exercises that are bases to be added to routines
 
  */
 
-
-
 export class Exercise{
-
-    constructor(exerciseID:number , name: string, description:string, doesUseWeight:boolean) {
+    constructor(exerciseID:number , name: string, description:string, doesUseWeight:boolean, isCardio:boolean) {
         this.exerciseID = exerciseID
         this.name = name
         this.description = description
         this.doesUseWeight = doesUseWeight
+        this.isCardio = isCardio
     }
-
 }
 
 //tested
 export function createNewExerciseFromExercise(exercise: Exercise, callback){
     //'Create table if not exists Exercises(ID integer primary key DESC, name varchar(30) not null, description varchar(120),doesUseWeight boolean not null);',
     db.transaction(tx => {
-        tx.executeSql("insert into Exercises(name,description,doesUseWeight) values('" +
+        tx.executeSql("insert into Exercises(name,description,doesUseWeight,isCardio) values('" +
             exercise.name + "','" +
             exercise.description + "'," +
-            exercise.doesUseWeight +
+            exercise.doesUseWeight +"," +
+            exercise.isCardio +
             ");",[],(_,rows) =>{
             //console.log("sqllog_method_addExerciseToRoutine")
             if (callback != null) {
@@ -170,7 +160,7 @@ export function getAllExercises(callback) {
 
             for (let i = 0; i < rows.rows.length; i++) {
                 //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-                tempExercises.push(new Exercise(rows.rows.item(i).ID, rows.rows.item(i).name, rows.rows.item(i).description, rows.rows.item(i).doesUseWeight))
+                tempExercises.push(new Exercise(rows.rows.item(i).ID, rows.rows.item(i).name, rows.rows.item(i).description, rows.rows.item(i).doesUseWeight,rows.rows.item(i).isCardio))
             }
             tempExercises.sort(((a: ExerciseWithinRoutine, b: ExerciseWithinRoutine) => a.placeInOrder - b.placeInOrder))
             if(callback != null){
@@ -210,7 +200,6 @@ export class CompleteExercise{
         this.averageWeight = averageWeight
         this.date = date
     }
-
 }
 
 export function getAllCompleteExerciseBySpecificExerciseID(exerciseID, callback){
@@ -298,4 +287,25 @@ export function addMultipleCompleteExercisesToCompleteWorkout(completeWorkout:Co
     }
 }
 
+export class ExerciseStats{
+    constructor(exerciseId, averageNumberOfReps, averageNumberOfSets, averageWeight) {
+        this.exerciseId = exerciseId
+        this.averageNumberOfReps = averageNumberOfReps
+        this.averageNumberOfSets = averageNumberOfSets
+        this.averageWeight = averageWeight
+    }
+}
+//
+export function getAverageMetricsForExercise(exerciseID,callback){
+    //console.log("sqllog_method_getAverageMetricsForExercise",exerciseID)
+    db.transaction(tx => {
+        tx.executeSql("select AVG(numberOfReps) as averageNumberOfReps, avg(numberOfSets) as averageNumberOfSets, avg(averageWeight) as averageWeight from CompletedExercises where exerciseId = ?;", [exerciseID], (_, rows) => {
+            //console.log("sqllog_method_getAverageMetricsForExercise",rows.rows)
+            if(callback){
+               callback(new ExerciseStats(exerciseID, rows.rows.item(0).averageNumberOfReps, rows.rows.item(0).averageNumberOfSets, rows.rows.item(0).averageWeight))
+           }
+        })
+    })
 
+
+}
