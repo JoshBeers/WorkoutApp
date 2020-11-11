@@ -16,7 +16,7 @@ import * as firebase from 'firebase';
 import {getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
 import StatisticsScreen from "./StatisticsScreen";
 import createBottomTabNavigator from "@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator";
-
+import Icon from 'react-native-ionicons';
 
 
 export default class HomeScreen extends React.Component {
@@ -119,7 +119,8 @@ export default class HomeScreen extends React.Component {
         <TouchableOpacity
           style={styles.mainButton}
           onPress={()=> this.props.navigation.navigate('StatsScreen')}>
-          <Text style={styles.text}>Stats</Text>
+          {/* <Text style={styles.text}>Stats</Text> */}
+          <Icons name="md-fitness" size={24} color={'#066da1'}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.mainButton}
