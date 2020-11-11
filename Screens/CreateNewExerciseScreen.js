@@ -2,12 +2,9 @@
 import React from 'react';
 import {StyleSheet, TextInput, Text, View, Button, FlatList, Modal, Image} from 'react-native';
 import {Card} from 'react-native-elements';
-import Checkbox from '@react-native-community/checkbox';
-// import { Checkbox } from 'react-native-paper';
-
-import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {Exercise, createNewExerciseFromExercise, getAllExercises} from "../Classes/Exercise";
+
 export default class CreateNewExerciseScreen extends React.Component {
 
     constructor(){
@@ -35,9 +32,64 @@ export default class CreateNewExerciseScreen extends React.Component {
 
     }
 
+    modalClick(){
+        this.setState({
+            exerciseName: '',
+            exerciseDescription: '',
+            isWeighed: false,
+            isCardio: false,
+            isDone: false,
+        })
+    }
+
+    /*
+    <Checkbox
+                            disabled={false}
+                            value={this.state.isWeighed}
+                            onValueChange={(val) => this.setState({isWeighed: val})}
+                            tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
+
+
+    <Checkbox
+                                disabled={false}
+                                value={this.state.isCardio}
+                                onValueChange={(val) => this.setState({isCardio: val})}
+                                tintColors={this.state.isCardio ? Colors.positive : Colors.negative}
+                                />
+
+
+     */
     render(){
         return(
             <View style={styles.screen}>
+                <View>
+                    <Modal
+                        animationType={'slide'}
+                        visible={this.state.isDone}
+                        transparent={true}
+                    >
+                        <View style = {styles.modalStyle}>
+                            <Text style={styles.modalText}>AWESOME!</Text>
+                            <Image source={require('../img/trophy.png')}
+                                   style={{
+                                       width: '50%',
+                                       height: '50%',
+                                       margin: 50,
+                                   }}/>
+                            <Button
+                                title="Return"
+                                color={Colors.positive}
+                                onPress={() => this.modalClick()}
+                                style={{
+                                    alignSelf: 'center',
+                                    marginTop: 20,
+                                    marginBottom: 40,
+                                }}>
+                                <Text style={styles.buttonText}>RETURN</Text>
+                            </Button>
+                        </View>
+                    </Modal>
+                </View>
                 <Text style={styles.titleText}>Create A New Exercise</Text>
                 <View >
                     <Card containerStyle={styles.card}>
@@ -55,20 +107,10 @@ export default class CreateNewExerciseScreen extends React.Component {
                             />
                         </View>
                         <View style={styles.checkRow}>
-                        <Checkbox
-                            disabled={false}
-                            value={this.state.isWeighed}
-                            onValueChange={(val) => this.setState({isWeighed: val})}
-                            tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
-                        <Text style ={styles.checkLabel}>Does this use weights?</Text>
+                            <Text style ={styles.checkLabel}>Does this use weights?</Text>
                         </View>
                         <View style={styles.checkRow}>
-                            <Checkbox
-                                disabled={false}
-                                value={this.state.isCardio}
-                                onValueChange={(val) => this.setState({isCardio: val})}
-                                tintColors={this.state.isCardio ? Colors.positive : Colors.negative}
-                                />
+
                             <Text style ={styles.checkLabel}>Is this cardio?</Text>
                         </View>
                         <View style={styles.buttonView}>
@@ -145,6 +187,19 @@ const styles = StyleSheet.create({
     checkLabel: {
         color: Colors.text,
         marginTop: 7,
-    }
+    },
+    modalStyle: {
+        alignSelf: 'center',
+        backgroundColor: Colors.card,
+        alignItems: 'center',
+        marginTop: 100,
+        height: 400,
+    },
+    modalText: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        marginTop: 40,
+        color: Colors.text,
+    },
 })
 
