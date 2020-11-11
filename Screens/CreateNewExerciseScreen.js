@@ -32,6 +32,16 @@ export default class CreateNewExerciseScreen extends React.Component {
 
     }
 
+    modalClick(){
+        this.setState({
+            exerciseName: '',
+            exerciseDescription: '',
+            isWeighed: false,
+            isCardio: false,
+            isDone: false,
+        })
+    }
+
     /*
     <Checkbox
                             disabled={false}
@@ -52,6 +62,34 @@ export default class CreateNewExerciseScreen extends React.Component {
     render(){
         return(
             <View style={styles.screen}>
+                <View>
+                    <Modal
+                        animationType={'slide'}
+                        visible={this.state.isDone}
+                        transparent={true}
+                    >
+                        <View style = {styles.modalStyle}>
+                            <Text style={styles.modalText}>AWESOME!</Text>
+                            <Image source={require('../img/trophy.png')}
+                                   style={{
+                                       width: '50%',
+                                       height: '50%',
+                                       margin: 50,
+                                   }}/>
+                            <Button
+                                title="Return"
+                                color={Colors.positive}
+                                onPress={() => this.modalClick()}
+                                style={{
+                                    alignSelf: 'center',
+                                    marginTop: 20,
+                                    marginBottom: 40,
+                                }}>
+                                <Text style={styles.buttonText}>RETURN</Text>
+                            </Button>
+                        </View>
+                    </Modal>
+                </View>
                 <Text style={styles.titleText}>Create A New Exercise</Text>
                 <View >
                     <Card containerStyle={styles.card}>
@@ -149,6 +187,19 @@ const styles = StyleSheet.create({
     checkLabel: {
         color: Colors.text,
         marginTop: 7,
-    }
+    },
+    modalStyle: {
+        alignSelf: 'center',
+        backgroundColor: Colors.card,
+        alignItems: 'center',
+        marginTop: 100,
+        height: 400,
+    },
+    modalText: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        marginTop: 40,
+        color: Colors.text,
+    },
 })
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, Text, View, Button, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, TextInput, Text, View, Button, FlatList, TouchableOpacity, Modal, Image} from 'react-native';
 import {Card} from 'react-native-elements';
 import {Routine} from "../Classes/Routine";
 import * as SQLite from "expo-sqlite";
@@ -64,9 +64,45 @@ class CreateRoutineScreen extends Component {
         })
     }
 
+    modalClick(){
+        this.setState({
+            routineName: '',
+            selectedExercises: [],
+            isDone: false,
+        })
+    }
+
     render() {
         return (
             <View style={listStyle.screen}>
+                <View>
+                    <Modal
+                        animationType={'slide'}
+                        visible={this.state.isDone}
+                        transparent={true}
+                    >
+                        <View style = {styles.modalStyle}>
+                            <Text style={styles.modalText}>Nice!</Text>
+                            <Image source={require('../img/muscles.png')}
+                                   style={{
+                                       width: '25%',
+                                       height: '25%',
+                                       margin: 50,
+                                   }}/>
+                            <Button
+                                title="Return"
+                                color={Colors.positive}
+                                onPress={() => this.modalClick()}
+                                style={{
+                                    alignSelf: 'center',
+                                    marginTop: 20,
+                                    marginBottom: 40,
+                                }}>
+                                <Text style={styles.buttonText}>RETURN</Text>
+                            </Button>
+                        </View>
+                    </Modal>
+                </View>
                 <Text style={listStyle.titleText}>Create Routine</Text>
                 <View style={styles.textField}>
                     <TextInput
@@ -153,7 +189,20 @@ const styles = StyleSheet.create({
     checkLabel: {
         color: Colors.text,
         marginTop: 7,
-    }
+    },
+    modalStyle: {
+        alignSelf: 'center',
+        backgroundColor: Colors.card,
+        alignItems: 'center',
+        marginTop: 100,
+        height: 400,
+    },
+    modalText: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        marginTop: 40,
+        color: Colors.text,
+    },
 })
 
 module.exports = CreateRoutineScreen;
