@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MaterialIcon from '@expo/vector-icons/MaterialIcons';
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
-
+ 
 import LoadingScreen from './Screens/LoadingScreen';
 import LoginScreen from './Screens/LoginScreen';
 import SignUpScreen from './Screens/SignUpScreen';
