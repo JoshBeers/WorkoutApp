@@ -36,21 +36,37 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   render() {
       return (
         <View style={listStyle.screen}>
-          <View style={listStyle.container}>
             <Text style={listStyle.titleText}>Saved Routines</Text>
-          </View>
           <FlatList
               data={this.state.routineList}
               renderItem={({item}) => (
                   <TouchableOpacity onPress= {() => this.seeDetails(item.id)}>
-                      <Card containerStyle={listStyle.item}>
-                        <Text>{item.name}</Text>
+                      <Card containerStyle={styles.card}>
+                        <Text style={styles.text}>{item.name}</Text>
                       </Card>
                   </TouchableOpacity>
               )}
-              //keyExtractor={item => item.id}
+              keyExtractor={item => item.id}
           />
         </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+    card: {
+        marginTop: 25,
+        marginBottom: 25,
+        backgroundColor: Colors.card,
+        borderWidth: 0,
+        alignSelf: 'center',
+        width: 370,
+        height: 75,
+    },
+    text: {
+        color: Colors.text,
+        fontSize: 20,
+        marginTop: 10,
+    }
+
+})
