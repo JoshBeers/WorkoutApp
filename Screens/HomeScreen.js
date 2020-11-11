@@ -1,8 +1,11 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {
   StyleSheet,
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
@@ -105,10 +108,44 @@ export default class HomeScreen extends React.Component {
                 enableSwipeMonths={true}
                 markedDates={this.state.marked}
             />
-            <button onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
+            {/* <button onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
             <button onClick={()=> this.props.navigation.navigate('CreateRoutineScreen')}>Create Routine</button>
             <button onClick={()=> this.props.navigation.navigate('CreateExerciseScreen')}>Create Exercise</button>
-            <button onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button>
+            <button onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button> */}
+          </Card>
+          <Card containerStyle = {styles.navCard}>
+          <View style={styles.container}>
+      <View style={styles.topButtonContainer}>
+        <TouchableOpacity
+          style={styles.mainButton}
+          onPress={()=> this.props.navigation.navigate('StatsScreen')}>
+          <Text style={styles.text}>Stats</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.mainButton}
+          onPress={()=> this.props.navigation.navigate('CreateRoutineScreen')}>
+          <Text style={styles.text}>Create Routine</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.bottomButtonContainer}>
+        <TouchableOpacity
+          style={styles.mainButton}
+          onPress={()=> this.props.navigation.navigate('CreateExerciseScreen')}>
+          <Text style={styles.text}>Create Exercise</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.mainButton}
+          onPress={()=> this.props.navigation.navigate('RoutinesScreen')}>
+          <Text style={styles.text}>Routines</Text>
+        </TouchableOpacity>
+      </View>
+      </View>
+            {/* <View>
+            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
+            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('CreateRoutineScreen')}>Create Routine</button>
+            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('CreateExerciseScreen')}>Create Exercise</button>
+            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button>
+            </View> */}
           </Card>
         </View>
 
@@ -142,5 +179,46 @@ const styles = StyleSheet.create({
     fontSize: 27,
     alignSelf: 'center',
     marginTop: 7,
+  },
+  navCard: {
+    backgroundColor: Colors.card,
+    borderWidth: 0,
+    width: 366,
+    alignSelf: 'center',
+    //alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  topButtonContainer: {
+    height: 50,
+    flexDirection: 'row',
+    alignContent: 'center',
+    width: 350,
+    justifyContent: 'space-around',
+    paddingBottom: 10,
+  },
+  bottomButtonContainer: {
+    height: 50,
+    flexDirection: 'row',
+    alignContent: 'center',
+    width: 350,
+   justifyContent: 'space-around',
+   paddingTop:10,
+  },
+  mainButton: {
+    height: '100%',
+    width: '40%',
+    borderRadius: 10,
+    backgroundColor: '#066da1',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: 'white',
+    fontWeight: '400', 
+    fontSize: 18,
   },
 });
