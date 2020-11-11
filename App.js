@@ -93,6 +93,12 @@ const AppTabNavigator = createBottomTabNavigator(
               tabBarIcon: ({tintColor}) => <Ionicons name="md-create" size={24} color={tintColor}/>
           }
       },
+      CreateRoutineScreen: {
+          screen: CreateRoutineScreen,
+          navigationOptions: {
+              tabBarIcon: ({tintColor}) => <Ionicons name="md-create" size={24} color={tintColor}/>
+          }
+      },
     ExerciseScreen: {
       screen: WorkoutScreen,
       navigationOptions: {

@@ -55,12 +55,12 @@ export default class CreateNewExerciseScreen extends React.Component {
                             />
                         </View>
                         <View style={styles.checkRow}>
-                        <Checkbox
-                            disabled={false}
-                            value={this.state.isWeighed}
-                            onValueChange={(val) => this.setState({isWeighed: val})}
-                            tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
-                        <Text style ={styles.checkLabel}>Does this use weights?</Text>
+                            <Checkbox
+                                disabled={false}
+                                value={this.state.isWeighed}
+                                onValueChange={(val) => this.setState({isWeighed: val})}
+                                tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
+                            <Text style ={styles.checkLabel}>Does this use weights?</Text>
                         </View>
                         <View style={styles.checkRow}>
                             <Checkbox

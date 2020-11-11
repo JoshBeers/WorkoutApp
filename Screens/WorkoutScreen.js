@@ -9,7 +9,7 @@ import {Exercise} from "../Classes/Exercise";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
-let exerciseWithin = dumDumRoutines[1].exercises; // Some temp bullshit
+let exerciseWithin = dumDumRoutines[0].exercises; // Some temp bullshit
 
 class WorkoutScreen extends React.Component {
 
@@ -143,11 +143,11 @@ class WorkoutScreen extends React.Component {
                   id={item.exerciseID}
                   name={item.name}
                   isWeight={item.doesUseWeight}
+                  isCardio={item.isCardio}
                   finishFunction={this.finish}
               />
 
-          )} keyExtractor={(item, index) => item.exerciseID.toString()}/>
-
+          )} keyExtractor={(item) => item.exerciseID.toString()}/>
         </View>
     )
   }

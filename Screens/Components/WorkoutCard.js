@@ -8,6 +8,7 @@ export class WorkoutCard extends Component{
         id: '',
         name: '',
         isWeighted: false,
+        isCardio: false,
         textInput: [],
         inputData: [],
         count: 1,
@@ -18,6 +19,7 @@ export class WorkoutCard extends Component{
         this.state.id = props.id;
         this.state.name = props.name;
         this.state.isWeighted = props.isWeight;
+        this.state.isCardio = props.isCardio;
     }
 
     updateCount(val){
@@ -31,10 +33,11 @@ export class WorkoutCard extends Component{
         // let inputData = this.state.inputData;
         let rep = 0;
         let weight = 0;
+        let time = 0;
         let setInfo = [];
-        if (this.state.isWeighted === true) {
+        if (this.state.isWeighted && !this.state.isCardio) {
             textInput.push(
-                <View contentContainerStyle = {styles.textLine}
+                <View containerStyle = {styles.textLine}
                       key={this.state.count}>
                     <View style={styles.textField}>
                         <Text>{this.state.count}</Text>
@@ -58,14 +61,44 @@ export class WorkoutCard extends Component{
                 </View>
             );
             setInfo.push({'set': this.state.count, 'rep': rep, 'weight': weight});
-        } else {
+        }
+        else if (!this.state.isWeighted && !this.state.isCardio) {
             textInput.push(
-                <View style={styles.textField}
+                <View containerStyle = {styles.textLine}
                       key={this.state.count}>
-                    <Text>{this.state.count}</Text>
+                    <View style={styles.textField}>
+                        <Text>{this.state.count}</Text>
+                    </View>
+                    <View style={styles.textField}>
+                        <TextInput
+                            placeholder="REP"
+                            onChangeText={(text) => rep = text}
+                            keyboardType={"number-pad"}
+                            style = {{flex: 1}}
+                        />
+                    </View>
                 </View>
             );
-            setInfo.push({'set': this.state.count});
+            setInfo.push({'set': this.state.count, 'rep': rep});
+        }
+        else {
+            textInput.push(
+                <View containerStyle = {styles.textLine}>
+                    <View style={styles.textField}
+                          key={this.state.count}>
+                        <Text>{this.state.count}</Text>
+                    </View>
+                    <View style={styles.textField}>
+                        <TextInput
+                            placeholder="TIME"
+                            onChangeText={(text) => time = text}
+                            keyboardType={"number-pad"}
+                            style = {{flex: 1}}
+                        />
+                    </View>
+             </View>
+            );
+            setInfo.push({'set': this.state.count, 'time': time});
         }
         this.updateCount(1);
         this.setState({textInput});
@@ -124,10 +157,13 @@ export class WorkoutCard extends Component{
             <View>
                 <Card containerStyle={styles.card}>
                     <Text style = {styles.titleText}>{this.state.name}</Text>
-                        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                        <ScrollView
+                            contentContainerStyle={{flexGrow: 1}}
+                            keyExtractor={(item) => item.exerciseID.toString()}>
                             {this.state.textInput.map((value) => {
                                 return value
                             })}
+
                         </ScrollView>
                     <View style={styles.buttonView}>
                         <View style={{margin: 5}}>
@@ -183,6 +219,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'space-around',
+        width: 300,
     },
     textField: {
         alignSelf: 'center',
