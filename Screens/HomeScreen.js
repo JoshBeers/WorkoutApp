@@ -105,7 +105,8 @@ export default class HomeScreen extends React.Component {
                 enableSwipeMonths={true}
                 markedDates={this.state.marked}
             />
-            <button onClick={()=> this.props.navigation.navigate('StatsScreen')}></button>
+            <button onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
+            <button onClick={}></button>
           </Card>
         </View>
 

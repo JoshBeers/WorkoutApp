@@ -76,6 +76,7 @@ if (!firebase.apps.length) {
 const RootStack = createStackNavigator({
     home: HomeScreen,
     StatsScreen: StatisticsScreen
+
 })
 
 const AuthStack = createStackNavigator({
