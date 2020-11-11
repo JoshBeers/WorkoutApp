@@ -9,22 +9,26 @@ import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Cl
 
 export default class ViewAndEditSingleRoutine extends Component {
 
-    state = {
-        routineName: '',
-        routineId: '',
-        exerciseWithin: [],
-    }
+
     constructor(props) {
         super(props);
-        this.state.routineId = props.id;
+        this.state = {
+            routineName: '',
+            routineId: props.navigation.state.params.routineID,
+            exerciseWithin: [],
+        }
+        console.log("single routine screen ", this.state.routineId)
     }
 
     //no idea if this works
     componentDidMount() {
+        console.log("single routine screen ", this.state.routineId)
         getSpecificRoutine(this.state.routineId, (result)=>{
             this.setState({
                 routineName: result.name,
                 exerciseWithin: result.exercises,
+            },function () {
+                console.log("single routine screen ", this.state)
             })
         })
     }

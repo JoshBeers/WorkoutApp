@@ -22,7 +22,7 @@ import {runSQLTest} from "./test/SQLTesting";
 
 import ViewAndEditAllExercises from "./Screens/ViewAndEditAllExercises";
 
-var testing = true;
+var testing = false;
 
 export const db = SQLite.openDatabase('workoutAppDB.db');
 
