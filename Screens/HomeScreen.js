@@ -57,13 +57,7 @@ export default class HomeScreen extends React.Component {
   signOutUser = () => {
     firebase.auth().signOut();
   };
-/*
-  markDates = () => {
-    let aDate = this.getDates().reduce((a, b) => Object.assign(a, {[b]: {selected: true, dotColor: Colors.positive}}), {});
-    this.setState({marked : aDate});
-  }
 
- */
 
   getDates(callback){
 

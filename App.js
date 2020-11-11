@@ -78,57 +78,6 @@ const RootStack = createStackNavigator({
     StatsScreen: StatisticsScreen
 })
 
-const AppTabNavigator = createBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => <Ionicons name="md-home" size={24} color={tintColor}/>
-      }
-    },
-    ViewRoutineScreen: {
-      screen: ChooseAndViewAllRoutinesScreen,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
-      }
-    },
-      CreateNewExerciseScreen: {
-          screen: CreateNewExerciseScreen,
-          navigationOptions: {
-              tabBarIcon: ({tintColor}) => <Ionicons name="md-create" size={24} color={tintColor}/>
-          }
-      },
-    ExerciseScreen: {
-      screen: WorkoutScreen,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
-      }
-    },
-    FitnessAnalyticsScreen: {
-      screen: StatisticsScreen,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => <Ionicons name="md-stats" size={24} color={tintColor}/>
-      }
-    }
-  },
-  {
-      tabBarOptions: {
-        activeTintColor: "#161F3D",
-        inactiveTintColor: "#B8BBC4",
-        showLabel: true,
-      }
-
-  }
-);
-
-// const AppStack = createStackNavigator({
-//   Home: HomeScreen,
-//    //Workout: WorkoutScreen,
-//   // ChooseWorkout: ChooseWorkoutScreen,
-//   // FitnessAnalytics: StatisticsScreen,
-// });
-
-
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Signup: SignUpScreen,
