@@ -27,6 +27,7 @@ import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from "./test/SQLTesting";
 
 import { NavigationContainer } from "@react-navigation/native";
+import ViewAndEditAllExercises from "./Screens/ViewAndEditAllExercises";
 
 // import { UserProvider } from "./context/UserContext";
 // import { FirebaseProvider } from "./context/FirebaseContext";
@@ -75,8 +76,13 @@ if (!firebase.apps.length) {
 
 const RootStack = createStackNavigator({
     home: HomeScreen,
-    StatsScreen: StatisticsScreen
-
+    StatsScreen: StatisticsScreen,
+    RoutinesScreen: ChooseAndViewAllRoutinesScreen,
+    CreateExerciseScreen: CreateNewExerciseScreen,
+    CreateRoutineScreen: CreateRoutineScreen,
+    AllExercisesScreen: ViewAndEditAllExercises,
+    SingleRoutineScreen: ViewAndEditSingleRoutine,
+    WorkoutScreen: WorkoutScreen
 })
 
 const AuthStack = createStackNavigator({
