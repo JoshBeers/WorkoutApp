@@ -9,11 +9,12 @@ stuff for exerciuses that are wiuthin a routine
 
  */
 export class ExerciseWithinRoutine{
-    constructor(ID,exerciseID, routineId, placeInOrder) {
+    constructor(ID,exerciseID, routineId, placeInOrder, name) {
         this.ID = ID
         this.exerciseID = exerciseID
         this.routineId = routineId
         this.placeInOrder = placeInOrder
+        this.name = name
     }
 }
 
@@ -78,14 +79,13 @@ export function deleteExerciseFromRoutine(exercise:ExerciseWithinRoutine, callba
 export function getExerciseFromRoutine(routineID, callback){
 
     db.transaction(tx =>{
-        tx.executeSql("select * from ExercisesWithinRoutines where routineID ="+ routineID +";",[],(_,rows) => {
-            //console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
+        tx.executeSql("select * from ExercisesWithinRoutines inner join Exercises on ExercisesWithinRoutines.exerciseID = Exercises.ID where routineID ="+ routineID +";",[],(_,rows) => {
+            console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
             let tempExercises = []
-
 
             for(let i = 0;i<rows.rows.length;i++){
                 //console.log("sqllog_method_getExerciseFromRoutine_rows_individually",rows.rows.item(i))
-                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).ID,rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder))
+                tempExercises.push(new ExerciseWithinRoutine(rows.rows.item(i).ID,rows.rows.item(i).exerciseID,rows.rows.item(i).routineID, rows.rows.item(i).placeInOrder,rows.rows.item(i).name))
             }
            // tempExercises.sort(((a:ExerciseWithinRoutine, b:ExerciseWithinRoutine) => a.placeInOrder-b.placeInOrder))
             if(callback != null){

@@ -9,52 +9,28 @@ import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Cl
 
 export default class ViewAndEditSingleRoutine extends Component {
 
-    state = {
-        routineName: '',
-        routineId: '',
-        exerciseWithin: [],
-    }
+
     constructor(props) {
         super(props);
-        this.state.routineId = props.id;
+        this.state = {
+            routine: new Routine(props.navigation.state.params.routineID)
+        }
+        console.log("single routine screen ", this.state.routineId)
     }
 
     //no idea if this works
     componentDidMount() {
-        getSpecificRoutine(this.state.routineId, (result)=>{
+        console.log("single routine screen ", this.state.routineId)
+        getSpecificRoutine(this.state.routine.id, (result)=>{
             this.setState({
-                routineName: result.name,
-                exerciseWithin: result.exercises,
+                routine : result
+            },function () {
+                console.log("single routine screen ", this.state)
             })
         })
     }
 
-    getExerciseName(exerciseId){
-        const db = SQLite.openDatabase('workoutAppDB.db');
 
-        db.transaction(tx =>{
-          tx.executeSql('select name from exercises where Id = ' + exerciseId + ';',[],(_,rows) =>{
-
-            console.log('sqllog_ViewRoutineScreen_exercises_name', rows.rows);
-
-            return rows.rows;
-          });
-        });
-
-      }
-
-      getExerciseInfo(routine_Id) {
-        const db = SQLite.openDatabase('workoutAppDB.db');
-
-        db.transaction(tx =>{
-          tx.executeSql('select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = ' + routine_Id + ';',[],(_,rows) =>{
-
-            console.log('sqllog_ViewRoutineScreen_exercises_info', rows.rows);
-
-            return rows.rows;
-          });
-        });
-      }
 
     render() {
         return (
@@ -62,9 +38,9 @@ export default class ViewAndEditSingleRoutine extends Component {
                 <View style={listStyle.container}>
                     <Text style={listStyle.titleText}>Routine Name</Text>
                 </View>
-                <Text>{this.state.routineName}</Text>
+                <Text>{this.state.routine.name}</Text>
                 <FlatList
-                    data={this.state.exerciseWithin}
+                    data={this.state.routine.exercises}
                     renderItem={({item}) => (
                         <Card>
                             <Text>{item.name}</Text>
@@ -72,6 +48,13 @@ export default class ViewAndEditSingleRoutine extends Component {
                     )}
                     keyExtractor={item => item.id}
                 />
+
+                <button onClick={()=> {
+                    this.props.navigation.navigate('WorkoutScreen',{
+                    routine: this.state.routine
+                });}}>
+                Workout!
+                </button>
 
             </View>
         );
