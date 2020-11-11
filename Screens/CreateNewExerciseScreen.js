@@ -26,7 +26,9 @@ export default class CreateNewExerciseScreen extends React.Component {
         this.setState({
             isDone: true,
         })
-        console.log(getAllExercises());
+        getAllExercises(function (result){
+            console.log(result)
+        })
     }
 
     render(){
