@@ -2,12 +2,9 @@
 import React from 'react';
 import {StyleSheet, TextInput, Text, View, Button, FlatList, Modal, Image} from 'react-native';
 import {Card} from 'react-native-elements';
-import Checkbox from '@react-native-community/checkbox';
-// import { Checkbox } from 'react-native-paper';
-
-import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {Exercise, createNewExerciseFromExercise, getAllExercises} from "../Classes/Exercise";
+
 export default class CreateNewExerciseScreen extends React.Component {
 
     constructor(){
@@ -35,6 +32,23 @@ export default class CreateNewExerciseScreen extends React.Component {
 
     }
 
+    /*
+    <Checkbox
+                            disabled={false}
+                            value={this.state.isWeighed}
+                            onValueChange={(val) => this.setState({isWeighed: val})}
+                            tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
+
+
+    <Checkbox
+                                disabled={false}
+                                value={this.state.isCardio}
+                                onValueChange={(val) => this.setState({isCardio: val})}
+                                tintColors={this.state.isCardio ? Colors.positive : Colors.negative}
+                                />
+
+
+     */
     render(){
         return(
             <View style={styles.screen}>
@@ -55,20 +69,10 @@ export default class CreateNewExerciseScreen extends React.Component {
                             />
                         </View>
                         <View style={styles.checkRow}>
-                            <Checkbox
-                                disabled={false}
-                                value={this.state.isWeighed}
-                                onValueChange={(val) => this.setState({isWeighed: val})}
-                                tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
                             <Text style ={styles.checkLabel}>Does this use weights?</Text>
                         </View>
                         <View style={styles.checkRow}>
-                            <Checkbox
-                                disabled={false}
-                                value={this.state.isCardio}
-                                onValueChange={(val) => this.setState({isCardio: val})}
-                                tintColors={this.state.isCardio ? Colors.positive : Colors.negative}
-                                />
+
                             <Text style ={styles.checkLabel}>Is this cardio?</Text>
                         </View>
                         <View style={styles.buttonView}>
