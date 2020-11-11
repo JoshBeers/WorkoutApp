@@ -16,7 +16,7 @@ import * as firebase from 'firebase';
 import {getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
 import StatisticsScreen from "./StatisticsScreen";
 import createBottomTabNavigator from "@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator";
-import Icon from 'react-native-ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default class HomeScreen extends React.Component {
@@ -115,38 +115,17 @@ export default class HomeScreen extends React.Component {
           </Card>
           <Card containerStyle = {styles.navCard}>
           <View style={styles.container}>
-      <View style={styles.topButtonContainer}>
-        <TouchableOpacity
-          style={styles.mainButton}
-          onPress={()=> this.props.navigation.navigate('StatsScreen')}>
-          {/* <Text style={styles.text}>Stats</Text> */}
-          <Icons name="md-fitness" size={24} color={'#066da1'}/>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.mainButton}
-          onPress={()=> this.props.navigation.navigate('CreateRoutineScreen')}>
-          <Text style={styles.text}>Create Routine</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomButtonContainer}>
-        <TouchableOpacity
-          style={styles.mainButton}
-          onPress={()=> this.props.navigation.navigate('CreateExerciseScreen')}>
-          <Text style={styles.text}>Create Exercise</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.mainButton}
-          onPress={()=> this.props.navigation.navigate('RoutinesScreen')}>
-          <Text style={styles.text}>Saved Routines</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
-            {/* <View>
-            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
-            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('CreateRoutineScreen')}>Create Routine</button>
-            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('CreateExerciseScreen')}>Create Exercise</button>
-            <button style={{backgroundColor:'#066da1'}} onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button>
-            </View> */}
+          <Ionicons name="md-stats" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('StatsScreen')}/>
+          <Ionicons name="md-paper" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('CreateRoutineScreen')}/>
+          <Ionicons name="md-create" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('CreateExerciseScreen')}/>
+          <Ionicons name="md-fitness" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('RoutinesScreen')}/>
+          </View>
+          <View style={styles.containerText}>
+            <Text>Statistics</Text>
+            <Text>Create Routine</Text>
+            <Text>Create Exercise</Text>
+            <Text>Workout</Text>
+          </View>
           </Card>
         </View>
 
@@ -184,14 +163,25 @@ const styles = StyleSheet.create({
   navCard: {
     backgroundColor: Colors.card,
     borderWidth: 0,
-    width: 366,
+    width: '100%',
     alignSelf: 'center',
     //alignItems: 'center',
   },
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    //flex: 1,
+    flexDirection: 'row',
+    //alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 5,
+    paddingRight: 20,
+  },
+  containerText: {
+    //flex: 1,
+    flexDirection: 'row',
+    //alignItems: 'center',
+    justifyContent: 'space-between',
+    //paddingLeft: 2,
+    paddingRight: 10,
   },
   topButtonContainer: {
     height: 50,
@@ -213,7 +203,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '40%',
     borderRadius: 10,
-    backgroundColor: '#066da1',
+   //backgroundColor: '#066da1',
     justifyContent: 'center',
     alignItems: 'center',
   },
