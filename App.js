@@ -2,10 +2,6 @@
 import React from 'react'
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import MaterialIcon from '@expo/vector-icons/MaterialIcons';
-import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 
 import LoadingScreen from './Screens/LoadingScreen';
@@ -14,9 +10,7 @@ import SignUpScreen from './Screens/SignUpScreen';
 import HomeScreen from './Screens/HomeScreen';
 import CreateRoutineScreen from './Screens/CreateRoutineScreen';
 import WorkoutScreen from './Screens/WorkoutScreen';
-import ChooseWorkoutScreen from './Screens which are not in doc/ChooseWorkoutScreen';
 import StatisticsScreen from './Screens/StatisticsScreen';
-import ExerciseScreen from './Screens/ViewAndEditAllExercises';
 import ChooseAndViewAllRoutinesScreen from './Screens/ChooseAndViewAllRoutinesScreen';
 import ViewAndEditSingleRoutine from './Screens/ViewAndEditSingleRoutine';
 import CreateNewExerciseScreen from "./Screens/CreateNewExerciseScreen";
@@ -26,29 +20,9 @@ import * as firebase from 'firebase';
 import {createDummyData, createTables} from './StartUpSQL';
 import {runSQLTest} from "./test/SQLTesting";
 
-import { NavigationContainer } from "@react-navigation/native";
 import ViewAndEditAllExercises from "./Screens/ViewAndEditAllExercises";
 
-// import { UserProvider } from "./context/UserContext";
-// import { FirebaseProvider } from "./context/FirebaseContext";
-
-// import AppStackScreens from "./stacks/AppStackScreens";
-
-// export default App = () => {
-//     return (
-//         <FirebaseProvider>
-//             <UserProvider>
-//                 <NavigationContainer>
-//                     <AppStackScreens />
-//                 </NavigationContainer>
-//             </UserProvider>
-//         </FirebaseProvider>
-//     );
-// };
-
 var testing = true;
-
-
 
 export const db = SQLite.openDatabase('workoutAppDB.db');
 

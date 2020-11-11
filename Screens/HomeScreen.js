@@ -106,7 +106,9 @@ export default class HomeScreen extends React.Component {
                 markedDates={this.state.marked}
             />
             <button onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
-            <button onClick={}></button>
+            <button onClick={()=> this.props.navigation.navigate('CreateRoutineScreen')}>Create Routine</button>
+            <button onClick={()=> this.props.navigation.navigate('CreateExerciseScreen')}>Create Exercise</button>
+            <button onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button>
           </Card>
         </View>
 
