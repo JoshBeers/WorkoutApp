@@ -1,11 +1,8 @@
 import React from 'react';
 import {
   StyleSheet,
-  TextInput,
   View,
   Text,
-  Button,
-  TouchableOpacity,
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
@@ -14,8 +11,13 @@ import moment from 'moment';
 import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
 import {getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
+import StatisticsScreen from "./StatisticsScreen";
+import createBottomTabNavigator from "@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator";
+
+
 
 export default class HomeScreen extends React.Component {
+
 
   constructor() {
     super();
@@ -25,6 +27,8 @@ export default class HomeScreen extends React.Component {
       displayName: '',
       dates: []
     };
+
+
   }
   stepPercentage = 0.6; //Place holder variable
   stepCount = 2500; // Place holder variable
@@ -53,13 +57,7 @@ export default class HomeScreen extends React.Component {
   signOutUser = () => {
     firebase.auth().signOut();
   };
-/*
-  markDates = () => {
-    let aDate = this.getDates().reduce((a, b) => Object.assign(a, {[b]: {selected: true, dotColor: Colors.positive}}), {});
-    this.setState({marked : aDate});
-  }
 
- */
 
   getDates(callback){
 
@@ -107,8 +105,13 @@ export default class HomeScreen extends React.Component {
                 enableSwipeMonths={true}
                 markedDates={this.state.marked}
             />
+            <button onClick={()=> this.props.navigation.navigate('StatsScreen')}>Stats</button>
+            <button onClick={()=> this.props.navigation.navigate('CreateRoutineScreen')}>Create Routine</button>
+            <button onClick={()=> this.props.navigation.navigate('CreateExerciseScreen')}>Create Exercise</button>
+            <button onClick={()=> this.props.navigation.navigate('RoutinesScreen')}>Workout Routines</button>
           </Card>
         </View>
+
     )
   }
 }

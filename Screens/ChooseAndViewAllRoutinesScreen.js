@@ -40,7 +40,9 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
           <FlatList
               data={this.state.routineList}
               renderItem={({item}) => (
-                  <TouchableOpacity onPress= {() => this.seeDetails(item.id)}>
+                  <TouchableOpacity onPress= {() =>  this.props.navigation.navigate('SingleRoutineScreen',{
+                      routineID: item.id,
+                  })}>
                       <Card containerStyle={styles.card}>
                         <Text style={styles.text}>{item.name}</Text>
                       </Card>
