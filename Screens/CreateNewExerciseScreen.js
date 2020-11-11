@@ -3,6 +3,8 @@ import React from 'react';
 import {StyleSheet, TextInput, Text, View, Button, FlatList, Modal, Image} from 'react-native';
 import {Card} from 'react-native-elements';
 import Checkbox from '@react-native-community/checkbox';
+// import { Checkbox } from 'react-native-paper';
+
 import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {Exercise, createNewExerciseFromExercise, getAllExercises} from "../Classes/Exercise";
@@ -22,13 +24,15 @@ export default class CreateNewExerciseScreen extends React.Component {
     finish(){
         let temp = new Exercise(0, this.state.exerciseName, this.state.exerciseDescription, this.state.isWeighed, this.state.isCardio);
         console.log(temp);
-        createNewExerciseFromExercise(temp);
+        createNewExerciseFromExercise(temp, function () {
+            getAllExercises(function (result){
+                console.log(result)
+            })
+        });
         this.setState({
             isDone: true,
         })
-        getAllExercises(function (result){
-            console.log(result)
-        })
+
     }
 
     render(){
