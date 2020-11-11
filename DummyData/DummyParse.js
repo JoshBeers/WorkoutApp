@@ -3,61 +3,71 @@ export const dumDumExercise = [
         "exerciseID": 1,
         "name": "Quad Stretch",
         "description": "Lower body stretches that stretches your quads.",
-        "doesUseWeight": false
+        "doesUseWeight": false,
+        "isCardio": true,
     },
     {
         "exerciseID": 2,
         "name": "Treadmill",
         "description": "Stationary cardio device",
-        "doesUseWeight": false
+        "doesUseWeight": false,
+        "isCardio": true,
     },
     {
         "exerciseID": 3,
         "name": "Body Weight Squats",
         "description": "Lower body workout using body weight",
-        "doesUseWeight": false
+        "doesUseWeight": false,
+        "isCardio": false,
     },
     {
         "exerciseID": 4,
         "name": "Dumbbell Rows",
         "description": "Upper body workout using dumbbells.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     },
     {
         "exerciseID": 5,
         "name": "Push Ups",
         "description": "Upper body body weight workout.",
-        "doesUseWeight": false
+        "doesUseWeight": false,
+        "isCardio": false,
     },
     {
         "exerciseID": 6,
         "name": "Barbell Lunges",
         "description": "Lower workout using dumbbells.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     },
     {
         "exerciseID": 7,
         "name": "Deadlifts",
         "description": "Lower body workout using barbell.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     },
     {
         "exerciseID": 8,
         "name": "Barbell Curls",
         "description": "Upper body workout using a barbell.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     },
     {
         "exerciseID": 9,
         "name": "Seated Machine Trunk Rotations",
         "description": "Upper body core workout using a machine.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     },
     {
         "exerciseID": 10,
         "name": "Leg Press",
         "description": "Lower body workout using a machine.",
-        "doesUseWeight": true
+        "doesUseWeight": true,
+        "isCardio": false,
     }
 ];
 export const dumDumRoutines = [
@@ -82,7 +92,7 @@ export const dumDumRoutines = [
                 "placeInOrder": 3
             },
             {
-                "exerciseID": 3,
+                "exerciseID": 8,
                 "routineID": 0,
                 "placeInOrder": 4
             }

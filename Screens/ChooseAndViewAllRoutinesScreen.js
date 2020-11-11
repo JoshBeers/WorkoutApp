@@ -10,7 +10,6 @@ import {
 import * as SQLite from 'expo-sqlite';
 import {Card} from 'react-native-elements';
 import Colors from '../Themes/Colors';
-import {listStyle} from '../Themes/Styles';
 import {getAllRoutinesWithOutExercises} from '../Classes/Routine';
 import * as navigation from 'react-navigation';
 import ViewAndEditSingleRoutine from './ViewAndEditSingleRoutine';
@@ -49,7 +48,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   renderItem(data) {
     return (
       <TouchableOpacity onPress={() => this.seeDetails(data.item.id)}>
-        <Card containerStyle={listStyle.item}>
+        <Card containerStyle={styles.item}>
           <Text>{data.item.name}</Text>
         </Card>
       </TouchableOpacity>
@@ -57,24 +56,25 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   }
 
   render() {
-    const {routineList, loading} = this.state;
-
-    if (!loading) {
+    if (!this.state.loadingTrue) {
       return (
-        <View style={listStyle.screen}>
-          <Text style={listStyle.titleText}>Saved Routines</Text>
+        <View style={styles.screen}>
+          <Text style={styles.titleText}>Saved Routines</Text>
           <FlatList
-              data={this.state.routineList}
-              renderItem={({item}) => (
-                  <TouchableOpacity onPress= {() =>  this.props.navigation.navigate('SingleRoutineScreen',{
-                      routineID: item.id,
-                  })}>
-                      <Card containerStyle={styles.card}>
-                        <Text style={styles.text}>{item.name}</Text>
-                      </Card>
-                  </TouchableOpacity>
-              )}
-              keyExtractor={item => item.id.toString()}
+            data={this.state.routineList}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate('SingleRoutineScreen', {
+                    routineID: item.id,
+                  })
+                }>
+                <Card containerStyle={styles.card}>
+                  <Text style={styles.text}>{item.name}</Text>
+                </Card>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
       );
@@ -85,6 +85,20 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 25,
+    marginHorizontal: 25,
+  },
+  screen: {
+    backgroundColor: Colors.background,
+    flex: 1,
+    alignItems: 'center',
+  },
+  titleText: {
+    color: Colors.text,
+    fontSize: 27,
+    marginTop: 30,
+  },
   card: {
     marginTop: 25,
     marginBottom: 25,
@@ -98,5 +112,11 @@ const styles = StyleSheet.create({
     color: Colors.text,
     fontSize: 20,
     marginTop: 10,
+  },
+  item: {
+    backgroundColor: Colors.card,
+    padding: 35,
+    marginVertical: 20,
+    marginHorizontal: 16,
   },
 });
