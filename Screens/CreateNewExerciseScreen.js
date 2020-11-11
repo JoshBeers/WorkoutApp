@@ -21,13 +21,15 @@ export default class CreateNewExerciseScreen extends React.Component {
     finish(){
         let temp = new Exercise(0, this.state.exerciseName, this.state.exerciseDescription, this.state.isWeighed, this.state.isCardio);
         console.log(temp);
-        createNewExerciseFromExercise(temp);
+        createNewExerciseFromExercise(temp, function () {
+            getAllExercises(function (result){
+                console.log(result)
+            })
+        });
         this.setState({
             isDone: true,
         })
-        getAllExercises(function (result){
-            console.log(result)
-        })
+
     }
 
     /*

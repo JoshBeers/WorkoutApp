@@ -48,7 +48,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
                       </Card>
                   </TouchableOpacity>
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={item => item.id.toString()}
           />
         </View>
     );
