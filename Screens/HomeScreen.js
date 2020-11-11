@@ -136,7 +136,7 @@ export default class HomeScreen extends React.Component {
         <TouchableOpacity
           style={styles.mainButton}
           onPress={()=> this.props.navigation.navigate('RoutinesScreen')}>
-          <Text style={styles.text}>Routines</Text>
+          <Text style={styles.text}>Saved Routines</Text>
         </TouchableOpacity>
       </View>
       </View>
