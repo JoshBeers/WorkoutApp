@@ -9,11 +9,11 @@ import {
     deleteExerciseById,
     deleteExerciseFromRoutine,
     deleteExercisesUnderARoutine,
-    Exercise,
+    Exercise, ExerciseStats,
     ExerciseWithinRoutine,
     getAllCompleteExerciseBySpecificExerciseID,
     getAllExercises,
-    getAllExercisesWithinRoutines,
+    getAllExercisesWithinRoutines, getAverageMetricsForExercise,
     getCompletedExercisesForWorkout,
     getExerciseFromRoutine,
     saveExerciseFromCompletedExercises
@@ -334,6 +334,19 @@ function testDeleteExerciseById(callback){
     })
 }
 
+function testGetAverageMetricsForExercise(callback){
+    console.log("sqllog_test_GetAverageMetricsForExercise","test has begun")
+    getAverageMetricsForExercise(1,function (result:ExerciseStats){
+        console.log("sqllog_test_GetAverageMetricsForExercise_result",result)
+        if(result.averageNumberOfReps == (8/3))
+            colorTrace("sqllog_test_GetAverageMetricsForExercise_result test average number of reps passed",'green')
+        else
+            colorTrace("sqllog_test_GetAverageMetricsForExercise_result test average number of reps failed should be :"+(8/3)+"is: "+result.averageNumberOfReps,'red')
+        if(callback)
+            callback()
+    })
+}
+
 
 
 
@@ -546,6 +559,8 @@ function testGetAllCompleteExerciseBySpecificExerciseID(callback){
     })
 }
 
+
+
 //actuall testing
 /*
 test 1-3
@@ -555,7 +570,9 @@ function exerciseTests(callback){
     testGetAllExercises(function (){
         testCreateNewExerciseFromExercise( function (){
             testDeleteExerciseById(function (){
-                createDummyData(callback)
+                createDummyData(function (){
+                    testGetAverageMetricsForExercise(callback)
+                })
                 //callback()
             })
         })
