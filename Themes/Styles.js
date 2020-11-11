@@ -23,7 +23,7 @@ const listStyle = StyleSheet.create({
   item: {
     backgroundColor: Colors.card,
     padding: 35,
-    marginVertical: 8,
+    marginVertical: 20,
     marginHorizontal: 16,
   },
 });

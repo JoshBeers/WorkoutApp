@@ -75,20 +75,3 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 25,
-    marginBottom: 25,
-    backgroundColor: Colors.card,
-    borderWidth: 0,
-    alignSelf: 'center',
-    width: 370,
-    height: 75,
-  },
-  text: {
-    color: Colors.text,
-    fontSize: 20,
-    marginTop: 10,
-  },
-});
