@@ -82,7 +82,7 @@ const AppTabNavigator = createBottomTabNavigator(
       }
     },
     ViewRoutineScreen: {
-      screen: ViewAndEditSingleRoutine,
+      screen: ChooseAndViewAllRoutinesScreen,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => <Ionicons name="md-fitness" size={24} color={tintColor}/>
       }
