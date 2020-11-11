@@ -16,16 +16,21 @@ class WorkoutScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
+      routine: props.navigation.state.params.routine,
       exercises: [],
       today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
       userDone: false,
     };
+    console.log(props.navigation.state.params.routine)
   }
 
   componentDidMount() {
+    /*
     this.setState({
       exercises: this.fillArray(),
     })
+
+     */
   }
 
   // Fills the exercise array with exercise objects current just pulling form json object
@@ -39,45 +44,9 @@ class WorkoutScreen extends React.Component {
     return tempExercise;
   }
 
-  getExerciseName(exerciseId) {
-    const db = SQLite.openDatabase("workoutAppDB.db");
-
-    db.transaction(tx => {
-      tx.executeSql("select name from exercises where Id = " + exerciseId + ";", [], (_, rows) => {
-
-        console.log("sqllog_WorkoutScreen_exercises_name", rows.rows)
-
-        return rows.rows;
-      })
-    })
-  }
-
-  getExerciseInfo(routine_Id) {
-    const db = SQLite.openDatabase("workoutAppDB.db");
-
-    db.transaction(tx => {
-      tx.executeSql("select numberOFReps, numberofSets, weight, placeInOrder, from ExercisesWithinRoutines where routineID = " + routine_Id + ";", [], (_, rows) => {
-
-        console.log("sqllog_WorkoutScreen_exercises_info", rows.rows)
-
-        return rows.rows;
-      })
-    })
-  }
-
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
   finish = (id, name, inputData) => {
-    /*
-    state = {
-        id: '',
-        name: '',
-        isWeighted: false,
-        isDone: false,
-        textInput: [],
-        inputData: [],
-        count: 1
-    }
-     */
+
     let tempArray = this.state.exercises;
     let index = 0;
 
@@ -138,7 +107,7 @@ class WorkoutScreen extends React.Component {
               snapToInterval={400}
               snapToAlignment={"center"}
               disableIntervalMomentum={ true }
-              data={this.state.exercises} renderItem={({item}) => (
+              data={this.state.routine.exercises} renderItem={({item}) => (
               <WorkoutCard
                   id={item.exerciseID}
                   name={item.name}
