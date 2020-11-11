@@ -57,9 +57,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   }
 
   render() {
-    const {routineList, loading} = this.state;
-
-    if (!loading) {
+    if (!this.state.loadingTrue) {
       return (
         <View style={listStyle.screen}>
           <Text style={listStyle.titleText}>Saved Routines</Text>
