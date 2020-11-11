@@ -73,6 +73,11 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+const RootStack = createStackNavigator({
+    home: HomeScreen,
+    StatsScreen: StatisticsScreen
+})
+
 const AppTabNavigator = createBottomTabNavigator(
   {
     Home: {
@@ -127,7 +132,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Loading: LoadingScreen,
-      App: AppTabNavigator, //was AppStack before
+      App: RootStack, //was AppStack before
       Auth: AuthStack,
     },
     {
