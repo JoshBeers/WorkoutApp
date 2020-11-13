@@ -4,14 +4,24 @@ import Colors from '../Themes/Colors';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import GradientLineChart from './GradientLineChart';
 import {Calories, Duration, Workouts} from '../img/AnalyticsIcons';
+import {getAllExerciseStats} from "../Classes/Exercise";
 
 export default class StatisticsScreen extends Component {
   constructor() {
     super();
     this.state = {
-      selectedIndexStat: 0,
-      selectedIndexView: 1,
+      exerciseStatsList: []
     };
+  }
+
+  componentDidMount() {
+    getAllExerciseStats((result)=>{
+      this.setState({
+        exerciseStatsList: result
+      },function (){
+        console.log("stats screen stats goten  ", this.state)
+      })
+    })
   }
 
   handleIndexChangeStat = (selectedIndex) => {

@@ -12,7 +12,7 @@ import {
     Exercise, ExerciseStats,
     ExerciseWithinRoutine,
     getAllCompleteExerciseBySpecificExerciseID,
-    getAllExercises,
+    getAllExercises, getAllExerciseStats,
     getAllExercisesWithinRoutines, getAverageMetricsForExercise,
     getCompletedExercisesForWorkout,
     getExerciseFromRoutine,
@@ -347,6 +347,19 @@ function testGetAverageMetricsForExercise(callback){
     })
 }
 
+function testGetAllExerciseStats(callback){
+    console.log("sqllog_test_GetAllExerciseStats","test has begun")
+    getAllExerciseStats(function (result){
+        console.log("sqllog_test_GetAllExerciseStats_result",result)
+        if(result.length == 3)
+            colorTrace("sqllog_test_GetAllExerciseStats_result test length passed",'green')
+        else
+            colorTrace("sqllog_test_GetAllExerciseStats_result test length failed should be :"+3+"is: "+result.length,'red')
+        if(callback)
+            callback()
+    })
+}
+
 
 
 
@@ -571,7 +584,9 @@ function exerciseTests(callback){
         testCreateNewExerciseFromExercise( function (){
             testDeleteExerciseById(function (){
                 createDummyData(function (){
-                    testGetAverageMetricsForExercise(callback)
+                    testGetAverageMetricsForExercise(function (){
+                        testGetAllExerciseStats(callback)
+                    })
                 })
                 //callback()
             })
