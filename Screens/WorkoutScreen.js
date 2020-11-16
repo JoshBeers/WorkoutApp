@@ -5,7 +5,7 @@ import {Card} from 'react-native-elements';
 import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {dumDumExercise, dumDumRoutines} from "../DummyData/DummyParse";
-import {Exercise} from "../Classes/Exercise";
+import {Exercise, CompleteExercise, saveExerciseFromCompletedExercises} from "../Classes/Exercise";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
@@ -17,7 +17,6 @@ class WorkoutScreen extends React.Component {
     super(props);
     this.state ={
       routine: props.navigation.state.params.routine,
-      exercises: [],
       today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
       userDone: false,
     };
@@ -25,42 +24,45 @@ class WorkoutScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      exercises: this.fillArray(),
-    })
-  }
-
-  // Fills the exercise array with exercise objects current just pulling form json object
-  fillArray() {
-    let tempExercise = [];
-    let exerciseWithin = this.state.routine.exercises;
-    for (let i = 0; i < exerciseWithin.length; i++) {
-      let tempExer = exerciseWithin[i];
-      console.log(tempExer.name);
-      tempExercise.push(tempExer);
-    }
-    return tempExercise;
+    console.log(this.state.routine.exercises);
   }
 
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
-  finish = (id) => {
+  finish = (id, name, inputData) => {
     let tempArray = this.state.exercises;
     let index = 0;
-    let tempExer = null;
-
+    let tempExer;
+    let numReps = 0;
+    let weight = 0;
     for(let i = 0; i < tempArray.length; i++){
       if(tempArray[i].exerciseID === id) {
         tempExer = tempArray[i];
         index = i;
       }
     }
-
-    console.log(index);
+    console.log(tempExer.name);
     tempArray.splice(index, 1);
     this.setState({
       exercise: tempArray});
 
+    for(let i = 0; i < inputData.length; i++){
+      if(inputData[i].containsKey('rep'))
+        numReps = numReps + inputData[i].rep;
+      else
+        numReps = numReps + inputData[i].time;
+
+      if(inputData[i].containsKey('weight'))
+        weight = weight + inputData[i].weight;
+    }
+
+    let finExercise = new CompleteExercise(0, tempExer.exerciseID, 0, numReps, inputData[inputData.length - 1].set, (weight/(inputData[inputData.length - 1].set)), this.state.today);
+    console.log(finExercise.exerciseId)
     console.log(this.state.exercises);
+
+    saveExerciseFromCompletedExercises(finExercise, (result) =>{
+      console.log(result);
+    })
+
     if(this.state.exercises.length === 0)
       this.setState({userDone: true})
   }
@@ -86,7 +88,7 @@ class WorkoutScreen extends React.Component {
                 <Button
                   title="Return"
                   color={Colors.positive}
-                  onPress={console.log("IVE BEEN CLICKED!")}
+                  onPress={() => this.props.navigation.navigate('home')}
                   style={{
                     alignSelf: 'center',
                     marginTop: 20,

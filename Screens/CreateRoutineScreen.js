@@ -8,6 +8,7 @@ import {dumDumExercise} from "../DummyData/DummyParse";
 import Colors from "../Themes/Colors";
 import {listStyle} from "../Themes/Styles";
 import CheckBox from 'react-native-check-box';
+import {Routines, addNewRoutine} from "../Classes/Routine";
 
 class CreateRoutineScreen extends Component {
 
@@ -16,17 +17,23 @@ class CreateRoutineScreen extends Component {
         this.state = {
             routineName: '',
             allExercises: [],
-            selectedExercises: [],
             isDone: false,
+            isChecked : false
+
         }
     }
     componentDidMount() {
-        this.setState({
-            allExercises: this.fillArray(),
-        })
+        getAllExercises((result)=>{
 
+            this.setState({
+                allExercises: result
+            }, function (){
+                console.log(this.state)
+            })
+        })
     }
 
+    /*
     // Fills the exercise array with exercise objects and whether or not they are selected
     fillArray() {
         let tempExercise = [];
@@ -43,30 +50,23 @@ class CreateRoutineScreen extends Component {
         return tempExercise;
     }
 
-    toggleList(exercise, val){
-        if(val)
-            this.state.selectedExercises.push(exercise);
-        else if (!val){
-            let tempArray = this.state.selectedExercises;
-            let index = 0;
-
-            for(let i = 0; i < tempArray.length; i++){
-                if(tempArray[i].exerciseID === exercise.exerciseID)
-                    index = i;
-            }
-
-            console.log(index);
-            tempArray.splice(index, 1);
-            this.setState({
-                selectedExercises: tempArray});
-        }
-        console.log(this.state.selectedExercises);
-    }
+     */
 
     finish(){
-        this.setState({
-            isDone: true,
+        let selectedExercises = []
+        for(let i = 0; i<this.state.allExercises.length;i++){
+            if(this.state.allExercises[i].isSelected){
+                selectedExercises.push(this.state.allExercises[i])
+            }
+        }
+
+        let tempRoutine = new Routine(0, this.state.routineName, 0, selectedExercises);
+        console.log(tempRoutine.name);
+        addNewRoutine(tempRoutine, (result) =>{
+            console.log(result);
+            this.setState({isDone: true});
         })
+
     }
 
     modalClick(){
@@ -89,14 +89,14 @@ class CreateRoutineScreen extends Component {
                             <Text style={styles.modalText}>Nice!</Text>
                             <Image source={require('../img/muscles.png')}
                                    style={{
-                                       width: '25%',
-                                       height: '25%',
+                                       width: 200,
+                                       height: 150,
                                        margin: 50,
                                    }}/>
                             <Button
                                 title="Return"
                                 color={Colors.positive}
-                                onPress={() => this.modalClick()}
+                                onPress={() => this.props.navigation.navigate('home')}
                                 style={{
                                     alignSelf: 'center',
                                     marginTop: 20,
@@ -125,10 +125,11 @@ class CreateRoutineScreen extends Component {
                                         style={{flex: 1, padding: 10}}
                                         onClick={()=>{
                                             item.isSelected = !item.isSelected
-                                            this.toggleList(item.exerciseObj, item.isSelected);
+                                            this.setState({
+                                            })
                                         }}
                                         isChecked={item.isSelected}
-                                        rightText={item.exerciseObj.name}
+                                        rightText={item.name}
                                         rightTextStyle={styles.text}
                                         uncheckedCheckBoxColor={Colors.negative}
                                         checkedCheckBoxColor={Colors.positive}
@@ -137,7 +138,7 @@ class CreateRoutineScreen extends Component {
                                 </View>
                             </Card>
                     )}
-                    keyExtractor={item => item.exerciseObj.exerciseID.toString()}
+                    keyExtractor={item => item.exerciseID.toString()}
                 />
                 </View>
                 <View style={styles.buttonView}>
