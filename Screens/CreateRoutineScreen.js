@@ -7,7 +7,7 @@ import {createNewExerciseFromExercise, Exercise, ExerciseWithinRoutine, getAllEx
 import {dumDumExercise} from "../DummyData/DummyParse";
 import Colors from "../Themes/Colors";
 import {listStyle} from "../Themes/Styles";
-//import Checkbox from '@react-native-community/checkbox';
+import CheckBox from 'react-native-check-box';
 
 class CreateRoutineScreen extends Component {
 
@@ -27,13 +27,18 @@ class CreateRoutineScreen extends Component {
 
     }
 
-    // Fills the exercise array with exercise objects current just pulling form json object
+    // Fills the exercise array with exercise objects and whether or not they are selected
     fillArray() {
         let tempExercise = [];
-        for (let i = 0; i < dumDumExercise.length; i++) {
-            let tempExer = dumDumExercise[i];
+        let tempArray = [];
+
+        getAllExercises(function(result){
+            tempArray = result;
+        })
+        for (let i = 0; i < tempArray.length; i++) {
+            let tempExer = tempArray[i];
             console.log(tempExer.name);
-            tempExercise.push(tempExer);
+            tempExercise.push({'exerciseObj': tempExer, 'isSelected': false});
         }
         return tempExercise;
     }
@@ -71,19 +76,6 @@ class CreateRoutineScreen extends Component {
             isDone: false,
         })
     }
-
-    /*
-<Checkbox
-                                        disabled={false}
-                                        value={this.state.checked}
-                                        onValueChange={(val) => {
-                                            this.toggleList(item, val);
-                                            this.setState({checked: !this.state.checked})
-                                        }}
-                                        tintColors={Colors.positive}/>
-
-     */
-
     render() {
         return (
             <View style={listStyle.screen}>
@@ -129,15 +121,23 @@ class CreateRoutineScreen extends Component {
                     renderItem={({item}) =>(
                             <Card containerStyle={styles.card}>
                                 <View style={styles.checkRow}>
+                                    <CheckBox
+                                        style={{flex: 1, padding: 10}}
+                                        onClick={()=>{
+                                            item.isSelected = !item.isSelected
+                                            this.toggleList(item.exerciseObj, item.isSelected);
+                                        }}
+                                        isChecked={item.isSelected}
+                                        rightText={item.exerciseObj.name}
+                                        rightTextStyle={styles.text}
+                                        uncheckedCheckBoxColor={Colors.negative}
+                                        checkedCheckBoxColor={Colors.positive}
+                                        />
 
-
-
-
-                                        <Text style={styles.text}>{item.name}</Text>
                                 </View>
                             </Card>
                     )}
-                    keyExtractor={item => item.exerciseID.toString()}
+                    keyExtractor={item => item.exerciseObj.exerciseID.toString()}
                 />
                 </View>
                 <View style={styles.buttonView}>

@@ -9,7 +9,7 @@ import {Exercise} from "../Classes/Exercise";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
-let exerciseWithin = dumDumRoutines[0].exercises; // Some temp bullshit
+// let exerciseWithin = dumDumRoutines[0].exercises;
 
 class WorkoutScreen extends React.Component {
 
@@ -25,19 +25,17 @@ class WorkoutScreen extends React.Component {
   }
 
   componentDidMount() {
-    /*
     this.setState({
       exercises: this.fillArray(),
     })
-
-     */
   }
 
   // Fills the exercise array with exercise objects current just pulling form json object
   fillArray() {
     let tempExercise = [];
+    let exerciseWithin = this.state.routine.exercises;
     for (let i = 0; i < exerciseWithin.length; i++) {
-      let tempExer = dumDumExercise.find(temp => temp.exerciseID === exerciseWithin[i].exerciseID);
+      let tempExer = exerciseWithin[i];
       console.log(tempExer.name);
       tempExercise.push(tempExer);
     }
@@ -45,14 +43,16 @@ class WorkoutScreen extends React.Component {
   }
 
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
-  finish = (id, name, inputData) => {
-
+  finish = (id) => {
     let tempArray = this.state.exercises;
     let index = 0;
+    let tempExer = null;
 
     for(let i = 0; i < tempArray.length; i++){
-      if(tempArray[i].exerciseID === id)
+      if(tempArray[i].exerciseID === id) {
+        tempExer = tempArray[i];
         index = i;
+      }
     }
 
     console.log(index);
