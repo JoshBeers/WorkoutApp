@@ -11,6 +11,9 @@ export default class StatisticsScreen extends Component {
   constructor() {
     super();
     this.state = {
+      sets: 0,
+      reps: 0,
+      weight: 0,
       exerciseStatsList: [],
       selected: null,
     };
@@ -18,16 +21,16 @@ export default class StatisticsScreen extends Component {
 
   componentDidMount() {
     getAllExerciseStats((exersizeStatlist) => {
-        this.setState(
-            {
-              exerciseStatsList: exersizeStatlist,
-            },
-            function () {
-              console.log('stats screen stats gotten  ', this.state);
-              // console.log(this.state.exerciseNames())
-              // console.log('name list: ', this.state.nameList);
-            },
-        );
+      this.setState(
+          {
+            exerciseStatsList: exersizeStatlist,
+          },
+          function () {
+            console.log('stats screen stats gotten  ', this.state);
+            // console.log(this.state.exerciseNames())
+            // console.log('name list: ', this.state.nameList);
+          },
+      );
     });
   }
 
@@ -59,36 +62,44 @@ export default class StatisticsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.workout}>
-        <View style={styles.container}>
-          <Text style={styles.titleText}>Fitness Tracker</Text>
+        <View style={styles.workout}>
+          <View style={styles.container}>
+            <Text style={styles.titleText}>Fitness Tracker</Text>
 
-          <DropDownPicker
-            items={this.state.exerciseStatsList.map( function (val){
-              return {
-                label : val.exerciseName,
-                value : val,
-              }
+            <DropDownPicker
+                items={this.state.exerciseStatsList.map( function (val){
+                      console.log(val);
+                      return {
+                        label : val.exerciseName,
+                        value : val,
+                      }
+                    }
+
+                )}
+                containerStyle={{height: 40}}
+                style={{backgroundColor: Colors.card}}
+                labelStyle={{color: Colors.text}}
+                itemStyle={{justifyContent: 'flex-start'}}
+                dropDownStyle={{backgroundColor: Colors.card}}
+                onChangeItem={item => {
+                  console.log(item);
+                  this.setState({
+                    selected: item.value,
+                    rep: item.value.averageNumberOfReps,
+                    weight: item.value.averageWeight,
+                    sets: item.value.averageNumberOfSets,
+                  })
                 }
-            )}
-            containerStyle={{height: 40}}
-            style={{backgroundColor: Colors.card}}
-              labelStyle={{color: Colors.text}}
-            itemStyle={{justifyContent: 'flex-start'}}
-            dropDownStyle={{backgroundColor: Colors.card}}
-            onChangeItem={(item) =>
-              this.setState({
-                selected: item.value,
-              })
-            }
-          />
-          <View style={styles.resultCard}>
-              <Text style={styles.resultValue}>Avg Sets: 4</Text>
-              <Text style={styles.resultValue}>Avg Reps: 10</Text>
-              <Text style={styles.resultValue}>Avg Weight: 135</Text>
+                }
+            />
+
+            <View style={styles.resultCard}>
+              <Text style={styles.resultValue}>Avg Sets: {this.state.sets}</Text>
+              <Text style={styles.resultValue}>Avg Reps: {this.state.reps}</Text>
+              <Text style={styles.resultValue}>Avg Weight: {this.state.weight}</Text>
+            </View>
           </View>
         </View>
-      </View>
     );
   }
 }
@@ -157,7 +168,7 @@ const styles = StyleSheet.create({
   },
   resultValue: {
     fontWeight: '600',
-    fontSize: 35,
+    fontSize: 20,
     color: Colors.text,
     paddingTop: 10,
   },
