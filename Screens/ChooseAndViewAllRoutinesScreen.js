@@ -75,7 +75,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate('SingleRoutineScreen', {
-                    routineID: item.id,
+                    routineID: item.id
                   })
                 }>
                 <Card containerStyle={styles.card}>

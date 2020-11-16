@@ -7,6 +7,7 @@ import {Card} from 'react-native-elements';
 import {Abs, Arm, Back, Chest, Rear} from '../img/WorkoutIcons';
 import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Classes/Routine';
 
+
 export default class ViewAndEditSingleRoutine extends Component {
 
 
@@ -15,12 +16,12 @@ export default class ViewAndEditSingleRoutine extends Component {
         this.state = {
             routine: new Routine(props.navigation.state.params.routineID)
         }
-        console.log("single routine screen ", this.state.routineId)
+        console.log("single routine screen ", props.navigation.state.params.routineID)
     }
 
     //no idea if this works
     componentDidMount() {
-        console.log("single routine screen ", this.state.routineId)
+        console.log("single routine screen ", this.state.routine.id)
         getSpecificRoutine(this.state.routine.id, (result)=>{
             this.setState({
                 routine : result
@@ -30,7 +31,14 @@ export default class ViewAndEditSingleRoutine extends Component {
         })
     }
 
+/*
 
+                <Button onClick={()=> {
+                    this.props.navigation.navigate('WorkoutScreen',{
+                    routine: this.state.routine
+                });}}><Text>Workout!</Text>
+                </Button>
+ */
 
     render() {
         return (
@@ -49,12 +57,7 @@ export default class ViewAndEditSingleRoutine extends Component {
                     keyExtractor={item => item.id}
                 />
 
-                <button onClick={()=> {
-                    this.props.navigation.navigate('WorkoutScreen',{
-                    routine: this.state.routine
-                });}}>
-                Workout!
-                </button>
+
 
             </View>
         );
