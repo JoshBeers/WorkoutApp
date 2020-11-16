@@ -39,15 +39,18 @@ class CreateRoutineScreen extends Component {
         let tempExercise = [];
         let tempArray = [];
 
-        getAllExercises(function(result){
+        getAllExercises((result) => {
             tempArray = result;
         })
+
         for (let i = 0; i < tempArray.length; i++) {
             let tempExer = tempArray[i];
             console.log(tempExer.name);
             tempExercise.push({'exerciseObj': tempExer, 'isSelected': false});
         }
-        return tempExercise;
+        this.setState({
+            allExercises: tempExercise,
+        })
     }
 
      */

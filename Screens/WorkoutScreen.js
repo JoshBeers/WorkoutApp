@@ -6,6 +6,7 @@ import * as SQLite from "expo-sqlite";
 import Colors from "../Themes/Colors";
 import {dumDumExercise, dumDumRoutines} from "../DummyData/DummyParse";
 import {Exercise, CompleteExercise, saveExerciseFromCompletedExercises} from "../Classes/Exercise";
+import {CompletedWorkout, saveCompleteWorkout} from "../Classes/Workout";
 import Dimensions from "react-native-web/src/exports/Dimensions";
 import {WorkoutCard} from "./Components/WorkoutCard.js";
 
@@ -19,6 +20,7 @@ class WorkoutScreen extends React.Component {
       routine: props.navigation.state.params.routine,
       today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
       userDone: false,
+      completedExcer: [],
     };
     console.log(props.navigation.state.params.routine)
   }
@@ -34,6 +36,8 @@ class WorkoutScreen extends React.Component {
     let tempExer;
     let numReps = 0;
     let weight = 0;
+    let tempFinish = this.state.completedExcer;
+
     for(let i = 0; i < tempArray.length; i++){
       if(tempArray[i].exerciseID === id) {
         tempExer = tempArray[i];
@@ -59,12 +63,17 @@ class WorkoutScreen extends React.Component {
     console.log(finExercise.exerciseId)
     console.log(this.state.exercises);
 
-    saveExerciseFromCompletedExercises(finExercise, (result) =>{
-      console.log(result);
-    })
+    tempFinish.push(finExercise);
 
-    if(this.state.routine.exercises.length === 0)
+
+    if(this.state.routine.exercises.length === 0){
+
+      let compl = new CompletedWorkout(0, this.state.today, tempFinish);
+      saveCompleteWorkout(compl, (result) =>{
+        console.log(result);
+      });
       this.setState({userDone: true})
+    }
   }
 
   render() {
