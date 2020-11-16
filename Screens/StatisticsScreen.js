@@ -1,27 +1,34 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../Themes/Colors';
-import SegmentedControlTab from 'react-native-segmented-control-tab';
-import GradientLineChart from './GradientLineChart';
+import GradientLineChart from './Components/GradientLineChart';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {Calories, Duration, Workouts} from '../img/AnalyticsIcons';
-import {getAllExerciseStats} from "../Classes/Exercise";
+import {getAllExerciseStats} from '../Classes/Exercise';
 
 export default class StatisticsScreen extends Component {
   constructor() {
     super();
     this.state = {
-      exerciseStatsList: []
+      exerciseStatsList: [],
+      nameList: [],
     };
   }
 
   componentDidMount() {
-    getAllExerciseStats((result)=>{
-      this.setState({
-        exerciseStatsList: result
-      },function (){
-        console.log("stats screen stats goten  ", this.state)
-      })
-    })
+    getAllExerciseStats((result) => {
+      this.setState(
+        {
+          exerciseStatsList: result,
+          nameList: this.exerciseNames(),
+        },
+        function () {
+          console.log('stats screen stats gotten  ', this.state);
+          // console.log(this.state.exerciseNames())
+          // console.log('name list: ', this.state.nameList);
+        },
+      );
+    });
   }
 
   handleIndexChangeStat = (selectedIndex) => {
@@ -38,30 +45,42 @@ export default class StatisticsScreen extends Component {
     });
   };
 
+  // Getting all the exercise stats names
+  exerciseNames() {
+    let listNames = [];
+    for (let i = 0; i < this.state.exerciseStatsList.length; i++) {
+      let name = this.state.exerciseStatsList[i].exerciseName;
+      console.log('The names of the exercises in the stat list: ' + name);
+      listNames.push(name);
+    }
+  }
+
   render() {
     return (
       <View style={styles.workout}>
         <View style={styles.container}>
           <Text style={styles.titleText}>Fitness Tracker</Text>
-          <SegmentedControlTab
-            values={['Global Statistics', 'Exercise Specific']}
-            selectedIndex={this.state.selectedIndexStat}
-            onTabPress={this.handleIndexChangeStat}
-            tabsContainerStyle={styles.tabContainer}
-            tabStyle={styles.tab}
-            activeTabStyle={{backgroundColor: Colors.btn}}
-            tabTextStyle={styles.tabText}
-            activeTabTextStyle={{color: Colors.textDark}}
-          />
-          <SegmentedControlTab
-            values={['Day View', 'Week View', 'Month View']}
-            selectedIndex={this.state.selectedIndexView}
-            onTabPress={this.handleIndexChangeView}
-            tabsContainerStyle={styles.tabContainer}
-            tabStyle={styles.tab}
-            activeTabStyle={{backgroundColor: Colors.btnLite}}
-            tabTextStyle={styles.tabText}
-            activeTabTextStyle={{color: Colors.textDark}}
+
+          <DropDownPicker
+            items={this.state.nameList.map((name) => ({label: name, value: name}))}
+              // items={[
+              //   {label: 'USA', value: 'usa', hidden: true},
+              //   {label: 'UK', value: 'uk'},
+              //   {label: 'France', value: 'france'},
+              // ]}
+            // defaultValue={this.state.exerciseStatsList.get(0).exerciseName}
+            containerStyle={{height: 40}}
+            style={{backgroundColor: Colors.card}}
+              labelStyle={{color: Colors.text}}
+            itemStyle={{
+              justifyContent: 'flex-start',
+            }}
+            dropDownStyle={{backgroundColor: Colors.card}}
+            onChangeItem={(item) =>
+              this.setState({
+                country: item.value,
+              })
+            }
           />
 
           {this.state.selectedIndex === 0 ? (
