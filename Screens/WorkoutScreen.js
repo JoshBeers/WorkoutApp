@@ -31,6 +31,7 @@ class WorkoutScreen extends React.Component {
 
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
   finish = (id, name, inputData) => {
+    console.log(id," ", name,"  ", inputData)
     let tempArray = this.state.routine.exercises;
     let index = 0;
     let tempExer;
@@ -70,10 +71,15 @@ class WorkoutScreen extends React.Component {
 
       let compl = new CompletedWorkout(0, this.state.today, tempFinish);
       saveCompleteWorkout(compl, (result) =>{
-        console.log(result);
+        console.log(result,"asdfasfsdfas d fsdrf ");
       });
       this.setState({userDone: true})
     }
+  }
+
+
+  fin(){
+
   }
 
   render() {

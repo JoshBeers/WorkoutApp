@@ -4,18 +4,19 @@ import {Card} from 'react-native-elements';
 import Colors from "../../Themes/Colors";
 
 export class WorkoutCard extends Component{
-    state = {
-        id: '',
-        name: '',
-        isWeighted: false,
-        isCardio: false,
-        textInput: [],
-        inputData: [],
-        count: 1,
-    }
+
 
     constructor(props){
         super(props);
+        this.state = {
+            id: '',
+            name: '',
+            isWeighted: false,
+            isCardio: false,
+            textInput: [],
+            inputData: [],
+            count: 1,
+        }
         this.state.id = props.id;
         this.state.name = props.name;
         this.state.isWeighted = props.isWeight;
