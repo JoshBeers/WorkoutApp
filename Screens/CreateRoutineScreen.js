@@ -18,6 +18,7 @@ class CreateRoutineScreen extends Component {
             routineName: '',
             allExercises: [],
             selectedExercises: [],
+            isDone: false,
         }
     }
     componentDidMount() {
@@ -69,6 +70,8 @@ class CreateRoutineScreen extends Component {
         addNewRoutine(tempRoutine, (result) =>{
             console.log(result);
         })
+
+        this.setState({isDone: true});
     }
 
     modalClick(){
