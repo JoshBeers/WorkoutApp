@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
+  TouchableOpacity, Button
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
@@ -33,8 +33,6 @@ export default class HomeScreen extends React.Component {
 
 
   }
-  stepPercentage = 0.6; //Place holder variable
-  stepCount = 2500; // Place holder variable
   today = moment().format('YYYY-MM-DD');
 
   componentDidMount() {
@@ -83,16 +81,17 @@ export default class HomeScreen extends React.Component {
     return(
         <View style={styles.home}>
           <Card containerStyle={styles.stepsCard}>
-            <ProgressCircle
-                progress={this.stepPercentage}
-                style={{
-                  height: 100,
-                }}
-                progressColor={Colors.btn}
-                backgroundColor={Colors.background}/>
             <Text style={styles.stepText}>
-              {this.stepCount} STEPS
+              WELCOME {this.state.displayName}!
             </Text>
+            <View style={{marginTop: 10}}>
+              <Button
+                title="LogOut"
+                color={Colors.negative}
+                onPress={() => this.signOutUser()}>
+                <Text>SIGN OUT</Text>
+              </Button>
+            </View>
           </Card>
           <Card containerStyle = {styles.calendarCard}>
             <Calendar
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
   },
   stepText: {
     color: Colors.text,
-    fontSize: 27,
+    fontSize: 20,
     alignSelf: 'center',
     marginTop: 7,
   },
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontWeight: '400', 
+    fontWeight: '400',
     fontSize: 18,
   },
 });

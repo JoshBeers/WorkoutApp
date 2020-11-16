@@ -22,10 +22,7 @@ class CreateRoutineScreen extends Component {
         }
     }
     componentDidMount() {
-        this.setState({
-            allExercises: this.fillArray(),
-        })
-
+        this.fillArray();
     }
 
     // Fills the exercise array with exercise objects and whether or not they are selected
@@ -33,15 +30,18 @@ class CreateRoutineScreen extends Component {
         let tempExercise = [];
         let tempArray = [];
 
-        getAllExercises(function(result){
+        getAllExercises((result) => {
             tempArray = result;
         })
+
         for (let i = 0; i < tempArray.length; i++) {
             let tempExer = tempArray[i];
             console.log(tempExer.name);
             tempExercise.push({'exerciseObj': tempExer, 'isSelected': false});
         }
-        return tempExercise;
+        this.setState({
+            allExercises: tempExercise,
+        })
     }
 
     toggleList(exercise, val){
