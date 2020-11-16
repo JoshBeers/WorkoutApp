@@ -118,7 +118,7 @@ export default class HomeScreen extends React.Component {
           <Ionicons name="md-stats" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('StatsScreen')}/>
           <Ionicons name="md-paper" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('CreateRoutineScreen')}/>
           <Ionicons name="md-create" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('CreateExerciseScreen')}/>
-          <Ionicons name="md-fitness" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('WorkoutScreen')}/>
+          <Ionicons name="md-fitness" size={40} color={'#066da1'} onPress={()=> this.props.navigation.navigate('RoutinesScreen')}/>
           </View>
           <View style={styles.containerText}>
             <Text>Statistics</Text>

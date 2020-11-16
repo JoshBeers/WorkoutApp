@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
 import {
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import {Card} from 'react-native-elements';
@@ -79,6 +81,14 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
                 }>
                 <Card containerStyle={styles.card}>
                   <Text style={styles.text}>{item.name}</Text>
+                  <View style={styles.dButton}>
+                  <Button
+            title='Delete'
+            color={Colors.btn}
+            onPress={() => this.deleteRoutine(item.id)}>
+            <Text style={styles.buttonText}>Delete</Text>
+        </Button>
+        </View>
                 </Card>
               </TouchableOpacity>
             )}
@@ -127,4 +137,12 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 16,
   },
+  buttonText: {
+    fontWeight: 'bold',
+    fontSize: 8,
+    color: Colors.text,
+},
+dButton: {
+  width: 69,
+}
 });
