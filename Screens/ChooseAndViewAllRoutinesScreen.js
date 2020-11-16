@@ -36,7 +36,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   }
 
   getListOfRoutines(){
-   // console.log('test');
+   //
     getAllRoutinesWithOutExercises((result) => {
       this.setState(
           {

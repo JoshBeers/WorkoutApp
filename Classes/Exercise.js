@@ -20,11 +20,11 @@ export class ExerciseWithinRoutine{
 
 //tested
 export function addExerciseToRoutine(routineID,exercise, callback){
-    //console.log("sqllog_method_addExerciseToRoutine")
+    console.log("sqllog_method_addExerciseToRoutine",exercise.exerciseID,routineID,exercise.placeInOrder)
         db.transaction(tx => {
             //insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(2,1,2);
-            tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(?,?,?);",[exercise.exerciseID,routineID,exercise.placeInOrder],(_,rows) =>{
-               // console.log("sqllog_method_addExerciseToRoutine")
+            tx.executeSql("insert into ExercisesWithinRoutines(exerciseID,routineID,placeInOrder) values(?,?,?);",[exercise.exerciseID,routineID,0],(_,rows) =>{
+               console.log("sqllog_method_addExerciseToRoutine")
                 if (callback != null) {
                     callback()
                 }
@@ -35,15 +35,18 @@ export function addExerciseToRoutine(routineID,exercise, callback){
 }
 
 export function addMultipleExercisesToRoutine(routineID,exercises, callback){
+    console.log("sqllog_method_addExercisesToRoutine_start  ", exercises.length)
     for(let i = 0; i<exercises.length ; i++){
         if(i == exercises.length-1){
+            console.log("sqllog_method_addExercisesToRoutine_end")
             addExerciseToRoutine(routineID, exercises[i], function (){
+
                 callback()
             })
         }else{
             addExerciseToRoutine(routineID, exercises[i])
         }
-        //console.log("sqllog_method_addExercisesToRoutine",i)
+        console.log("sqllog_method_addExercisesToRoutine",i)
     }
 }
 
@@ -80,7 +83,7 @@ export function getExerciseFromRoutine(routineID, callback){
 
     db.transaction(tx =>{
         tx.executeSql("select * from ExercisesWithinRoutines inner join Exercises on ExercisesWithinRoutines.exerciseID = Exercises.ID where routineID ="+ routineID +";",[],(_,rows) => {
-            console.log("sqllog_method_getExerciseFromRoutine_rows",rows.rows)
+            console.log("sqllog_method_getExerciseFromRoutine_rows id: ",routineID," res  ",rows.rows)
             let tempExercises = []
 
             for(let i = 0;i<rows.rows.length;i++){

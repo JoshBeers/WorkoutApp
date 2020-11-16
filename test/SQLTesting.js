@@ -48,9 +48,9 @@ function testAddNewRoutine(callback){
             addNewRoutine(tR,function (){
                 getAllRoutinesWithOutExercises(function (result){
                     let testRoutines = result
-                    //console.log("sqllog_test_AddNewRoutine_result",result)
+                    console.log("sqllog_test_AddNewRoutine_result",result)
                     getAllExercisesWithinRoutines( function (finalExercises){
-                        //console.log("sqllog_test_AddNewRoutine_result",result2)
+                        console.log("sqllog_test_AddNewRoutine_result",finalExercises)
 
                         if(originalRoutineList.length+1 == testRoutines.length){
                             colorTrace("sqllog_test_AddNewRoutine_result adding new routine routine list length test passed",'green')

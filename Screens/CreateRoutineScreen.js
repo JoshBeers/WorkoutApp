@@ -3,7 +3,13 @@ import {StyleSheet, TextInput, Text, View, Button, FlatList, TouchableOpacity, M
 import {Card} from 'react-native-elements';
 import {Routine} from "../Classes/Routine";
 import * as SQLite from "expo-sqlite";
-import {createNewExerciseFromExercise, Exercise, ExerciseWithinRoutine, getAllExercises} from "../Classes/Exercise";
+import {
+    createNewExerciseFromExercise,
+    Exercise,
+    ExerciseWithinRoutine,
+    getAllExercises,
+    getAllExercisesWithinRoutines
+} from "../Classes/Exercise";
 import {dumDumExercise} from "../DummyData/DummyParse";
 import Colors from "../Themes/Colors";
 import {listStyle} from "../Themes/Styles";
@@ -64,10 +70,13 @@ class CreateRoutineScreen extends Component {
         }
 
         let tempRoutine = new Routine(0, this.state.routineName, 0, selectedExercises);
-        console.log(tempRoutine.name);
+        console.log("temp routine ",tempRoutine);
         addNewRoutine(tempRoutine, (result) =>{
             console.log(result);
-            this.setState({isDone: true});
+            //this.setState({isDone: true});
+            getAllExercisesWithinRoutines((res)=> console.log("all exercisese ", res))
+
+            this.props.navigation.navigate('home')
         })
 
     }

@@ -7,6 +7,7 @@ import {Card} from 'react-native-elements';
 import {Abs, Arm, Back, Chest, Rear} from '../img/WorkoutIcons';
 import {getAllRoutinesWithOutExercises, getSpecificRoutine, Routine} from '../Classes/Routine';
 import Colors from "../Themes/Colors";
+import {getAllExercisesWithinRoutines} from "../Classes/Exercise";
 
 
 export default class ViewAndEditSingleRoutine extends Component {
@@ -25,9 +26,14 @@ export default class ViewAndEditSingleRoutine extends Component {
     componentDidMount() {
         console.log("single routine screen ", this.state.routine.id)
         getSpecificRoutine(this.state.routine.id, (result)=>{
+            console.log("single routine screen ", result)
             this.setState({
                 routine : result
             },function () {
+
+
+
+
                 console.log("single routine screen ", this.state)
             })
         })

@@ -18,7 +18,7 @@ class WorkoutScreen extends React.Component {
     super(props);
     this.state ={
       routine: props.navigation.state.params.routine,
-      today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
+      today: (new Date().getFullYear() )+ '-' + (new Date().getMonth()+1) + '-' + (new Date().getDate()),
       userDone: false,
       completedExcer: [],
       comped:[],
@@ -111,6 +111,7 @@ class WorkoutScreen extends React.Component {
   }
 
   finishedButton(){
+    console.log(this.state.today)
     saveCompleteWorkout(new CompletedWorkout(0,this.state.today,this.state.comped))
     this.props.navigation.navigate('home')
   }

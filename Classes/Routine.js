@@ -24,7 +24,7 @@ export function addNewRoutine(routine:Routine,callback){
 
             db.transaction(tx =>{
                 tx.executeSql("select Max(ID) as ID from routines;",[],(_,rows)=>{
-                    //console.log("sqllog_method_addNewRoutiney",rows.rows.item(0))
+                    console.log("sqllog_method_addNewRoutiney",rows.rows.item(0))
                     addMultipleExercisesToRoutine(rows.rows.item(0).ID,routine.exercises, callback)
                 })
             })
