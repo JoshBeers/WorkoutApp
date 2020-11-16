@@ -114,7 +114,7 @@ const RootStack = createStackNavigator({
     CreateRoutineScreen: CreateRoutineScreen,
     AllExercisesScreen: ViewAndEditAllExercises,
     SingleRoutineScreen: ViewAndEditSingleRoutine,
-    WorkoutScreen: WorkoutScreen
+    WorkoutScreen: WorkoutScreen,
     },
     {
         header: null,

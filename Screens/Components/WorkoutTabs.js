@@ -1,7 +1,14 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {Abs, Arm, Back, Chest, Rear, WorkoutIcons} from '../img/WorkoutIcons';
-import Colors from '../Themes/Colors';
+import {
+  Abs,
+  Arm,
+  Back,
+  Chest,
+  Rear,
+  WorkoutIcons,
+} from '../../img/WorkoutIcons';
+import Colors from '../../Themes/Colors';
 
 const numColumns = 2;
 
