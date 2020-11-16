@@ -16,21 +16,20 @@ import ViewAndEditSingleRoutine from './ViewAndEditSingleRoutine';
 import NativeStackNavigator from 'react-native-screens/src/native-stack/navigators/createNativeStackNavigator';
 
 export default class ChooseAndViewAllRoutinesScreen extends React.Component {
-  state = {
-    routineList: [],
-    // loading state where when data retrieve returns data
-    loadingTrue: false,
-  };
+
 
   constructor() {
     super();
-    getAllRoutinesWithOutExercises();
-    console.log('test');
+    this.state = {
+      routineList: [],
+      // loading state where when data retrieve returns data
+      loadingTrue: false,
+    };
+    console.log('teasdasdast');
   }
 
-  //method returns a list of routines
-  //has not been tested
   componentDidMount() {
+    console.log('as');
     this.getListOfRoutines()
   }
 
