@@ -74,7 +74,7 @@ export default class StatisticsScreen extends Component {
             containerStyle={{height: 40}}
             style={{backgroundColor: Colors.card}}
               labelStyle={{color: Colors.text}}
-            itemStyle={{justifyContent: 'flex-start',}}
+            itemStyle={{justifyContent: 'flex-start'}}
             dropDownStyle={{backgroundColor: Colors.card}}
             onChangeItem={(item) =>
               this.setState({
@@ -82,47 +82,10 @@ export default class StatisticsScreen extends Component {
               })
             }
           />
-
-        
           <View style={styles.resultCard}>
               <Text style={styles.resultValue}>Avg Sets: 4</Text>
               <Text style={styles.resultValue}>Avg Reps: 10</Text>
               <Text style={styles.resultValue}>Avg Weight: 135</Text>
-          </View>
-          <View style={styles.resultView}></View>
-          <View style={styles.resultView}>
-            <View style={styles.resultContainer}>
-              <View style={styles.resultLogo}>
-                <Duration />
-              </View>
-              <View style={styles.dataBox}>
-                <View>
-                  <Text style={styles.resultTitle}>Duration</Text>
-                  {/*// store this text result in state*/}
-                  <Text style={styles.resultTitle}>1:17 hr</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.resultContainer}>
-              <View style={styles.resultLogo}>
-                <Calories />
-              </View>
-              <View style={styles.dataBox}>
-                <Text style={styles.resultTitle}>Calories</Text>
-                <Text style={styles.resultTitle}>498 kcal</Text>
-              </View>
-            </View>
-            <View style={styles.resultContainer}>
-              <View style={styles.resultLogo}>
-                <Workouts />
-              </View>
-              <View>
-                <View style={styles.dataBox}>
-                  <Text style={styles.resultTitle}>Workouts</Text>
-                  <Text style={styles.resultTitle}>8</Text>
-                </View>
-              </View>
-            </View>
           </View>
         </View>
       </View>
