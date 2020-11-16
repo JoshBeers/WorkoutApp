@@ -15,6 +15,7 @@ export default class CreateNewExerciseScreen extends React.Component {
             exerciseDescription: '',
             isWeighed: false,
             isCardio: false,
+            isDone: false,
         }
     }
 
@@ -26,6 +27,7 @@ export default class CreateNewExerciseScreen extends React.Component {
                 console.log(result)
             })
         });
+        this.setState({isDone: true});
     }
 
     render(){
