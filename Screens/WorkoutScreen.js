@@ -21,6 +21,7 @@ class WorkoutScreen extends React.Component {
       today: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDay(),
       userDone: false,
       completedExcer: [],
+      comped:[],
     };
     console.log(props.navigation.state.params.routine)
   }
@@ -31,6 +32,28 @@ class WorkoutScreen extends React.Component {
 
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
   finish = (id, name, inputData) => {
+
+    //makes average number of reps
+    let averageReps = 0
+    if(inputData.get(1).rep){
+      for(let i = 1; i<inputData.size+1; i++){
+        averageReps += parseInt(inputData.get(i).rep)
+      }
+      averageReps = averageReps / inputData.size
+    }
+    //averages weight
+    let averageWeight = 0
+    if(inputData.get(1).weight){
+      for(let i = 1; i<inputData.size+1; i++){
+        averageWeight += parseInt(inputData.get(i).weight)
+      }
+      averageWeight = averageWeight / inputData.size
+    }
+
+    this.state.comped.push(new CompleteExercise(0,id,0,averageReps,inputData.size,averageWeight))
+    console.log(this.state.comped)
+
+
     console.log(id," ", name,"  ", inputData)
     let tempArray = this.state.routine.exercises;
     let index = 0;
@@ -60,27 +83,38 @@ class WorkoutScreen extends React.Component {
         weight = weight + inputData[i].weight;
     }
 
+    /*
     let finExercise = new CompleteExercise(0, tempExer.exerciseID, 0, numReps, inputData[inputData.length - 1].set, (weight/(inputData[inputData.length - 1].set)), this.state.today);
     console.log(finExercise.exerciseId)
     console.log(this.state.exercises);
 
     tempFinish.push(finExercise);
-
+ */
 
     if(this.state.routine.exercises.length === 0){
 
+
+      /*
       let compl = new CompletedWorkout(0, this.state.today, tempFinish);
       saveCompleteWorkout(compl, (result) =>{
         console.log(result,"asdfasfsdfas d fsdrf ");
       });
+
+       */
+
+
       this.setState({userDone: true})
     }
-  }
 
 
-  fin(){
 
   }
+
+  finishedButton(){
+    saveCompleteWorkout(new CompletedWorkout(0,this.state.today,this.state.comped))
+    this.props.navigation.navigate('home')
+  }
+
 
   render() {
 
@@ -103,7 +137,7 @@ class WorkoutScreen extends React.Component {
                 <Button
                   title="Return"
                   color={Colors.positive}
-                  onPress={() => this.props.navigation.navigate('home')}
+                  onPress={() => this.finishedButton()}
                   style={{
                     alignSelf: 'center',
                     marginTop: 20,

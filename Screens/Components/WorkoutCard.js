@@ -16,6 +16,7 @@ export class WorkoutCard extends Component{
             textInput: [],
             inputData: [],
             count: 1,
+            inputMap:new Map()
         }
         this.state.id = props.id;
         this.state.name = props.name;
@@ -30,14 +31,17 @@ export class WorkoutCard extends Component{
     }
 
     addInput = () => {
+
+
+
         let textInput = this.state.textInput;
         // let inputData = this.state.inputData;
         let rep = 0;
+        let set = this.state.count
         let weight = 0;
-        let time = 0;
         let setInfo = [];
         if (this.state.isWeighted && !this.state.isCardio) {
-            textInput.push(
+            this.state.textInput.push(
                 <View containerStyle = {styles.textLine}
                       key={this.state.count}>
                     <View style={styles.textField}>
@@ -46,7 +50,11 @@ export class WorkoutCard extends Component{
                     <View style={styles.textField}>
                         <TextInput
                             placeholder="REP"
-                            onChangeText={(text) => rep = text}
+                            onChangeText={(text) => {
+                                this.state.inputMap.get(set).rep = text
+                                console.log()
+                            }}
+                            value={rep}
                             keyboardType={"number-pad"}
                             style = {{flex: 1}}
                         />
@@ -54,17 +62,20 @@ export class WorkoutCard extends Component{
                     <View style={styles.textField}>
                         <TextInput
                             placeholder="WEIGHT"
-                            onChangeText={(text) => weight = text}
+                            onChangeText={(text) => {
+                                this.state.inputMap.get(set).weight = text
+                            }}
                             keyboardType={"number-pad"}
                             style = {{flex: 1}}
                         />
                     </View>
                 </View>
             );
-            setInfo.push({'set': this.state.count, 'rep': rep, 'weight': weight});
+            setInfo.push({'set': set, 'rep': rep, 'weight': weight});
+
         }
         else if (!this.state.isWeighted && !this.state.isCardio) {
-            textInput.push(
+            this.state.textInput.push(
                 <View containerStyle = {styles.textLine}
                       key={this.state.count}>
                     <View style={styles.textField}>
@@ -73,7 +84,11 @@ export class WorkoutCard extends Component{
                     <View style={styles.textField}>
                         <TextInput
                             placeholder="REP"
-                            onChangeText={(text) => rep = text}
+                            onChangeText={(text) =>{
+                                rep = (text)
+                                this.state.inputMap.get(set).rep = rep
+                                console.log("resps", this.state.inputMap)
+                            }}
                             keyboardType={"number-pad"}
                             style = {{flex: 1}}
                         />
@@ -81,28 +96,15 @@ export class WorkoutCard extends Component{
                 </View>
             );
             setInfo.push({'set': this.state.count, 'rep': rep});
-        }
-        else {
-            textInput.push(
-                <View containerStyle = {styles.textLine}>
-                    <View style={styles.textField}
-                          key={this.state.count}>
-                        <Text>{this.state.count}</Text>
-                    </View>
-                    <View style={styles.textField}>
-                        <TextInput
-                            placeholder="TIME"
-                            onChangeText={(text) => time = text}
-                            keyboardType={"number-pad"}
-                            style = {{flex: 1}}
-                        />
-                    </View>
-             </View>
-            );
-            setInfo.push({'set': this.state.count, 'time': time});
+            this.setState({
+                inputMap:  this.state.inputMap.set(this.state.count,{
+                    rep: rep
+                })
+            })
         }
         this.updateCount(1);
-        this.setState({textInput});
+        this.setState({
+            textInput: textInput});
         this.addToArray(setInfo, this.state.count);
     }
 
@@ -149,8 +151,9 @@ export class WorkoutCard extends Component{
     }
 
     finish = () => {
+        console.log("asdafd",this.state.inputMap)
         this.setState({isDone : true});
-        this.props.finishFunction(this.state.id, this.state.name, this.state.inputData);
+        this.props.finishFunction(this.state.id, this.state.name, this.state.inputMap);
     }
 
     render(){
