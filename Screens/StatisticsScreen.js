@@ -53,7 +53,7 @@ export default class StatisticsScreen extends Component {
     let listNames = [];
     for (let i = 0; i < this.state.exerciseStatsList.length; i++) {
       let name = this.state.exerciseStatsList[i].exerciseName;
-      console.log('The names of the exercises in the stat list: ' + name);
+      //console.log('The names of the exercises in the stat list: ' + name);
       listNames.push(name);
     }
     if(callback)

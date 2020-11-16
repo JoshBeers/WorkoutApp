@@ -13,7 +13,7 @@ import {ProgressCircle} from 'react-native-svg-charts';
 import moment from 'moment';
 import Colors from '../Themes/Colors';
 import * as firebase from 'firebase';
-import {getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
+import {CompletedWorkout, getAllCompleteWorkoutsWithoutExercises} from "../Classes/Workout";
 import StatisticsScreen from "./StatisticsScreen";
 import createBottomTabNavigator from "@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator";
 import { Ionicons } from '@expo/vector-icons';
@@ -25,32 +25,41 @@ export default class HomeScreen extends React.Component {
   constructor() {
     super();
     this.steps = 0
-    this.state = { marked: null,
+    this.state = {
+      marked: null,
       email: '',
       displayName: '',
       dates: []
     };
+    this.getDates((result)=>{
+      this.setState({
+        dates : result,
+        marked: result
+      })
+      //
+    })
 
-
+    console.log("dataLog_HomeScreen_AfterGettingDates sfaisdyfasdfh dk dl adsl jldsj fl kslkd;f j",this.state)
   }
   today = moment().format('YYYY-MM-DD');
 
   componentDidMount() {
+    this.getDates((result)=>{
+      this.setState({
+        dates : result,
+        marked: result
+      })
+      //
+    })
     firebase.firestore().collection('Users').doc(firebase.auth().currentUser.uid).get().then((doc) =>{
       //alert(doc.data())
       this.setState({
         email: doc.data().Email,
         displayName: doc.data().Username
       })
-
     });
 
-    this.getDates((result)=>{
-      this.setState({
-        dates : result
-      })
-      //console.log("dataLog_HomeScreen_AfterGettingDates",this.state)
-    })
+
 
   }
 
@@ -60,14 +69,17 @@ export default class HomeScreen extends React.Component {
   };
 
 
+
+
   getDates(callback){
 
-    getAllCompleteWorkoutsWithoutExercises(function (result) {
-      let temp = [];
+    getAllCompleteWorkoutsWithoutExercises(function (result:CompletedWorkout[]) {
+      let temp = new Object();
 
 
       for(let i = 0; i<result.length; i++){
-        temp.push(result[i].date)
+        const date = result[i].date.toString()
+        temp[date] = {selected:true}
         console.log("sqllog_HomeScreen_getDates",result[i])
       }
       console.log("sqllog_HomeScreen_getDates",temp)

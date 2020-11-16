@@ -27,7 +27,7 @@ var testing = false;
 export const db = SQLite.openDatabase('workoutAppDB.db');
 
 createTables(function () {
-    createDummyData()
+    //createDummyData()
     if (testing) {
         runSQLTest();
     }
