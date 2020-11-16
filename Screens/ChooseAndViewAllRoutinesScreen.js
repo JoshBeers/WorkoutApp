@@ -36,7 +36,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   }
 
   getListOfRoutines(){
-   //
+    // console.log('test');
     getAllRoutinesWithOutExercises((result) => {
       this.setState(
           {
@@ -51,50 +51,61 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   }
 
   deleteRoutine(routine){
-    deleteRoutine(routine,this.getListOfRoutines())
+    console.log(routine.id);
+    deleteRoutine(routine, (results) =>{
+      console.log(results);
+      this.getListOfRoutines();
+    })
+
+
+
   }
 
   // callback for the flatlist for rendering each item, and pass data as argument
   renderItem(data) {
     return (
-      <TouchableOpacity onPress={() => this.seeDetails(data.item.id)}>
-        <Card containerStyle={styles.item}>
-          <Text>{data.item.name}</Text>
-        </Card>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.seeDetails(data.item.id)}>
+          <Card containerStyle={styles.item}>
+            <Text>{data.item.name}</Text>
+          </Card>
+        </TouchableOpacity>
     );
   }
 
   render() {
     if (!this.state.loadingTrue) {
       return (
-        <View style={styles.screen}>
-          <Text style={styles.titleText}>Saved Routines</Text>
-          <FlatList
-            data={this.state.routineList}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate('SingleRoutineScreen', {
-                    routineID: item.id
-                  })
-                }>
-                <Card containerStyle={styles.card}>
-                  <Text style={styles.text}>{item.name}</Text>
-                  <View style={styles.dButton}>
-                  <Button
-            title='Delete'
-            color={Colors.btn}
-            onPress={() => this.deleteRoutine(item.id)}>
-            <Text style={styles.buttonText}>Delete</Text>
-        </Button>
-        </View>
-                </Card>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </View>
+          <View style={styles.screen}>
+            <Text style={styles.titleText}>Saved Routines</Text>
+            <FlatList
+                data={this.state.routineList}
+                renderItem={({item}) => (
+                    <View style={{
+                      flexDirection: 'row',
+                    }}>
+                      <TouchableOpacity
+                          onPress={() =>
+                              this.props.navigation.navigate('SingleRoutineScreen', {
+                                routineID: item.id
+                              })
+                          }>
+                        <Card containerStyle={styles.card}>
+                          <Text style={styles.text}>{item.name}</Text>
+                        </Card>
+                      </TouchableOpacity>
+                      <View style={styles.dButton}>
+                        <Button
+                            title='Delete'
+                            color={Colors.btn}
+                            onPress={() => this.deleteRoutine(item)}>
+                          <Text style={styles.buttonText}>Delete</Text>
+                        </Button>
+                      </View>
+                    </View>
+                )}
+                keyExtractor={(item) => item.id.toString()}
+            />
+          </View>
       );
     } else {
       return <ActivityIndicator size="large" color={Colors.btn} />;
@@ -123,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     borderWidth: 0,
     alignSelf: 'center',
-    width: 370,
+    width: 275,
     height: 75,
   },
   text: {
@@ -141,8 +152,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 8,
     color: Colors.text,
-},
-dButton: {
-  width: 69,
-}
+  },
+  dButton: {
+    width: 69,
+    marginTop: 40,
+  }
 });
