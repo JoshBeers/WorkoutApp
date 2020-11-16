@@ -17,6 +17,7 @@ export default class ViewAndEditSingleRoutine extends Component {
             routine: new Routine(props.navigation.state.params.routineID)
         }
         console.log("single routine screen ", props.navigation.state.params.routineID)
+
     }
 
     //no idea if this works
@@ -33,11 +34,7 @@ export default class ViewAndEditSingleRoutine extends Component {
 
 /*
 
-                <Button onClick={()=> {
-                    this.props.navigation.navigate('WorkoutScreen',{
-                    routine: this.state.routine
-                });}}><Text>Workout!</Text>
-                </Button>
+
  */
 
     render() {
@@ -53,6 +50,7 @@ export default class ViewAndEditSingleRoutine extends Component {
                         <Card>
                             <Text>{item.name}</Text>
                         </Card>
+
                     )}
                     keyExtractor={item => item.id}
                 />
@@ -64,7 +62,6 @@ export default class ViewAndEditSingleRoutine extends Component {
                         title='Workout'>
                     <Text>WORKOUT</Text>
                 </Button>
-
             </View>
         );
     }
