@@ -19,7 +19,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
   state = {
     routineList: [],
     // loading state where when data retrieve returns data
-    loadingTrue: true,
+    loadingTrue: false,
   };
 
   constructor() {
