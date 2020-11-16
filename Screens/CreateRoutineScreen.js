@@ -22,10 +22,14 @@ class CreateRoutineScreen extends Component {
         }
     }
     componentDidMount() {
-        this.setState({
-            allExercises: this.fillArray(),
-        })
+        getAllExercises((result)=>{
 
+            this.setState({
+                allExercises: result
+            }, function (){
+                console.log(this.state)
+            })
+        })
     }
 
     // Fills the exercise array with exercise objects and whether or not they are selected
@@ -133,7 +137,7 @@ class CreateRoutineScreen extends Component {
                                             this.toggleList(item.exerciseObj, item.isSelected);
                                         }}
                                         isChecked={item.isSelected}
-                                        rightText={item.exerciseObj.name}
+                                        rightText={item.name}
                                         rightTextStyle={styles.text}
                                         uncheckedCheckBoxColor={Colors.negative}
                                         checkedCheckBoxColor={Colors.positive}
@@ -142,7 +146,7 @@ class CreateRoutineScreen extends Component {
                                 </View>
                             </Card>
                     )}
-                    keyExtractor={item => item.exerciseObj.exerciseID.toString()}
+                    keyExtractor={item => item.exerciseID.toString()}
                 />
                 </View>
                 <View style={styles.buttonView}>
