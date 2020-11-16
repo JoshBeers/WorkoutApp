@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../Themes/Colors';
@@ -66,16 +67,14 @@ export default class StatisticsScreen extends Component {
             items={this.state.exerciseStatsList.map( function (val){
               return {
                 label : val.exerciseName,
-                value : val
+                value : val,
               }
                 }
             )}
             containerStyle={{height: 40}}
             style={{backgroundColor: Colors.card}}
               labelStyle={{color: Colors.text}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
+            itemStyle={{justifyContent: 'flex-start',}}
             dropDownStyle={{backgroundColor: Colors.card}}
             onChangeItem={(item) =>
               this.setState({
@@ -84,12 +83,13 @@ export default class StatisticsScreen extends Component {
             }
           />
 
-          {this.state.selectedIndex === 0 ? (
-            <GradientLineChart />
-          ) : (
-            <GradientLineChart />
-          )}
-
+        
+          <View style={styles.resultCard}>
+              <Text style={styles.resultValue}>Avg Sets: 4</Text>
+              <Text style={styles.resultValue}>Avg Reps: 10</Text>
+              <Text style={styles.resultValue}>Avg Weight: 135</Text>
+          </View>
+          <View style={styles.resultView}></View>
           <View style={styles.resultView}>
             <View style={styles.resultContainer}>
               <View style={styles.resultLogo}>
@@ -181,5 +181,21 @@ const styles = StyleSheet.create({
   },
   resultLogo: {
     marginVertical: 7,
+  },
+  resultCard: {
+    backgroundColor: Colors.card,
+    borderWidth: 0,
+    width: 380,
+    height: 200,
+    alignSelf: 'center',
+    alignItems: 'center',
+    marginTop: 25,
+    marginBottom: 25,
+  },
+  resultValue: {
+    fontWeight: '600',
+    fontSize: 35,
+    color: Colors.text,
+    paddingTop: 10,
   },
 });
