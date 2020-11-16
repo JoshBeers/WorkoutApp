@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, Button} from 'react-native';
 import { listStyle } from '../Themes/Styles';
 import * as SQLite from 'expo-sqlite';
 import {Card} from 'react-native-elements';
@@ -56,8 +56,14 @@ export default class ViewAndEditSingleRoutine extends Component {
                     )}
                     keyExtractor={item => item.id}
                 />
-
-
+                <Button
+                    onPress={()=> {
+                    this.props.navigation.navigate('WorkoutScreen',{
+                    routine: this.state.routine
+                    });}}
+                        title='Workout'>
+                    <Text>WORKOUT</Text>
+                </Button>
 
             </View>
         );
