@@ -17,8 +17,9 @@ class CreateRoutineScreen extends Component {
         this.state = {
             routineName: '',
             allExercises: [],
-            selectedExercises: [],
             isDone: false,
+            isChecked : false
+
         }
     }
     componentDidMount() {
@@ -32,6 +33,7 @@ class CreateRoutineScreen extends Component {
         })
     }
 
+    /*
     // Fills the exercise array with exercise objects and whether or not they are selected
     fillArray() {
         let tempExercise = [];
@@ -48,34 +50,23 @@ class CreateRoutineScreen extends Component {
         return tempExercise;
     }
 
-    toggleList(exercise, val){
-        if(val)
-            this.state.selectedExercises.push(exercise);
-        else if (!val){
-            let tempArray = this.state.selectedExercises;
-            let index = 0;
-
-            for(let i = 0; i < tempArray.length; i++){
-                if(tempArray[i].exerciseID === exercise.exerciseID)
-                    index = i;
-            }
-
-            console.log(index);
-            tempArray.splice(index, 1);
-            this.setState({
-                selectedExercises: tempArray});
-        }
-        console.log(this.state.selectedExercises);
-    }
+     */
 
     finish(){
-        let tempRoutine = new Routine(0, this.state.routineName, 0, this.state.selectedExercises);
+        let selectedExercises = []
+        for(let i = 0; i<this.state.allExercises.length;i++){
+            if(this.state.allExercises[i].isSelected){
+                selectedExercises.push(this.state.allExercises[i])
+            }
+        }
+
+        let tempRoutine = new Routine(0, this.state.routineName, 0, selectedExercises);
         console.log(tempRoutine.name);
         addNewRoutine(tempRoutine, (result) =>{
             console.log(result);
+            this.setState({isDone: true});
         })
 
-        this.setState({isDone: true});
     }
 
     modalClick(){
@@ -134,7 +125,8 @@ class CreateRoutineScreen extends Component {
                                         style={{flex: 1, padding: 10}}
                                         onClick={()=>{
                                             item.isSelected = !item.isSelected
-                                            this.toggleList(item.exerciseObj, item.isSelected);
+                                            this.setState({
+                                            })
                                         }}
                                         isChecked={item.isSelected}
                                         rightText={item.name}

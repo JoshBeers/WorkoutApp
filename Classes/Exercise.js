@@ -129,6 +129,7 @@ export class Exercise{
         this.description = description
         this.doesUseWeight = doesUseWeight
         this.isCardio = isCardio
+        this.isSelected = false
     }
 }
 
