@@ -36,6 +36,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
       this.setState(
         {
           routineList: result,
+          loadingTrue: false
         },
         function () {
           console.log(this.state.routineList);

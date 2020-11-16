@@ -191,7 +191,7 @@ completed exercise stuff
 CompletedExercises(ID integer primary key AUTOINCREMENT, exerciseId int not null,numberOfReps int not null,numberOfSets int not null,averageWeight integer, workOutID int not null,
 */
 export class CompleteExercise{
-    constructor(ID: number, exerciseId: number,workoutID:number, numberOfReps:number , numberOfSets:number, averageWeight, date) {
+    constructor(ID: number, exerciseId: number ,workoutID:number, numberOfReps:number , numberOfSets:number, averageWeight, date) {
         this.ID =ID
         this.exerciseId = exerciseId
         this.workoutID = workoutID
@@ -288,8 +288,9 @@ export function addMultipleCompleteExercisesToCompleteWorkout(completeWorkout:Co
 }
 
 export class ExerciseStats{
-    constructor(exerciseId, averageNumberOfReps, averageNumberOfSets, averageWeight) {
+    constructor(exerciseId,name, averageNumberOfReps, averageNumberOfSets, averageWeight) {
         this.exerciseId = exerciseId
+        this.exerciseName = name
         this.averageNumberOfReps = averageNumberOfReps
         this.averageNumberOfSets = averageNumberOfSets
         this.averageWeight = averageWeight
@@ -299,13 +300,38 @@ export class ExerciseStats{
 export function getAverageMetricsForExercise(exerciseID,callback){
     //console.log("sqllog_method_getAverageMetricsForExercise",exerciseID)
     db.transaction(tx => {
-        tx.executeSql("select AVG(numberOfReps) as averageNumberOfReps, avg(numberOfSets) as averageNumberOfSets, avg(averageWeight) as averageWeight from CompletedExercises where exerciseId = ?;", [exerciseID], (_, rows) => {
-            //console.log("sqllog_method_getAverageMetricsForExercise",rows.rows)
+        tx.executeSql("select AVG(numberOfReps) as averageNumberOfReps, avg(numberOfSets) as averageNumberOfSets, avg(averageWeight) as averageWeight, Exercises.name as Name from CompletedExercises inner join Exercises on CompletedExercises.exerciseId = Exercises.ID where exerciseId = ?;", [exerciseID], (_, rows) => {
+           // console.log("sqllog_method_getAverageMetricsForExercise",rows.rows)
             if(callback){
-               callback(new ExerciseStats(exerciseID, rows.rows.item(0).averageNumberOfReps, rows.rows.item(0).averageNumberOfSets, rows.rows.item(0).averageWeight))
+               callback(new ExerciseStats(exerciseID, rows.rows.item(0).Name,rows.rows.item(0).averageNumberOfReps, rows.rows.item(0).averageNumberOfSets, rows.rows.item(0).averageWeight))
            }
         })
     })
+}
 
-
+export function  getAllExerciseStats(callback){
+   // console.log("sqllog_method_getAllExerciseStats")
+    db.transaction(tx => {
+        tx.executeSql("select DISTINCT exerciseID from CompletedExercises;", [], (_, rows) => {
+           // console.log("sqllog_method_getAllExerciseStats_distenctExerciseIDs",rows.rows)
+            let listOfAverages = []
+            for(let i = 0; i<rows.rows.length; i++){
+                if(i == rows.rows.length-1){
+                    getAverageMetricsForExercise(rows.rows.item(i).exerciseId,function (result){
+                        //console.log("sqllog_method_getAllExerciseStats_i_result",i,"   ",result)
+                        listOfAverages.push(result)
+                        if(callback){
+                            //console.log("sqllog_method_getAllExerciseStats_result",listOfAverages)
+                            callback(listOfAverages)
+                        }
+                    })
+                }else{
+                    getAverageMetricsForExercise(rows.rows.item(i).exerciseId,function (result){
+                        //console.log("sqllog_method_getAllExerciseStats_i_result",i,"   ",result)
+                        listOfAverages.push(result)
+                    })
+                }
+            }
+        })
+    })
 }

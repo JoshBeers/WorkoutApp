@@ -7,7 +7,7 @@ import {createNewExerciseFromExercise, Exercise, ExerciseWithinRoutine, getAllEx
 import {dumDumExercise} from "../DummyData/DummyParse";
 import Colors from "../Themes/Colors";
 import {listStyle} from "../Themes/Styles";
-import Checkbox from '@react-native-community/checkbox';
+//import Checkbox from '@react-native-community/checkbox';
 
 class CreateRoutineScreen extends Component {
 
@@ -72,6 +72,18 @@ class CreateRoutineScreen extends Component {
         })
     }
 
+    /*
+<Checkbox
+                                        disabled={false}
+                                        value={this.state.checked}
+                                        onValueChange={(val) => {
+                                            this.toggleList(item, val);
+                                            this.setState({checked: !this.state.checked})
+                                        }}
+                                        tintColors={Colors.positive}/>
+
+     */
+
     render() {
         return (
             <View style={listStyle.screen}>
@@ -117,14 +129,10 @@ class CreateRoutineScreen extends Component {
                     renderItem={({item}) =>(
                             <Card containerStyle={styles.card}>
                                 <View style={styles.checkRow}>
-                                    <Checkbox
-                                        disabled={false}
-                                        value={this.state.checked}
-                                        onValueChange={(val) => {
-                                            this.toggleList(item, val);
-                                            this.setState({checked: !this.state.checked})
-                                        }}
-                                        tintColors={Colors.positive}/>
+
+
+
+
                                         <Text style={styles.text}>{item.name}</Text>
                                 </View>
                             </Card>
