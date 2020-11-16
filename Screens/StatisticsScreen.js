@@ -11,23 +11,22 @@ export default class StatisticsScreen extends Component {
     super();
     this.state = {
       exerciseStatsList: [],
-      nameList: [],
+      selected: null,
     };
   }
 
   componentDidMount() {
-    getAllExerciseStats((result) => {
-      this.setState(
-        {
-          exerciseStatsList: result,
-          nameList: this.exerciseNames(),
-        },
-        function () {
-          console.log('stats screen stats gotten  ', this.state);
-          // console.log(this.state.exerciseNames())
-          // console.log('name list: ', this.state.nameList);
-        },
-      );
+    getAllExerciseStats((exersizeStatlist) => {
+        this.setState(
+            {
+              exerciseStatsList: exersizeStatlist,
+            },
+            function () {
+              console.log('stats screen stats gotten  ', this.state);
+              // console.log(this.state.exerciseNames())
+              // console.log('name list: ', this.state.nameList);
+            },
+        );
     });
   }
 
@@ -46,13 +45,15 @@ export default class StatisticsScreen extends Component {
   };
 
   // Getting all the exercise stats names
-  exerciseNames() {
+  exerciseNames(callback) {
     let listNames = [];
     for (let i = 0; i < this.state.exerciseStatsList.length; i++) {
       let name = this.state.exerciseStatsList[i].exerciseName;
       console.log('The names of the exercises in the stat list: ' + name);
       listNames.push(name);
     }
+    if(callback)
+      callback(listNames)
   }
 
   render() {
@@ -62,13 +63,13 @@ export default class StatisticsScreen extends Component {
           <Text style={styles.titleText}>Fitness Tracker</Text>
 
           <DropDownPicker
-            items={this.state.nameList.map((name) => ({label: name, value: name}))}
-              // items={[
-              //   {label: 'USA', value: 'usa', hidden: true},
-              //   {label: 'UK', value: 'uk'},
-              //   {label: 'France', value: 'france'},
-              // ]}
-            // defaultValue={this.state.exerciseStatsList.get(0).exerciseName}
+            items={this.state.exerciseStatsList.map( function (val){
+              return {
+                label : val.exerciseName,
+                value : val
+              }
+                }
+            )}
             containerStyle={{height: 40}}
             style={{backgroundColor: Colors.card}}
               labelStyle={{color: Colors.text}}
@@ -78,7 +79,7 @@ export default class StatisticsScreen extends Component {
             dropDownStyle={{backgroundColor: Colors.card}}
             onChangeItem={(item) =>
               this.setState({
-                country: item.value,
+                selected: item.value,
               })
             }
           />

@@ -29,7 +29,7 @@ class WorkoutScreen extends React.Component {
 
   // Takes finished exercise id, name, and input data, removes the the exercise from the array
   finish = (id, name, inputData) => {
-    let tempArray = this.state.exercises;
+    let tempArray = this.state.routine.exercises;
     let index = 0;
     let tempExer;
     let numReps = 0;
@@ -46,12 +46,12 @@ class WorkoutScreen extends React.Component {
       exercise: tempArray});
 
     for(let i = 0; i < inputData.length; i++){
-      if(inputData[i].containsKey('rep'))
+      if(inputData[i].rep)
         numReps = numReps + inputData[i].rep;
       else
         numReps = numReps + inputData[i].time;
 
-      if(inputData[i].containsKey('weight'))
+      if(inputData[i].weight)
         weight = weight + inputData[i].weight;
     }
 
@@ -63,7 +63,7 @@ class WorkoutScreen extends React.Component {
       console.log(result);
     })
 
-    if(this.state.exercises.length === 0)
+    if(this.state.routine.exercises.length === 0)
       this.setState({userDone: true})
   }
 
