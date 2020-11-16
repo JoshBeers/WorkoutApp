@@ -4,6 +4,7 @@ import {StyleSheet, TextInput, Text, View, Button, FlatList, Modal, Image} from 
 import {Card} from 'react-native-elements';
 import Colors from "../Themes/Colors";
 import {Exercise, createNewExerciseFromExercise, getAllExercises} from "../Classes/Exercise";
+import CheckBox from 'react-native-check-box';
 
 export default class CreateNewExerciseScreen extends React.Component {
 
@@ -41,24 +42,6 @@ export default class CreateNewExerciseScreen extends React.Component {
             isDone: false,
         })
     }
-
-    /*
-    <Checkbox
-                            disabled={false}
-                            value={this.state.isWeighed}
-                            onValueChange={(val) => this.setState({isWeighed: val})}
-                            tintColors={this.state.isWeighted ? Colors.positive : Colors.negative}/>
-
-
-    <Checkbox
-                                disabled={false}
-                                value={this.state.isCardio}
-                                onValueChange={(val) => this.setState({isCardio: val})}
-                                tintColors={this.state.isCardio ? Colors.positive : Colors.negative}
-                                />
-
-
-     */
     render(){
         return(
             <View style={styles.screen}>
@@ -107,11 +90,34 @@ export default class CreateNewExerciseScreen extends React.Component {
                             />
                         </View>
                         <View style={styles.checkRow}>
-                            <Text style ={styles.checkLabel}>Does this use weights?</Text>
+                            <CheckBox
+                                style={{flex: 1, padding: 10}}
+                                onClick={()=>{
+                                    this.setState({
+                                        isWeighed: !this.state.isWeighed,
+                                    })
+                                }}
+                                isChecked={this.state.isWeighed}
+                                rightText="Does this use weights?"
+                                rightTextStyle={styles.text}
+                                uncheckedCheckBoxColor={Colors.negative}
+                                checkedCheckBoxColor={Colors.positive}
+                            />
                         </View>
                         <View style={styles.checkRow}>
-
-                            <Text style ={styles.checkLabel}>Is this cardio?</Text>
+                            <CheckBox
+                                style={{flex: 1, padding: 10}}
+                                onClick={()=>{
+                                    this.setState({
+                                        isCardio: !this.state.isCardio,
+                                    })
+                                }}
+                                isChecked={this.state.isCardio}
+                                rightText="Is this cardio?"
+                                rightTextStyle={styles.text}
+                                uncheckedCheckBoxColor={Colors.negative}
+                                checkedCheckBoxColor={Colors.positive}
+                            />
                         </View>
                         <View style={styles.buttonView}>
                             <Button
@@ -129,6 +135,11 @@ export default class CreateNewExerciseScreen extends React.Component {
     }
 }
 const styles = StyleSheet.create({
+    text: {
+        color: Colors.text,
+        fontSize: 15,
+        marginLeft: 10,
+    },
     titleText: {
         color: Colors.text,
         fontSize: 27,
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
     },
     checkRow:{
         flexDirection: 'row',
-        margin: 5
+        margin: 0
     },
     checkLabel: {
         color: Colors.text,

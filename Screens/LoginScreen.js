@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     flexDirection: 'row',
-    marginTop: 60,
+    alignSelf: 'center',
+    marginTop: 15,
     marginBottom: 30,
   },
   titleText: {
