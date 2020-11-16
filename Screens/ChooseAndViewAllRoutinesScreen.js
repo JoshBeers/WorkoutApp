@@ -10,39 +10,46 @@ import {
 import * as SQLite from 'expo-sqlite';
 import {Card} from 'react-native-elements';
 import Colors from '../Themes/Colors';
-import {getAllRoutinesWithOutExercises} from '../Classes/Routine';
+import {deleteRoutine, getAllRoutinesWithOutExercises} from '../Classes/Routine';
 import * as navigation from 'react-navigation';
 import ViewAndEditSingleRoutine from './ViewAndEditSingleRoutine';
 import NativeStackNavigator from 'react-native-screens/src/native-stack/navigators/createNativeStackNavigator';
 
 export default class ChooseAndViewAllRoutinesScreen extends React.Component {
-  state = {
-    routineList: [],
-    // loading state where when data retrieve returns data
-    loadingTrue: true,
-  };
+
 
   constructor() {
     super();
-    getAllRoutinesWithOutExercises();
-    console.log('test');
+    this.state = {
+      routineList: [],
+      // loading state where when data retrieve returns data
+      loadingTrue: false,
+    };
+    console.log('teasdasdast');
   }
 
-  //method returns a list of routines
-  //has not been tested
   componentDidMount() {
-    console.log('test');
+    console.log('as');
+    this.getListOfRoutines()
+  }
+
+  getListOfRoutines(){
+   // console.log('test');
     getAllRoutinesWithOutExercises((result) => {
       this.setState(
-        {
-          routineList: result,
-          loadingTrue: false
-        },
-        function () {
-          console.log(this.state.routineList);
-        },
+          {
+            routineList: result,
+            loadingTrue: false
+          },
+          function () {
+            console.log(this.state.routineList);
+          },
       );
     });
+  }
+
+  deleteRoutine(routine){
+    deleteRoutine(routine,this.getListOfRoutines())
   }
 
   // callback for the flatlist for rendering each item, and pass data as argument
@@ -67,7 +74,7 @@ export default class ChooseAndViewAllRoutinesScreen extends React.Component {
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate('SingleRoutineScreen', {
-                    routineID: item.id,
+                    routineID: item.id
                   })
                 }>
                 <Card containerStyle={styles.card}>

@@ -34,12 +34,14 @@ export function addNewRoutine(routine:Routine,callback){
 
 
 export function getSpecificRoutine(routineID,callback){
+    console.log("start get specific routine")
     let tempRoutine = new Routine()
     db.transaction(tx =>{
         tx.executeSql("select * from routines where ID ="+ routineID +";",[],(_,rows) =>{
-            tempRoutine.id = rows.rows[0].ID
-            tempRoutine.name = rows.rows[0].name
-            tempRoutine.placeInOrder = rows.rows[0].placeOnList
+            console.log("get specific routine routine got  ", rows.rows.item(0))
+            tempRoutine.id = rows.rows.item(0).ID
+            tempRoutine.name = rows.rows.item(0).name
+            tempRoutine.placeInOrder = rows.rows.item(0).placeOnList
             getExerciseFromRoutine(routineID,function (res) {
                 tempRoutine.exercises = res
                 if(callback != null){
