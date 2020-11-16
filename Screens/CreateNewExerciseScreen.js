@@ -15,7 +15,6 @@ export default class CreateNewExerciseScreen extends React.Component {
             exerciseDescription: '',
             isWeighed: false,
             isCardio: false,
-            isDone: false,
         }
     }
 
@@ -27,21 +26,8 @@ export default class CreateNewExerciseScreen extends React.Component {
                 console.log(result)
             })
         });
-        this.setState({
-            isDone: true,
-        })
-
     }
 
-    modalClick(){
-        this.setState({
-            exerciseName: '',
-            exerciseDescription: '',
-            isWeighed: false,
-            isCardio: false,
-            isDone: false,
-        })
-    }
     render(){
         return(
             <View style={styles.screen}>
@@ -55,14 +41,14 @@ export default class CreateNewExerciseScreen extends React.Component {
                             <Text style={styles.modalText}>AWESOME!</Text>
                             <Image source={require('../img/trophy.png')}
                                    style={{
-                                       width: '50%',
-                                       height: '50%',
+                                       width: 200,
+                                       height: 150,
                                        margin: 50,
                                    }}/>
                             <Button
                                 title="Return"
                                 color={Colors.positive}
-                                onPress={() => this.modalClick()}
+                                onPress={() => this.props.navigation.navigate('home')}
                                 style={{
                                     alignSelf: 'center',
                                     marginTop: 20,
