@@ -8,6 +8,7 @@ import {dumDumExercise} from "../DummyData/DummyParse";
 import Colors from "../Themes/Colors";
 import {listStyle} from "../Themes/Styles";
 import CheckBox from 'react-native-check-box';
+import {Routines, addNewRoutine} from "../Classes/Routine";
 
 class CreateRoutineScreen extends Component {
 
@@ -17,7 +18,6 @@ class CreateRoutineScreen extends Component {
             routineName: '',
             allExercises: [],
             selectedExercises: [],
-            isDone: false,
         }
     }
     componentDidMount() {
@@ -64,8 +64,10 @@ class CreateRoutineScreen extends Component {
     }
 
     finish(){
-        this.setState({
-            isDone: true,
+        let tempRoutine = new Routine(0, this.state.routineName, 0, this.state.selectedExercises);
+        console.log(tempRoutine.name);
+        addNewRoutine(tempRoutine, (result) =>{
+            console.log(result);
         })
     }
 
@@ -89,14 +91,14 @@ class CreateRoutineScreen extends Component {
                             <Text style={styles.modalText}>Nice!</Text>
                             <Image source={require('../img/muscles.png')}
                                    style={{
-                                       width: '25%',
-                                       height: '25%',
+                                       width: 200,
+                                       height: 150,
                                        margin: 50,
                                    }}/>
                             <Button
                                 title="Return"
                                 color={Colors.positive}
-                                onPress={() => this.modalClick()}
+                                onPress={() => this.props.navigation.navigate('home')}
                                 style={{
                                     alignSelf: 'center',
                                     marginTop: 20,

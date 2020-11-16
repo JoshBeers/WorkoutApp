@@ -149,7 +149,7 @@ export class WorkoutCard extends Component{
 
     finish = () => {
         this.setState({isDone : true});
-        this.props.finishFunction(this.state.id);
+        this.props.finishFunction(this.state.id, this.state.name, this.state.inputData);
     }
 
     render(){
