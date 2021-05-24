@@ -1,3 +1,5 @@
 # WorkoutApp
 
-testing to see if this works
+This project uses Expo to run. 
+
+To test a firebase db will need to be setup and the api info will need to be put in the app.js file where the comment directs.
